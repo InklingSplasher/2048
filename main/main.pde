@@ -32,38 +32,6 @@ void draw()
 {
   textSize(80);
   fill(255,255,255);
-  for(int x=0; x<=3; x++) 
-  {
-    for(int y=0; y<=3; y++) 
-    {
-      if(window[x][y] == 2)
-      {
-        switch(x)
-        {
-          case 0:
-            LetterX=85;
-          case 1:
-            LetterX=275;
-          case 2:
-            LetterX=465;
-          case 3:
-            LetterX=655;
-        }
-       switch(y)
-       {
-         case 0:
-           LetterY=185;
-         case 1:
-           LetterY=375;
-         case 2:
-           LetterY=565;
-         case 3:
-           LetterY=755;
-       }
-      }
-      text(window[x][y], LetterX, LetterY);
-    }
-  }
   
   /*fill(19,182,236);
   textSize(30);
@@ -74,8 +42,9 @@ void draw()
 
 void keyPressed() // Actions ran when a key is pressed. (New turn)
 {
-  if(keyCode==RIGHT) 
+  if(keyCode==RIGHT)
   {
+    setNumbers(); // For debugging at the moment.
   }
   if(keyCode==LEFT) 
   {
@@ -107,6 +76,49 @@ void generateNew()
     println("Coords: " + x + " " + y + "\nContent: " + window[x][y]);
   } while (window[x][y] != 0 && n++ < 9);
   window[x][y] = 2;
+}
+
+void setNumbers()
+{
+  /*
+    Function used to place existing numbers in the array
+    on the black squares in-game.
+  */
+  
+  for(int x=0; x<=3; x++) 
+  {
+    for(int y=0; y<=3; y++) 
+    {
+      if(window[x][y] == 2)
+      println(x,y);
+      {
+        switch(x)
+        {
+          case 0:
+            LetterX=85;
+          case 1:
+            LetterX=275;
+          case 2:
+            LetterX=465;
+          case 3:
+            LetterX=655;
+        }
+       switch(y)
+       {
+         case 0:
+           LetterY=185;
+         case 1:
+           LetterY=375;
+         case 2:
+           LetterY=565;
+         case 3:
+           LetterY=755; 
+       }
+       println(LetterX,LetterY);
+       text(window[x][y], LetterX, LetterY);
+      }
+    }
+  }
 }
 
 void resetSquareDesigns()
