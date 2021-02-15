@@ -2,6 +2,7 @@ int window[][] = new int[4][4];
 int score=0;
 int squareX=85;
 int squareY=185;
+int LetterX,LetterY;
 
 void setup()
 {
@@ -29,11 +30,46 @@ void setup()
 
 void draw()
 {
-  fill(19,182,236);
+  textSize(80);
+  fill(255,255,255);
+  for(int x=0; x<=3; x++) 
+  {
+    for(int y=0; y<=3; y++) 
+    {
+      if(window[x][y] == 2)
+      {
+        switch(x)
+        {
+          case 0:
+            LetterX=85;
+          case 1:
+            LetterX=275;
+          case 2:
+            LetterX=465;
+          case 3:
+            LetterX=655;
+        }
+       switch(y)
+       {
+         case 0:
+           LetterY=185;
+         case 1:
+           LetterY=375;
+         case 2:
+           LetterY=565;
+         case 3:
+           LetterY=755;
+       }
+      }
+      text(window[x][y], LetterX, LetterY);
+    }
+  }
+  
+  /*fill(19,182,236);
   textSize(30);
   text("Score:" + score,623,105);
   fill(255,255,255);
-  rect(600,35,250,100);
+  rect(600,35,250,100);*/
 }
 
 void keyPressed() // Actions ran when a key is pressed. (New turn)
