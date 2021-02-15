@@ -1,5 +1,5 @@
 int window[][] = new int[4][4];
-int score=0000;
+int score=0;
 int squareX=85;
 int squareY=185;
 
@@ -14,14 +14,15 @@ void setup()
   rect(70,170,760,760,10,10,10,10);
   text("2048",70,105);
   generateNew();
-  score = score+64;
   
-  while(squareY<660)
+  
+  while(squareY<=925) // 185*5=660
   {
     fill(0);
     square(squareX,squareY,160);
     squareX=squareX+190;
-    if(squareX>=690)
+    
+    if(squareX>=660)
     {
       squareY=squareY+190;
       squareX=85;
