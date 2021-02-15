@@ -34,11 +34,9 @@ void draw()
   text("Score:" + score,623,105);
   fill(255,255,255);
   rect(600,35,250,100);
-  
-  
 }
 
-void keyPressed()
+void keyPressed() // Actions ran when a key is pressed. (New turn)
 {
   if(keyCode==RIGHT) 
   {
@@ -56,18 +54,6 @@ void keyPressed()
   if(keyCode==RIGHT || keyCode==LEFT || keyCode==UP || keyCode==DOWN)
   generateNew();
 }
-
-/*void newCoords()
-{
-  for(int i=3; i>=0; i--)
-    {
-      int y = 2;
-      if(window[i][y]==0)
-      {
-        int x = i;
-      }
-    }
-}*/
 
 
 void generateNew()
