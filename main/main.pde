@@ -96,16 +96,16 @@ void setNumbers()
         switch(x)
         {
         case 0:
-          LetterX=85;
+          LetterX=174;
           break;
         case 1:
-          LetterX=275;
+          LetterX=358;
           break;
         case 2:
-          LetterX=465;
+          LetterX=542;
           break;
         case 3:
-          LetterX=655;
+          LetterX=726;
           break;
         default:
           println("Error: Not Found");
@@ -114,16 +114,16 @@ void setNumbers()
         switch(y)
         {
         case 0:
-          LetterY=185;
+          LetterY=302;
           break;
         case 1:
-          LetterY=375;
+          LetterY=486;
           break;
         case 2:
-          LetterY=565;
+          LetterY=670;
           break;
         case 3:
-          LetterY=755;
+          LetterY=854;
           break;
         default:
           println("Error: Not Found");
