@@ -27,12 +27,15 @@ void setup()
   resetSquareDesigns(); // Putting our first squares into place.
 
   generateNew(); // Generating our first entry in the array.
+  
 }
 
 void draw()
 {
   textSize(80);
   fill(255, 255, 255);
+  resetSquareDesigns();
+  setNumbers();
 
   /*fill(19,182,236);
    textSize(30);
@@ -45,7 +48,6 @@ void keyPressed() // Actions ran when a key is pressed. (New turn)
 {
   if (keyCode==RIGHT)
   {
-    setNumbers(); // For debugging at the moment.
   }
   if (keyCode==LEFT) 
   {
@@ -72,8 +74,8 @@ void generateNew()
   int x, y, n;
   n = 0;
   do {
-    x = (int) random(0, 3);
-    y = (int) random(0, 3);
+    x = (int) random(0, 4);
+    y = (int) random(0, 4);
   } while (window[x][y] != 0 && n++ < 9);
   window[x][y] = 2;
   println("Coords: " + x + " " + y + "\nContent: " + window[x][y]);
