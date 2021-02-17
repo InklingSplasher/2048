@@ -94,7 +94,7 @@ void setNumbers()
     {
       if (window[x][y] != 0)
       {
-        println("Not 0 found at: ", x, y);
+        // println("Not 0 found at: ", x, y);
         switch(x)
         {
         case 0:
@@ -131,7 +131,7 @@ void setNumbers()
           println("Error: Not Found");
           break;
         }
-        println(LetterX, LetterY);
+        // println(LetterX, LetterY);
         text(window[x][y], LetterX, LetterY);
       }
     }
@@ -147,7 +147,7 @@ void resetSquareDesigns()
 
   while (squareY<=925) // 185*5=660
   {
-    fill(0);
+    fill(#0E4498);
     square(squareX, squareY, 160);
     squareX=squareX+184;
 
