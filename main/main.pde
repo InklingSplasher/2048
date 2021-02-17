@@ -1,7 +1,7 @@
 int window[][] = new int[4][4];
 int score=0;
-int squareX=85;
-int squareY=185;
+int squareX=94;
+int squareY=194;
 int LetterX, LetterY;
 
 void setup()
@@ -17,12 +17,12 @@ void setup()
   size(900, 1000);
   noStroke();
   colorMode(RGB, 255, 255, 255);
-  textSize(65);
+  textSize(66);
   textAlign(CENTER);
   background(255, 255, 255);
   fill(19, 182, 236);
   rect(70, 170, 760, 760, 10, 10, 10, 10);
-  text("2048", 70, 105);
+  text("2048", 168, 118);
 
   resetSquareDesigns(); // Putting our first squares into place.
 
@@ -147,12 +147,12 @@ void resetSquareDesigns()
   {
     fill(0);
     square(squareX, squareY, 160);
-    squareX=squareX+190;
+    squareX=squareX+184;
 
     if (squareX>=660)
     {
-      squareY=squareY+190;
-      squareX=85;
+      squareY=squareY+184;
+      squareX=94;
     }
   }
 }
