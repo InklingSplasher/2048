@@ -18,6 +18,7 @@ void setup()
   noStroke();
   colorMode(RGB, 255, 255, 255);
   textSize(65);
+  textAlign(CENTER);
   background(255, 255, 255);
   fill(19, 182, 236);
   rect(70, 170, 760, 760, 10, 10, 10, 10);
@@ -73,9 +74,9 @@ void generateNew()
   do {
     x = (int) random(0, 3);
     y = (int) random(0, 3);
-    println("Coords: " + x + " " + y + "\nContent: " + window[x][y]);
   } while (window[x][y] != 0 && n++ < 9);
   window[x][y] = 2;
+  println("Coords: " + x + " " + y + "\nContent: " + window[x][y]);
 }
 
 void setNumbers()
@@ -89,30 +90,44 @@ void setNumbers()
   {
     for (int y=0; y<=3; y++) 
     {
-      if (window[x][y] == 2)
-        println(x, y);
+      if (window[x][y] != 0)
       {
+        println("Not 0 found at: ", x, y);
         switch(x)
         {
         case 0:
           LetterX=85;
+          break;
         case 1:
           LetterX=275;
+          break;
         case 2:
           LetterX=465;
+          break;
         case 3:
           LetterX=655;
+          break;
+        default:
+          println("Error: Not Found");
+          break;
         }
         switch(y)
         {
         case 0:
           LetterY=185;
+          break;
         case 1:
           LetterY=375;
+          break;
         case 2:
           LetterY=565;
+          break;
         case 3:
           LetterY=755;
+          break;
+        default:
+          println("Error: Not Found");
+          break;
         }
         println(LetterX, LetterY);
         text(window[x][y], LetterX, LetterY);
