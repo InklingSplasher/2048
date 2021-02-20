@@ -76,7 +76,7 @@ void generateNew()
   do {
     x = (int) random(0, 4);
     y = (int) random(0, 4);
-  } while (window[x][y] != 0 && n++ < 9);
+  } while (window[x][y] != 0 && n++ < 40); // (15÷16)÷40 ~= 2,344% Probability of not adding a two at last tile.
   window[x][y] = 2;
   println("Coords: " + x + " " + y + "\nContent: " + window[x][y]);
 }
