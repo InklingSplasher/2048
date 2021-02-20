@@ -1,5 +1,6 @@
 int window[][] = new int[4][4];
 int score=0;
+int gridSize = 3;
 int squareX=94;
 int squareY=194;
 int LetterX, LetterY;
@@ -34,8 +35,8 @@ void draw()
 {
   textSize(80);
   fill(255, 255, 255);
-  setNumbers();
   resetSquareDesigns();
+  setNumbers();
 
   /*fill(19,182,236);
    textSize(30);
@@ -46,54 +47,9 @@ void draw()
 
 void keyPressed() // Actions ran when a key is pressed. (New turn)
 {
-  if (keyCode==RIGHT)
-  {
-      for (int x=0; x<=3; x++) 
-      {
-        for (int y=0; y<=3; y++) 
-        {
-          if(window[x][y] != 0) // It is checked immedietely if moving the tile is out-of-bounds of the array or not.
-          {
-            if((x+3 < window.length) && window[x+3][y] == 0)
-            {
-              window[x+3][y] = window[x][y];
-              window[x][y] = 0;
-              println("A");
-              println(window[x][y], window[x+3][y]);
-            }
-            else if((x+2 < window.length) && window[x+2][y] == 0)
-            {
-              window[x+2][y] = window[x][y];
-              window[x][y] = 0;
-              println("A");
-              println(window[x][y], window[x+2][y]);
-            }
-            else if((x+1 < window.length) && window[x+1][y] == 0)
-            {
-              window[x+1][y] = window[x][y];
-              window[x][y] = 0;
-              println("A");
-              println(window[x][y], window[x+1][y]);
-            }
-            else
-            {
-              window[x][y] = window[x+0][y];
-              println("D");
-            }
-          }
-        }
-      }
-  }
-  if (keyCode==LEFT) 
-  {
-  }
-  if (keyCode==UP) 
-  {
-  }
-  if (keyCode==DOWN) 
-  {
-  }
-
+  
+  move();
+  
   if (keyCode==RIGHT || keyCode==LEFT || keyCode==UP || keyCode==DOWN)
     generateNew();
 }
@@ -115,6 +71,38 @@ void generateNew()
   window[x][y] = 2;
   // println("Coords: " + x + " " + y + "\nContent: " + window[x][y]);
 }
+
+void move() {
+    // Active tile that is not zero
+    switch (keyCode) {
+        case UP:
+        case LEFT: {
+            int d = ((keyCode == UP) ? y : x) - 1;
+            for (int x = 0; x <= gridSize; x++) {
+                for (int y = 0; y <= gridSize; y++) {
+                    if (window[x][y] <= 0) break;
+                    if (
+                    while () {
+
+                    }
+                }
+            }
+            break;
+        }
+        
+        case DOWN:
+        case RIGHT: {
+            int d = gridSize - ((keyCode == DOWN) ? y : x);
+            for (int x = gridSize; x >= 0; x--) {
+                for (int y = gridSize; y >= 0; y--) {
+                    if (window[x][y] <= 0) break;
+                }
+            }
+            break;
+        }
+    }
+}
+
 
 void setNumbers()
 {
