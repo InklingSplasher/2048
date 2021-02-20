@@ -79,12 +79,18 @@ void move() {
         case UP:
         case LEFT: 
         {
-            for (int x = 0; x <= 3; x++) 
+            for (int x = 0; x <= gridSize; x++) 
             {
-                for (int y = 0; y <= 3; y++) 
+                for (int y = 0; y <= gridSize; y++) 
                 {
-                    if (window[x][y] == 0) break;
-                    int d = ((keyCode == UP) ? y : x) - 1; // if key code is UP, use y, else x
+                    if (window[x][y] != 0)
+                    {
+                    int d = ((keyCode == UP) ? y : x); // if key code is UP, use y, else x
+                    if (keyCode == UP) window[x][y-d] = window[x][y];
+                    if (keyCode == LEFT) window[x-d][y] = window[x][y];
+                    
+                    window[x][y] = 0;
+                    }
                 }
             }
             break;
@@ -100,9 +106,8 @@ void move() {
                     if (window[x][y] != 0)
                     {
                     int d = gridSize - ((keyCode == DOWN) ? y : x); // if key code is DOWN, use y, else x
-                    window[x+d][y] = window[x][y];
-                    // println("Old Coords, value: " + x+","+y, window[x][y]);
-                    // println("New Coords, value: " + (x+d)+","+y, window[x+d][y]);
+                    if (keyCode == DOWN) window[x][y+d] = window[x][y];
+                    if (keyCode == RIGHT) window[x+d][y] = window[x][y];
                     window[x][y] = 0;
                     }
                 }
