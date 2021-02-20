@@ -48,6 +48,31 @@ void keyPressed() // Actions ran when a key is pressed. (New turn)
 {
   if (keyCode==RIGHT)
   {
+      for (int x=0; x<=3; x++) 
+      {
+        for (int y=0; y<=3; y++) 
+        {
+          if(window[x][y] != 0 && x+1 <= 3) // It is checked immedietely if moving the tile is out-of-bounds of the array or not.
+          {
+            if(window[x+3][y] == 0)
+            {
+              window[x][y] = window[x+3][y];
+            }
+            else if(window[x+2][y] == 0)
+            {
+              window[x][y] = window[x+2][y];
+            }
+            else if(window[x+1][y] == 0)
+            {
+              window[x][y] = window[x+1][y];
+            }
+            else
+            {
+              window[x][y] = window[x+0][y];
+            }
+          }
+        }
+      }
   }
   if (keyCode==LEFT) 
   {
