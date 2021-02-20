@@ -24,8 +24,10 @@ void setup()
   fill(19, 182, 236);
   rect(70, 170, 760, 760, 10, 10, 10, 10);
   text("2048", 168, 118);
-
-  resetSquareDesigns(); // Putting our first squares into place.
+  
+  fill(19,182,236);
+  textSize(30);
+  text("Score: " + score,750,105);
 
   generateNew(); // Generating our first entry in the array.
   
@@ -37,12 +39,6 @@ void draw()
   fill(255, 255, 255);
   resetSquareDesigns();
   setNumbers();
-
-  /*fill(19,182,236);
-   textSize(30);
-   text("Score:" + score,623,105);
-   fill(255,255,255);
-   rect(600,35,250,100);*/
 }
 
 void keyPressed() // Actions ran when a key is pressed. (New turn)
