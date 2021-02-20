@@ -34,8 +34,8 @@ void draw()
 {
   textSize(80);
   fill(255, 255, 255);
-  resetSquareDesigns();
   setNumbers();
+  resetSquareDesigns();
 
   /*fill(19,182,236);
    textSize(30);
@@ -52,23 +52,33 @@ void keyPressed() // Actions ran when a key is pressed. (New turn)
       {
         for (int y=0; y<=3; y++) 
         {
-          if(window[x][y] != 0 && x+1 <= 3) // It is checked immedietely if moving the tile is out-of-bounds of the array or not.
+          if(window[x][y] != 0) // It is checked immedietely if moving the tile is out-of-bounds of the array or not.
           {
-            if(window[x+3][y] == 0)
+            if((x+3 < window.length) && window[x+3][y] == 0)
             {
-              window[x][y] = window[x+3][y];
+              window[x+3][y] = window[x][y];
+              window[x][y] = 0;
+              println("A");
+              println(window[x][y], window[x+3][y]);
             }
-            else if(window[x+2][y] == 0)
+            else if((x+2 < window.length) && window[x+2][y] == 0)
             {
-              window[x][y] = window[x+2][y];
+              window[x+2][y] = window[x][y];
+              window[x][y] = 0;
+              println("A");
+              println(window[x][y], window[x+2][y]);
             }
-            else if(window[x+1][y] == 0)
+            else if((x+1 < window.length) && window[x+1][y] == 0)
             {
-              window[x][y] = window[x+1][y];
+              window[x+1][y] = window[x][y];
+              window[x][y] = 0;
+              println("A");
+              println(window[x][y], window[x+1][y]);
             }
             else
             {
               window[x][y] = window[x+0][y];
+              println("D");
             }
           }
         }
@@ -103,7 +113,7 @@ void generateNew()
     y = (int) random(0, 4);
   } while (window[x][y] != 0 && n++ < 40); // (15÷16)÷40 ~= 2,344% Probability of not adding a two at last tile.
   window[x][y] = 2;
-  println("Coords: " + x + " " + y + "\nContent: " + window[x][y]);
+  // println("Coords: " + x + " " + y + "\nContent: " + window[x][y]);
 }
 
 void setNumbers()
