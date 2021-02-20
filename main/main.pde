@@ -46,16 +46,15 @@ void keyPressed() // Actions ran when a key is pressed. (New turn)
   
   move();
   
-  if (keyCode==RIGHT || keyCode==LEFT || keyCode==UP || keyCode==DOWN)
-    generateNew();
+  if (keyCode==RIGHT || keyCode==LEFT || keyCode==UP || keyCode==DOWN) generateNew();
 }
 
 
 void generateNew()
 {
   /*
-    Function used to generate new array entries if there currently is space on the
-   screen. Ran after every turn.
+   * Function used to generate new array entries if there currently is space on the
+   * screen. Ran after every turn.
    */
 
   int x, y, n;
@@ -69,7 +68,11 @@ void generateNew()
 }
 
 void move() {
-    // Active tile that is not zero
+    /*
+     * This function is used to properly move around the squares.
+     * We are using self-made equations here, further described in our documentation.
+     */
+    
     switch (keyCode) 
     {
         case UP:
@@ -117,8 +120,8 @@ void move() {
 void setNumbers()
 {
   /*
-    Function used to place existing numbers in the array
-   on the black squares in-game.
+   * Function used to place existing numbers in the array
+   * on the black squares in-game.
    */
 
   for (int x=0; x<=3; x++) 
@@ -174,8 +177,8 @@ void setNumbers()
 void resetSquareDesigns()
 {
   /*
-    Function used to generate the screen at the start of the game,
-   and to reset them after every turn to make space for new squares.
+   * Function used to generate the screen at the start of the game,
+   * and to reset them after every turn to make space for new squares.
    */
 
   while (squareY<=925) // 185*5=660
