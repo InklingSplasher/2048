@@ -74,28 +74,37 @@ void generateNew()
 
 void move() {
     // Active tile that is not zero
-    switch (keyCode) {
+    switch (keyCode) 
+    {
         case UP:
-        case LEFT: {
-            int d = ((keyCode == UP) ? y : x) - 1;
-            for (int x = 0; x <= gridSize; x++) {
-                for (int y = 0; y <= gridSize; y++) {
-                    if (window[x][y] <= 0) break;
-                    if (
-                    while () {
-
-                    }
+        case LEFT: 
+        {
+            for (int x = 0; x <= 3; x++) 
+            {
+                for (int y = 0; y <= 3; y++) 
+                {
+                    if (window[x][y] == 0) break;
+                    int d = ((keyCode == UP) ? y : x) - 1; // if key code is UP, use y, else x
                 }
             }
             break;
         }
         
         case DOWN:
-        case RIGHT: {
-            int d = gridSize - ((keyCode == DOWN) ? y : x);
-            for (int x = gridSize; x >= 0; x--) {
-                for (int y = gridSize; y >= 0; y--) {
-                    if (window[x][y] <= 0) break;
+        case RIGHT: 
+        {
+            for (int x = gridSize; x >= 0; x--) 
+            {
+                for (int y = gridSize; y >= 0; y--) 
+                {
+                    if (window[x][y] != 0)
+                    {
+                    int d = gridSize - ((keyCode == DOWN) ? y : x); // if key code is DOWN, use y, else x
+                    window[x+d][y] = window[x][y];
+                    // println("Old Coords, value: " + x+","+y, window[x][y]);
+                    // println("New Coords, value: " + (x+d)+","+y, window[x+d][y]);
+                    window[x][y] = 0;
+                    }
                 }
             }
             break;
