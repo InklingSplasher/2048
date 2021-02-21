@@ -11,7 +11,7 @@ Sorted from top (important) to bottom (not/less important)
   2. Fix Switch/Case ✔️
   3. Bug: Sometimes it's not doing anything and overwriting an existing tile. (rarely) ✔️
 * Add Merge Mechanics ( working on )
-  1. Fix old numbers not disappearing
+  1. Fix old numbers not disappearing ✔️
   2. Proper movement, checking for numbers in front
   3. Merging
 * Add Score
