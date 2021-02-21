@@ -6,7 +6,7 @@ int gridSize = 3; // Array length
 void setup()
 {
   /*
-    All the code that is for the designing and mandatory backend reasons. Especially:
+   * All the code that is for the designing and mandatory backend reasons. Especially:
    * General look
    * Headline
    * Putting squares in the right places
@@ -27,22 +27,23 @@ void setup()
   fill(19,182,236);
   textSize(30);
   text("Score: " + score,750,105);
+  
   generateNew(); // Generating our first entry in the array.  
 }
 
 void draw()
 {
+  resetSquareDesigns();
   textSize(80);
   fill(255, 255, 255);
-  
-  resetSquareDesigns();
   setNumbers();
 }
 
 void keyPressed() // Actions ran when a key is pressed. (New turn)
 {
   
-  // move();
+  move();
+  delay(5);
   
   if (keyCode==RIGHT || keyCode==LEFT || keyCode==UP || keyCode==DOWN) generateNew();
 }
@@ -147,7 +148,7 @@ void setNumbers()
           break;
         default:
           LetterX=0;
-          println("Error: Not Found");
+          println("Error: Out of bounds!");
           break;
         }
         switch(y) // Define y coordinate in the grid depending on the array coordinate.
@@ -166,7 +167,7 @@ void setNumbers()
           break;
         default:
           LetterY=0;
-          println("Error: Not Found");
+          println("Error: Out of bounds!");
           break;
         }
         text(window[x][y], LetterX, LetterY);
