@@ -27,9 +27,7 @@ void setup()
   fill(19,182,236);
   textSize(30);
   text("Score: " + score,750,105);
-  generateNew(); // Generating our first entry in the array.
-  resetSquareDesigns();
-  
+  generateNew(); // Generating our first entry in the array.  
 }
 
 void draw()
@@ -37,14 +35,14 @@ void draw()
   textSize(80);
   fill(255, 255, 255);
   
-  setNumbers();
   resetSquareDesigns();
+  setNumbers();
 }
 
 void keyPressed() // Actions ran when a key is pressed. (New turn)
 {
   
-  //move();
+  // move();
   
   if (keyCode==RIGHT || keyCode==LEFT || keyCode==UP || keyCode==DOWN) generateNew();
 }
@@ -72,22 +70,22 @@ void move() {
      * We are using self-made equations here, further described in our documentation.
      */
     
-    switch (keyCode) 
+    switch (keyCode) // Depending on the pressed key, use the corresponding function.
     {
         case UP:
         case LEFT: 
         {
-            for (int x = 0; x <= gridSize; x++) 
+            for (int x = 0; x <= gridSize; x++) // Outer loop (left to right)
             {
-                for (int y = 0; y <= gridSize; y++) 
+                for (int y = 0; y <= gridSize; y++) // Inner loop (top to bottom)
                 {
-                    if (window[x][y] != 0)
+                    if (window[x][y] != 0) // If the array's value at that position isn't zero:
                     {
-                    int d = ((keyCode == UP) ? y : x); // if key code is UP, use y, else x
-                    if (keyCode == UP) window[x][y-d] = window[x][y];
-                    if (keyCode == LEFT) window[x-d][y] = window[x][y];
+                    int d = ((keyCode == UP) ? y : x); // d = distance. If key code is UP, use y, else x.
+                    if (keyCode == UP) window[x][y-d] = window[x][y]; // If the key is UP, decrease y coordinate.
+                    if (keyCode == LEFT) window[x-d][y] = window[x][y]; // If the key is LEFT, decrease x coordinate.
                     
-                    window[x][y] = 0;
+                    window[x][y] = 0; // Then, reset value of old coordinates to zero.
                     }
                 }
             }
@@ -97,21 +95,24 @@ void move() {
         case DOWN:
         case RIGHT: 
         {
-            for (int x = gridSize; x >= 0; x--) 
+            for (int x = gridSize; x >= 0; x--) // Outer loop (right to left)
             {
-                for (int y = gridSize; y >= 0; y--) 
+                for (int y = gridSize; y >= 0; y--) // Inner loop (bottom to top)
                 {
-                    if (window[x][y] != 0)
+                    if (window[x][y] != 0) // If the array's value at that position isn't zero:
                     {
-                    int d = gridSize - ((keyCode == DOWN) ? y : x); // if key code is DOWN, use y, else x
-                    if (keyCode == DOWN) window[x][y+d] = window[x][y];
-                    if (keyCode == RIGHT) window[x+d][y] = window[x][y];
-                    window[x][y] = 0;
+                    int d = gridSize - ((keyCode == DOWN) ? y : x); // d = distance. If key code is DOWN, use y, else x.
+                    if (keyCode == DOWN) window[x][y+d] = window[x][y]; // If the key is DOWN, increase y coordinate.
+                    if (keyCode == RIGHT) window[x+d][y] = window[x][y]; // If the key is RIGHT, increase x coordinate.
+                    window[x][y] = 0; // Then, reset value of old coordinates to zero.
                     }
                 }
             }
             break;
         }
+        default:
+          println("Warning: This key is not used.");
+          break;
     }
 }
 
@@ -123,15 +124,14 @@ void setNumbers()
    * on the black squares in-game.
    */
 
-  int LetterX = 0, LetterY = 0;
-  for (int x=0; x<=3; x++) 
+  int LetterX, LetterY;
+  for (int x=0; x<=3; x++) // Outer loop (left to right)
   {
-    for (int y=0; y<=3; y++) 
+    for (int y=0; y<=3; y++) // Inner loop (top to bottom)
     {
-      if (window[x][y] != 0)
+      if (window[x][y] != 0) // If the array's value at that position isn't zero:
       {
-        // println("Not 0 found at: ", x, y);
-        switch(x)
+        switch(x) // Define x coordinate in the grid depending on the array coordinate.
         {
         case 0:
           LetterX=174;
@@ -146,10 +146,11 @@ void setNumbers()
           LetterX=726;
           break;
         default:
+          LetterX=0;
           println("Error: Not Found");
           break;
         }
-        switch(y)
+        switch(y) // Define y coordinate in the grid depending on the array coordinate.
         {
         case 0:
           LetterY=302;
@@ -164,11 +165,10 @@ void setNumbers()
           LetterY=854;
           break;
         default:
+          LetterY=0;
           println("Error: Not Found");
           break;
         }
-        // println(LetterX, LetterY);
-        // println(window[x][y],x,y);
         text(window[x][y], LetterX, LetterY);
       }
     }
