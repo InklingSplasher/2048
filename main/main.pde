@@ -43,7 +43,6 @@ void keyPressed() // Actions ran when a key is pressed. (New turn)
 {
   
   move();
-  delay(5);
   
   if (keyCode==RIGHT || keyCode==LEFT || keyCode==UP || keyCode==DOWN) generateNew();
 }
@@ -86,7 +85,7 @@ void move() {
                     if (keyCode == UP) window[x][y-d] = window[x][y]; // If the key is UP, decrease y coordinate.
                     if (keyCode == LEFT) window[x-d][y] = window[x][y]; // If the key is LEFT, decrease x coordinate.
                     
-                    window[x][y] = 0; // Then, reset value of old coordinates to zero.
+                    if ((x!=x+d) || (y!=y+d)) window[x][y] = 0; // Then, reset value of old coordinates to zero, if the position has changed.
                     }
                 }
             }
@@ -105,7 +104,8 @@ void move() {
                     int d = gridSize - ((keyCode == DOWN) ? y : x); // d = distance. If key code is DOWN, use y, else x.
                     if (keyCode == DOWN) window[x][y+d] = window[x][y]; // If the key is DOWN, increase y coordinate.
                     if (keyCode == RIGHT) window[x+d][y] = window[x][y]; // If the key is RIGHT, increase x coordinate.
-                    window[x][y] = 0; // Then, reset value of old coordinates to zero.
+                    
+                    if ((x!=x+d) || (y!=y+d)) window[x][y] = 0; // Then, reset value of old coordinates to zero, if the position has changed.
                     }
                 }
             }
@@ -170,7 +170,7 @@ void setNumbers()
           println("Error: Out of bounds!");
           break;
         }
-        text(window[x][y], LetterX, LetterY);
+        text(window[x][y], LetterX, LetterY); // Set the specific number at the correct spot.
       }
     }
   }
@@ -183,14 +183,14 @@ void resetSquareDesigns()
    * and to reset them after every turn to make space for new squares.
    */
 
-  int SquareX=94, SquareY=194;
+  int SquareX=94, SquareY=194; // Start coordinates of the inner squares
   while (SquareY<=925) // 185*5=660
   {
-    fill(#0E4498);
+    fill(#0E4498); // dark blue
     square(SquareX, SquareY, 160);
     SquareX=SquareX+184;
 
-    if (SquareX>=660)
+    if (SquareX>=660) // When the inner square would be out of the outer square, increase the Y coordinate.
     {
       SquareY=SquareY+184;
       SquareX=94;
