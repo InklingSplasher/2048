@@ -33,6 +33,5 @@ jobs:
         
       - name: Build the Project
         run: |
-          cd /opt/processing-3.5.4/
-          ./processing-java --run --sketch=`pwd`~/main --output=`pwd`~/output
+          cd /opt/processing-3.5.4/ && ./processing-java --run --sketch=`pwd`~/main --output=`pwd`~/output
           
