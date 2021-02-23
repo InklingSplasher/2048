@@ -28,7 +28,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Download & Install Processing
         run: | 
-          sudo curl -L -O https://download.processing.org/processing-3.5.4-linux64.tgz -o /opt/processing.tgz
+          sudo curl -L -o /opt/processing-3.5.4-linux64.tgz https://download.processing.org/processing-3.5.4-linux64.tgz
           sudo tar zxvf /opt/processing-3.5.4-linux64.tgz
         
       - name: Build the Project
