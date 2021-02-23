@@ -29,7 +29,7 @@ jobs:
       - name: Download & Install Processing
         run: | 
           sudo curl -L -o /opt/processing-3.5.4-linux64.tgz https://download.processing.org/processing-3.5.4-linux64.tgz
-          sudo tar zxvf /opt/processing-3.5.4-linux64.tgz
+          sudo tar zxvf /opt/processing-3.5.4-linux64.tgz -C /opt/
         
       - name: Build the Project
         run: |
