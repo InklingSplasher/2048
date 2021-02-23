@@ -1,4 +1,4 @@
-// Global Variables
+// Global Variables //<>//
 int window[][] = new int[4][4]; // 4*4 Array for all coordinates of the grid.
 int score=0; // Initial Score = 0
 int gridSize = 3; // Array length
@@ -81,13 +81,13 @@ void move() {
         {
           if (window[x][y] != 0) // If the array's value at that position isn't zero:
           {
-            int d = ((keyCode == UP) ? y : x); // d = distance. If key code is UP, use y, else x. //<>//
+            int d = ((keyCode == UP) ? y : x); // d = distance. If key code is UP, use y, else x.
             if (keyCode == UP) 
             {
               boolean isSet = false;
               while (window[x][y-d] != 0)
               {
-                
+
                 if (window[x][y] == window[x][y-d] && y-d!=y) // Merging
                 {
                   window[x][y-d] = window[x][y]+window[x][y-d];
@@ -95,14 +95,14 @@ void move() {
                   break;
                 }
                 d--;
-                
+
                 if (y-d > 3 || d < 0)
                 {
                   d = 0;
                   break;
                 }
               }
-              if(!isSet) window[x][y-d] = window[x][y]; // If the key is UP, decrease y coordinate.
+              if (!isSet) window[x][y-d] = window[x][y]; // If the key is UP, decrease y coordinate.
             }
             if (keyCode == LEFT) 
             {
