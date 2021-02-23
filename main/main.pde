@@ -82,8 +82,22 @@ void move() {
                     if (window[x][y] != 0) // If the array's value at that position isn't zero:
                     {
                     int d = ((keyCode == UP) ? y : x); // d = distance. If key code is UP, use y, else x.
-                    if (keyCode == UP) window[x][y-d] = window[x][y]; // If the key is UP, decrease y coordinate.
-                    if (keyCode == LEFT) window[x-d][y] = window[x][y]; // If the key is LEFT, decrease x coordinate.
+                    if (keyCode == UP) 
+                    {
+                     while (window[x][y-d] != 0)
+                     {
+                      d--;
+                     }
+                     window[x][y-d] = window[x][y]; // If the key is UP, decrease y coordinate.
+                    }
+                    if (keyCode == LEFT) 
+                    {
+                     while (window[x-d][y] != 0)
+                     {
+                      d--;
+                     }
+                     window[x-d][y] = window[x][y]; // If the key is LEFT, decrease x coordinate.
+                    }
                     
                     if ((x!=x+d) || (y!=y+d)) window[x][y] = 0; // Then, reset value of old coordinates to zero, if the position has changed.
                     }
@@ -102,8 +116,22 @@ void move() {
                     if (window[x][y] != 0) // If the array's value at that position isn't zero:
                     {
                     int d = gridSize - ((keyCode == DOWN) ? y : x); // d = distance. If key code is DOWN, use y, else x.
-                    if (keyCode == DOWN) window[x][y+d] = window[x][y]; // If the key is DOWN, increase y coordinate.
-                    if (keyCode == RIGHT) window[x+d][y] = window[x][y]; // If the key is RIGHT, increase x coordinate.
+                    if (keyCode == DOWN) 
+                    {
+                     while (window[x][y+d] != 0)
+                     {
+                      d--;
+                     }
+                     window[x][y+d] = window[x][y]; // If the key is DOWN, increase y coordinate.
+                    }
+                    if (keyCode == RIGHT) 
+                    {
+                     while (window[x+d][y] != 0)
+                     {
+                      d--;
+                     }
+                     window[x+d][y] = window[x][y]; // If the key is RIGHT, increase x coordinate.
+                    }
                     
                     if ((x!=x+d) || (y!=y+d)) window[x][y] = 0; // Then, reset value of old coordinates to zero, if the position has changed.
                     }
