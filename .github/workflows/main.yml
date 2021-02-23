@@ -32,5 +32,8 @@ jobs:
           sudo tar zxvf /opt/processing-3.5.4-linux64.tgz
         
       - name: Build the Project
-        run: /opt/processing-3.5.4/processing-java --sketch="$PWD"/main --build
+        run: |
+          ls /opt/
+          ls /opt/processing-3.5.4/
+          /opt/processing-3.5.4/processing-java --sketch="$PWD"/main --build
           
