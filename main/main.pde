@@ -87,6 +87,11 @@ void move() {
                      while (window[x][y-d] != 0)
                      {
                       d--;
+                      if (y-d > 3)
+                      {
+                        d = 0;
+                        break;
+                      }
                      }
                      window[x][y-d] = window[x][y]; // If the key is UP, decrease y coordinate.
                     }
@@ -95,6 +100,11 @@ void move() {
                      while (window[x-d][y] != 0)
                      {
                       d--;
+                      if (x-d > 3)
+                      {
+                        d = 0;
+                        break;
+                      }
                      }
                      window[x-d][y] = window[x][y]; // If the key is LEFT, decrease x coordinate.
                     }
@@ -121,6 +131,11 @@ void move() {
                      while (window[x][y+d] != 0)
                      {
                       d--;
+                      if (y+d < 0)
+                      {
+                        d = 0;
+                        break;
+                      }
                      }
                      window[x][y+d] = window[x][y]; // If the key is DOWN, increase y coordinate.
                     }
@@ -129,6 +144,11 @@ void move() {
                      while (window[x+d][y] != 0)
                      {
                       d--;
+                      if (x+d < 0)
+                      {
+                        d = 0;
+                        break;
+                      }
                      }
                      window[x+d][y] = window[x][y]; // If the key is RIGHT, increase x coordinate.
                     }
