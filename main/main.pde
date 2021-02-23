@@ -14,7 +14,7 @@ void setup()
    * Initial Score
    */
 
-  siize(900, 1000); // Size of the tab.
+  size(900, 1000); // Size of the tab.
   noStroke(); // Removes the stroke of forms.
   textAlign(CENTER); // Alligns text at the center.
   colorMode(RGB, 255, 255, 255); // Setting the color-mode
