@@ -16,13 +16,14 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   Processing:
-    # The type of runner that the job should run on
-    runs-on: ubuntu-latest
 
     # The versions of processing that should be used
     strategy:
       matrix:
-        processing-version: [3.5.4,3.5.3]
+        platform: [ubuntu-latest, debian-latest]
+        processing-version: [3.5.4, 3.5.3]
+
+    runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
