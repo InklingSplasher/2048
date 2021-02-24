@@ -35,5 +35,5 @@ jobs:
           sudo tar zxf /opt/processing-${{ matrix.processing-version }}-linux64.tgz -C /opt/
         
       - name: Build the Project
-        run: /opt/processing-${{ matrix.processing-version }}/processing-java --sketch="$PWD"/main --build
+        run: /opt/processing-${{ matrix.processing-version }}/processing-java --sketch="$PWD"/main --output=/tmp/processing/ --build
           
