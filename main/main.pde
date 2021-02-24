@@ -1,7 +1,7 @@
 // Global Variables //<>// //<>//
 int window[][] = new int[4][4]; // 4*4 Array for all coordinates of the grid.
 int score=0; // Initial Score = 0
-int gridSize = 3; // Array length
+int gridSize = window.length-1; // Array length
 boolean tilesMoved = false;
 
 void setup()
@@ -98,7 +98,7 @@ void move() {
                 }
                 d--;
 
-                if (y-d > 3 || d < 0)
+                if (y-d > gridSize || d < 0)
                 {
                   d = 0;
                   break;
@@ -112,7 +112,7 @@ void move() {
               while (window[x-d][y] != 0)
               {
                 d--;
-                if (x-d > 3)
+                if (x-d > gridSize)
                 {
                   d = 0;
                   break;
@@ -186,9 +186,9 @@ void setNumbers()
    */
 
   int LetterX, LetterY;
-  for (int x=0; x<=3; x++) // Outer loop (left to right)
+  for (int x=0; x<=gridSize; x++) // Outer loop (left to right)
   {
-    for (int y=0; y<=3; y++) // Inner loop (top to bottom)
+    for (int y=0; y<=gridSize; y++) // Inner loop (top to bottom)
     {
       if (window[x][y] != 0) // If the array's value at that position isn't zero:
       {
