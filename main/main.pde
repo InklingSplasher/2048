@@ -2,6 +2,7 @@
 int window[][] = new int[4][4]; // 4*4 Array for all coordinates of the grid.
 int score=0; // Initial Score = 0
 int gridSize = 3; // Array length
+boolean dChanged = false;
 
 void setup()
 {
@@ -41,10 +42,9 @@ void draw()
 
 void keyPressed() // Actions ran when a key is pressed. (New turn)
 {
-
   move();
 
-  if (keyCode==RIGHT || keyCode==LEFT || keyCode==UP || keyCode==DOWN) generateNew();
+  if (dChanged && keyCode==RIGHT || keyCode==LEFT || keyCode==UP || keyCode==DOWN) generateNew();
 }
 
 
@@ -55,13 +55,14 @@ void generateNew()
    * screen. Ran after every turn.
    */
 
-  int x, y, n = 0;
+  int x, y, number, n = 0;
   do {
     x = (int) random(0, 4); // Get random values pointing to a spot to the array.
     y = (int) random(0, 4);
     // If the space is empty (0) and the maximum turns (40) isn't reached, run again.
   } while (window[x][y] != 0 && n++ < 40); // (15÷16)÷40 ~= 2,344% Probability of not adding a two at last tile.
-  window[x][y] = 2; // Else, set a 2 at that position.
+  if ((int) random(0,100) <= 50) number = 2; else number = 4; 
+  window[x][y] = number; // Else, set a 2 at that position.
 }
 
 void move() {
@@ -82,6 +83,7 @@ void move() {
           if (window[x][y] != 0) // If the array's value at that position isn't zero:
           {
             int d = ((keyCode == UP) ? y : x); // d = distance. If key code is UP, use y, else x.
+            if(d==0) dChanged = true;
             if (keyCode == UP) 
             {
               boolean isSet = false;
