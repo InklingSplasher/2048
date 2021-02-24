@@ -22,7 +22,7 @@ jobs:
     # The versions of processing that should be used
     strategy:
       matrix:
-        processing-version: [3.5.4,2.2.1]
+        processing-version: [3.5.4,3.5.3]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
