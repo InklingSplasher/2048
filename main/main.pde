@@ -88,7 +88,6 @@ void move() {
             {
               while (window[x][y-d] != 0)
               {
-
                 if (window[x][y] == window[x][y-d] && y-d!=y) // Merging
                 {
                   window[x][y-d] = window[x][y]+window[x][y-d];
@@ -127,7 +126,7 @@ void move() {
               if (!isSet) window[x-d][y] = window[x][y]; // If the key is LEFT, decrease x coordinate.
             }
 
-            if ((x!=x+d) || (y!=y+d)) window[x][y] = 0; // Then, reset value of old coordinates to zero, if the position has changed.
+            if ((x!=x-d) || (y!=y-d)) window[x][y] = 0; // Then, reset value of old coordinates to zero, if the position has changed.
           }
         }
       }
@@ -155,7 +154,8 @@ void move() {
                   break;
                 }
                 d--;
-                if (y+d < 0)
+
+                if (y+d > gridSize || d < 0)
                 {
                   d = 0;
                   break;
@@ -175,7 +175,7 @@ void move() {
                   break;
                 }
                 d--;
-                if (x+d < 0)
+                if (x+d > gridSize || d < 0)
                 {
                   d = 0;
                   break;
