@@ -44,7 +44,7 @@ void keyPressed() // Actions ran when a key is pressed. (New turn)
 {
   move();
 
-  if (tilesMoved && keyCode==RIGHT || keyCode==LEFT || keyCode==UP || keyCode==DOWN) generateNew();
+  if (tilesMoved && (keyCode==RIGHT || keyCode==LEFT || keyCode==UP || keyCode==DOWN)) generateNew();
 }
 
 
@@ -71,7 +71,7 @@ void move() {
      * This function is used to properly move around the squares.
    * We are using self-made equations here, further described in our documentation.
    */
-
+  boolean isSet = false;
   switch (keyCode) // Depending on the pressed key, use the corresponding function.
   {
   case UP:
@@ -86,7 +86,6 @@ void move() {
             int d = ((keyCode == UP) ? y : x); // d = distance. If key code is UP, use y, else x.
             if (keyCode == UP) 
             {
-              boolean isSet = false;
               while (window[x][y-d] != 0)
               {
 
@@ -104,21 +103,28 @@ void move() {
                   break;
                 }
               }
-              if (d!=0) tilesMoved = true;
+              if (d!=0 || isSet) tilesMoved = true; else tilesMoved = false;
               if (!isSet) window[x][y-d] = window[x][y]; // If the key is UP, decrease y coordinate.
             }
             if (keyCode == LEFT) 
             {
               while (window[x-d][y] != 0)
               {
+                if (window[x][y] == window[x-d][y] && x-d!=x) // Merging
+                {
+                  window[x-d][y] = window[x][y]+window[x-d][y];
+                  isSet = true;
+                  break;
+                }
                 d--;
-                if (x-d > gridSize)
+                if (x-d > gridSize || d < 0)
                 {
                   d = 0;
                   break;
                 }
               }
-              window[x-d][y] = window[x][y]; // If the key is LEFT, decrease x coordinate.
+              if (d!=0 || isSet) tilesMoved = true; else tilesMoved = false;
+              if (!isSet) window[x-d][y] = window[x][y]; // If the key is LEFT, decrease x coordinate.
             }
 
             if ((x!=x+d) || (y!=y+d)) window[x][y] = 0; // Then, reset value of old coordinates to zero, if the position has changed.
@@ -142,6 +148,12 @@ void move() {
             {
               while (window[x][y+d] != 0)
               {
+                if (window[x][y] == window[x][y+d] && y+d!=y) // Merging
+                {
+                  window[x][y+d] = window[x][y]+window[x][y+d];
+                  isSet = true;
+                  break;
+                }
                 d--;
                 if (y+d < 0)
                 {
@@ -149,12 +161,19 @@ void move() {
                   break;
                 }
               }
-              window[x][y+d] = window[x][y]; // If the key is DOWN, increase y coordinate.
+              if (d!=0 || isSet) tilesMoved = true; else tilesMoved = false;
+              if (!isSet) window[x][y+d] = window[x][y]; // If the key is DOWN, increase y coordinate.
             }
             if (keyCode == RIGHT) 
             {
               while (window[x+d][y] != 0)
               {
+                if (window[x][y] == window[x+d][y] && x+d!=x) // Merging
+                {
+                  window[x+d][y] = window[x][y]+window[x+d][y];
+                  isSet = true;
+                  break;
+                }
                 d--;
                 if (x+d < 0)
                 {
@@ -162,7 +181,8 @@ void move() {
                   break;
                 }
               }
-              window[x+d][y] = window[x][y]; // If the key is RIGHT, increase x coordinate.
+              if (d!=0 || isSet) tilesMoved = true; else tilesMoved = false;
+              if (!isSet) window[x+d][y] = window[x][y]; // If the key is RIGHT, increase x coordinate.
             }
 
             if ((x!=x+d) || (y!=y+d)) window[x][y] = 0; // Then, reset value of old coordinates to zero, if the position has changed.
