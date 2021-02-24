@@ -78,8 +78,7 @@ void move()
   // Depending on the pressed key, use the corresponding function.
   switch (keyCode) 
   {
-  case UP: 
-  case LEFT: 
+  case UP: case LEFT: 
     {
       for (int x = 0; x <= gridSize; x++) // Outer loop (left to right)
       {
@@ -137,8 +136,7 @@ void move()
       }
     }
     break;
-  case DOWN: 
-  case RIGHT: 
+  case DOWN: case RIGHT: 
     {
       for (int x = gridSize; x >= 0; x--) // Outer loop (right to left)
       {
