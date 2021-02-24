@@ -87,15 +87,20 @@ void move()
           if (window[x][y] != 0) // If the array's value at that position isn't zero:
           {
             int d = ((keyCode == UP) ? y : x); // d = distance. If key code is UP, use y, else x.
+            int dd  = d; // Distance for merging
             if (keyCode == UP) 
             {
               while (window[x][y - d] != 0) 
               {
-                if (window[x][y] == window[x][y - d] && y - d != y) // Merging
+                while (window[x][y - d] == window[x][y] && dd>=0)
                 {
-                  window[x][y - d] = window[x][y] + window[x][y - d];
-                  isSet = true;
-                  break;
+                  if (window[x][y] == window[x][y - d] && y + d != y) // Merging
+                  {
+                    window[x][y - d] = window[x][y] + window[x][y - d];
+                    isSet = true;
+                    break;
+                  }
+                  dd--;
                 }
                 d--;
 
@@ -112,11 +117,15 @@ void move()
             {
               while (window[x - d][y] != 0) 
               {
-                if (window[x][y] == window[x - d][y] && x - d != x) // Merging
+                while (window[x - d][y] == window[x][y] && dd>=0)
                 {
-                  window[x - d][y] = window[x][y] + window[x - d][y];
-                  isSet = true;
-                  break;
+                  if (window[x][y] == window[x - d][y] && x - d != x) // Merging
+                  {
+                    window[x - d][y] = window[x][y] + window[x - d][y];
+                    isSet = true;
+                    break;
+                  }
+                  dd--;
                 }
                 d--;
                 if (x - d > gridSize || d < 0) 
@@ -129,7 +138,7 @@ void move()
               if (!isSet) window[x - d][y] = window[x][y]; // If the key is LEFT, decrease x coordinate.
             }
 
-            if ((y != y - d))
+            if ((y != y - d) || isSet)
               window[x][y] = 0; // Then, reset value of old coordinates to zero, if the position has changed.
           }
         }
@@ -145,15 +154,20 @@ void move()
           if (window[x][y] != 0) // If the array's value at that position isn't zero:
           {
             int d = gridSize - ((keyCode == DOWN) ? y : x); // d = distance. If key code is DOWN, use y, else x.
+            int dd  = d; // Distance for merging
             if (keyCode == DOWN) 
             {
               while (window[x][y + d] != 0) 
               {
-                if (window[x][y] == window[x][y + d] && y + d != y) // Merging
+                while (window[x][y + d] == window[x][y] && dd>=0)
                 {
-                  window[x][y + d] = window[x][y] + window[x][y + d];
-                  isSet = true;
-                  break;
+                  if (window[x][y] == window[x][y + d] && y + d != y) // Merging
+                  {
+                    window[x][y + d] = window[x][y] + window[x][y + d];
+                    isSet = true;
+                    break;
+                  }
+                  dd--;
                 }
                 d--;
 
@@ -168,11 +182,15 @@ void move()
             }
             if (keyCode == RIGHT) {
               while (window[x + d][y] != 0) {
-                if (window[x][y] == window[x + d][y] && x + d != x) // Merging
+                while (window[x + d][y] == window[x][y] && dd>=0)
                 {
-                  window[x + d][y] = window[x][y] + window[x + d][y];
-                  isSet = true;
-                  break;
+                  if (window[x][y] == window[x + d][y] && x + d != x) // Merging
+                  {
+                    window[x + d][y] = window[x][y] + window[x + d][y];
+                    isSet = true;
+                    break;
+                  }
+                  dd--;
                 }
                 d--;
                 if (x + d > gridSize || d < 0) 
@@ -185,7 +203,7 @@ void move()
               if (!isSet) window[x + d][y] = window[x][y]; // If the key is RIGHT, increase x coordinate.
             }
 
-            if ((y != y + d))
+            if ((y != y + d) || isSet)
               window[x][y] = 0; // Then, reset value of old coordinates to zero, if the position has changed.
           }
         }
