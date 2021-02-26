@@ -1,8 +1,9 @@
-// Global Variables //<>// //<>//
+// Global Variables // //<>//
 int window[][] = new int[4][4]; // 4*4 Array for all coordinates of the grid.
 int score=0; // Initial Score = 0
 int gridSize = window.length-1; // Array length
 boolean tilesMoved = false;
+PFont font;
 
 void setup()
 {
@@ -14,7 +15,8 @@ void setup()
    * Generating the first square in our 2D-array
    * Initial Score
    */
-
+  font = loadFont("Consolas-40.vlw");
+  textFont(font);
   size(900, 1000); // Size of the tab.
   noStroke(); // Removes the stroke of forms.
   textAlign(CENTER); // Alligns text at the center.
