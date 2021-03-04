@@ -1,9 +1,13 @@
 // Global Variables // //<>//
-int window[][] = new int[4][4]; // 4*4 Array for all coordinates of the grid.
-int score=0; // Initial Score = 0
-int gridSize = window.length-1; // Array length
-boolean tilesMoved = false;
-PFont font;
+float[][] centersX = new float[4][4]; // For drawing the outer
+float[][] centersY = new float[4][4]; // and inner squares
+int[][] window = new int[4][4]; // 4*4 Array for all coordinates of the grid.
+int score = 0; // Initial Score = 0
+int gridSize = window.length-1; // Array size
+boolean move = false; // Has any tile moved?
+boolean drawS = true; // Can a new turn start?
+boolean gameover = false; // Is the game over?
+PFont font; // Custom font
 
 void setup()
 {
@@ -13,284 +17,395 @@ void setup()
    * Headline
    * Putting squares in the right places
    * Generating the first square in our 2D-array
-   * Initial Score
    */
+
+  size(900, 1000, P2D); // Setting the size
   font = loadFont("Consolas-40.vlw");
   textFont(font);
-  size(900, 1000); // Size of the tab.
-  noStroke(); // Removes the stroke of forms.
-  textAlign(CENTER); // Alligns text at the center.
-  colorMode(RGB, 255, 255, 255); // Setting the color-mode
-  textSize(66);
-  background(255, 255, 255);
-  fill(19, 182, 236);
-  rect(70, 170, 760, 760, 10, 10, 10, 10); // Inner grid
-  text("2048", 168, 118); // Headline
 
-  fill(19, 182, 236);
-  textSize(30);
-  text("Score: " + score, 750, 105);
+  generateNew(2); // Generate 2 new numbers at the start of the game.
 
-  generateNew(); // Generating our first entry in the array.
+  for (int i=0; i<4; i++) // Generate the inner squares
+  {
+    for (int j=0; j<4; j++)
+    {
+      float x = 140 + 195*i; // Edge + Distance to next square
+      float y = 240 + 195*j; // ^
+      centersX[i][j] = x; // Set the x coordinate
+      centersY[i][j] = y; // Set the y coordinate
+    }
+  }
+
+  drawBackground(); // Generate the background
 }
 
 void draw()
 {
-  resetSquareDesigns();
-  textSize(80);
-  fill(255, 255, 255);
-  setNumbers();
+  if (drawS == true && gameover == false) // If the game is not over and drawing is enabled:
+  {
+    drawSquares(12); // Draw 12 Squares (again)
+  }
+
+  if (gameover==true) // If the game is over
+  {
+    drawS = false; // Disable Drawing
+  }
 }
 
-void keyPressed() // Actions ran when a key is pressed. (New turn)
+void drawBackground() 
 {
-  move();
-
-  if (tilesMoved && (keyCode==RIGHT || keyCode==LEFT || keyCode==UP || keyCode==DOWN)) generateNew();
+  background(255, 255, 255); // White background
+  textAlign(CENTER); // Text alignment in the center
+  fill(19, 182, 236); // Light blue
+  textSize(66);
+  text("2048", 100, 100); // Headline
+  strokeJoin(ROUND);
+  textAlign(LEFT, TOP);
+  textSize(30);
+  text("Score: " + score, 690, 80); // Score
+  fill(19, 182, 236);
+  rectMode(CENTER);
+  rect(435, 535, 820, 820, 10, 10, 10, 10); // Outer rectangle
+  for (int i=0; i<4; i++) // Loop for 4*4 grid
+  {
+    for (int j=0; j<4; j++)
+    {
+      fill(0xff0E4498); // Dark blue
+      rect(centersX[i][j], centersY[i][j], 160, 160, 10); // Empty squares
+    }
+  }
 }
 
+void drawSquares(int a) 
+{
+  for (int i=0; i<4; i++) 
+  {
+    for (int j=0; j<4; j++) 
+    {
+      int x = window[i][j];
+      if (x != 0) {
+        fillSquareColors(x, a); // Get the specified color depending on the number
+        rect(centersX[i][j], centersY[i][j], 135, 135, 10);
+        fill(#000000); // Black
+        textSize(48);
+        textAlign(CENTER, CENTER);
+        text(window[i][j], centersX[i][j], centersY[i][j]); // Set the number at the specific position
+      }
+    }
+  }
+}
 
-void generateNew()
+void move() 
+{
+  if (true) 
+  {
+    gameover = gameOverOrNot(); // Check if the game is over
+    int[][] numberBefore = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
+    for (int i=0; i<4; i++) 
+    {
+      for (int j=0; j<4; j++) 
+      {
+        numberBefore[i][j] = window[i][j];
+      }
+    }
+    switch (keyCode) 
+    {
+    case UP:
+      {
+        for (int i=0; i<4; i++) 
+        {
+          for (int j=0; j<4; j++) 
+          {
+            int count = 0;
+            while (window[i][j] == 0 && count < 4) 
+            {
+              count++;
+              for (int k=0; k+j<3; k++) 
+              {
+                window[i][j+k] = window[i][j+k+1];
+              }
+              window[i][3] = 0;
+            }
+          }
+          for (int j=0; j<4; j++) 
+          {
+            if (j<3) 
+            {
+              if (window[i][j] == window[i][j+1]) 
+              {
+                window[i][j] += window[i][j+1];
+                score += window[i][j];
+                for (int k=1; k<(3-j); k++) 
+                {
+                  window[i][j+k] = window[i][j+k+1];
+                }
+                window[i][3] = 0;
+              }
+            }
+          }
+        }
+      }
+      break;
+    case DOWN: 
+      {
+        for (int i=0; i<4; i++) 
+        {
+          for (int j=3; j>0; j--) 
+          {
+            int count = 0;
+            while (window[i][j] == 0 && count < 4) 
+            {
+              count++;
+              for (int k=0; j-k>0; k++) 
+              {
+                window[i][j-k] = window[i][j-k-1];
+              }
+              window[i][0] = 0;
+            }
+          }
+          for (int j=3; j>0; j--) 
+          {
+            if (j>0) {
+              if (window[i][j] == window[i][j-1]) 
+              {
+                window[i][j] += window[i][j-1];
+                score += window[i][j];
+                for (int k=1; j-k>0; k++) 
+                {
+                  window[i][j-k] = window[i][j-k-1];
+                }
+                window[i][0] = 0;
+              }
+            }
+          }
+        }
+      }
+      break;
+    case LEFT: 
+      {
+        for (int j=0; j<4; j++) 
+        {
+          for (int i=0; i<4; i++) 
+          {
+            int count = 0;
+            while (window[i][j] == 0 && count < 4) 
+            {
+              count++;
+              for (int k=0; k+i<3; k++) 
+              {
+                window[i+k][j] = window[i+k+1][j];
+              }
+              window[3][j] = 0;
+            }
+          }
+          for (int i=0; i<4; i++) 
+          {
+            if (i<3) 
+            {
+              if (window[i][j] == window[i+1][j]) 
+              {
+                window[i][j] += window[i+1][j];
+                score += window[i][j];
+                for (int k=1; k+i<3; k++) 
+                {
+                  window[i+k][j] = window[i+k+1][j];
+                }
+                window[3][j] = 0;
+              }
+            }
+          }
+        }
+      }
+      break;
+    case RIGHT: 
+      {
+        for (int j=0; j<4; j++) 
+        {
+          for (int i=3; i>0; i--) 
+          {
+            int count = 0;
+            while (window[i][j] == 0 && count < 4) 
+            {
+              count++;
+              for (int k=0; i-k>0; k++) 
+              {
+                window[i-k][j] = window[i-k-1][j];
+              }
+              window[0][j] = 0;
+            }
+          }
+          for (int i=3; i>0; i--) 
+          {
+            if (i>0) 
+            {
+              if (window[i][j] == window[i-1][j]) 
+              {
+                window[i][j] += window[i-1][j];
+                score += window[i][j];
+                for (int k=1; i-k>0; k++) 
+                {
+                  window[i-k][j] = window[i-k-1][j];
+                }
+                window[0][j] = 0;
+              }
+            }
+          }
+        }
+      }
+      break;
+    }
+
+    for (int i=0; i<4; i++) 
+    {
+      for (int j=0; j<4; j++) 
+      {
+        if (numberBefore[i][j] != window[i][j]) 
+        {
+          move = true;
+          break;
+        }
+        if (move==true) 
+        {
+          break;
+        }
+      }
+    }
+    if (move==true) 
+    {
+      drawS = true; // Making a new turn initiate
+      move = false; // Resetting the variable
+    }
+    if (drawS == true) 
+    {
+      drawBackground();
+      drawSquares(256);
+      generateNew(1);
+    }
+  }
+}
+
+void fillSquareColors(int x, int y) 
+{
+  switch(x) 
+  {
+  case 2: 
+    fill(#EFE2DB, y); 
+    break;
+  case 4: 
+    fill(#F1DEC7, y); 
+    break;
+  case 8: 
+    fill(#F3B077, y); 
+    break;
+  case 16: 
+    fill(#FF995C, y); 
+    break;
+  case 32: 
+    fill(#FF8558, y); 
+    break;
+  case 64: 
+    fill(#FF682F, y); 
+    break;
+  case 128: 
+    fill(#F3CB69, y); 
+    break;
+  case 256: 
+    fill(#F0C552, y); 
+    break;
+  case 512: 
+    fill(#F5C344, y); 
+    break;
+  case 1024: 
+    fill(#F4BF28, y); 
+    break;
+  case 2048: 
+    fill(#F7BD00, y); 
+    break;
+  case 4096: 
+    fill(#FF736B, y); 
+    break;
+  case 8192: 
+    fill(#FF5A57, y); 
+    break;
+  case 16384: 
+    fill(#F15030, y); 
+    break;
+  case 32768: 
+    fill(#68ADDB, y); 
+    break;
+  case 65536: 
+    fill(#559AE7, y); 
+    break;
+  case 131072: 
+    fill(#0071C6, y); 
+    break;
+  default: 
+    fill(#0071C6, y); 
+    break;
+  }
+}
+
+void generateNew(int turns)
 {
   /*
    * Function used to generate new array entries if there currently is space on the
    * screen. Ran after every turn.
    */
-
-  int x, y, number, n = 0;
-  do 
+  for (int i=0; i<turns; i++)
   {
-    x = (int) random(0, 4); // Get random values pointing to a spot to the array.
-    y = (int) random(0, 4);
-    // If the space is empty (0) and the maximum turns (40) isn't reached, run again.
-  } 
-  while (window[x][y] != 0 && n++ < 40); // (15÷16)÷40 ~= 2,344% Probability of not adding a two at last tile.
-  if ((int) random(0, 100) <= 50) number = 2; 
-  else number = 4; // Use either a 4 or a 2.
-  window[x][y] = number; // Else, set a 2/4 at that position.
-}
-
-void move() 
-{
-  /*
-   * This function is used to properly move around the squares.
-   * We are using self-made equations here, further described in our documentation.
-   */
-  boolean isSet = false;
-  // Depending on the pressed key, use the corresponding function.
-  switch (keyCode) 
-  {
-  case UP: case LEFT: 
+    int x, y, number, n = 0;
+    do 
     {
-      for (int x = 0; x <= gridSize; x++) // Outer loop (left to right)
-      {
-        for (int y = 0; y <= gridSize; y++) // Inner loop (top to bottom)
-        {
-          if (window[x][y] != 0) // If the array's value at that position isn't zero:
-          {
-            int d = ((keyCode == UP) ? y : x); // d = distance. If key code is UP, use y, else x.
-            int dd = 0; // Distance for merging
-            if (keyCode == UP) 
-            {
-              while (window[x][y - d] != 0) 
-              {
-                while (window[x][y - d] == window[x][y] && dd<=3)
-                {
-                  if (window[x][y] == window[x][y - d] && y + d != y) // Merging
-                  {
-                    window[x][y - d] = window[x][y] + window[x][y - d];
-                    isSet = true;
-                    break;
-                  }
-                  if (y-dd<0 || window[x][y-dd] != window[x][y]) break;
-                  dd++;
-                }
-                d--;
-
-                if (y - d > gridSize || d < 0) 
-                {
-                  d = 0;
-                  break;
-                }
-              }
-              tilesMoved = d != 0 || isSet;
-              if (!isSet) window[x][y - d] = window[x][y]; // If the key is UP, decrease y coordinate.
-            }
-            if (keyCode == LEFT) 
-            {
-              while (window[x - d][y] != 0) 
-              {
-                while (window[x - d][y] == window[x][y] && dd<=3)
-                {
-                  if (window[x][y] == window[x - d][y] && x - d != x) // Merging
-                  {
-                    window[x - d][y] = window[x][y] + window[x - d][y];
-                    isSet = true;
-                    break;
-                  }
-                  if (x-dd<0 || window[x-dd][y] != window[x][y]) break;
-                  dd++;
-                }
-                d--;
-                if (x - d > gridSize || d < 0) 
-                {
-                  d = 0;
-                  break;
-                }
-              }
-              tilesMoved = d != 0 || isSet;
-              if (!isSet) window[x - d][y] = window[x][y]; // If the key is LEFT, decrease x coordinate.
-            }
-
-            if ((y != y - d) || isSet)
-              window[x][y] = 0; // Then, reset value of old coordinates to zero, if the position has changed.
-          }
-        }
-      }
-    }
-    break;
-  case DOWN: case RIGHT: 
-    {
-      for (int x = gridSize; x >= 0; x--) // Outer loop (right to left)
-      {
-        for (int y = gridSize; y >= 0; y--) // Inner loop (bottom to top)
-        {
-          if (window[x][y] != 0) // If the array's value at that position isn't zero:
-          {
-            int d = gridSize - ((keyCode == DOWN) ? y : x); // d = distance. If key code is DOWN, use y, else x.
-            int dd  = d; // Distance for merging
-            if (keyCode == DOWN) 
-            {
-              while (window[x][y + d] != 0) 
-              {
-                while (window[x][y + d] == window[x][y] && dd<=3)
-                {
-                  if (window[x][y] == window[x][y + d] && y + d != y) // Merging
-                  {
-                    window[x][y + d] = window[x][y] + window[x][y + d];
-                    isSet = true;
-                    break;
-                  }
-                  if (y+dd>3 || window[x][y+dd] != window[x][y]) break;
-                  dd++;
-                }
-                d--;
-
-                if (y + d > gridSize || d < 0) 
-                {
-                  d = 0;
-                  break;
-                }
-              }
-              tilesMoved = d != 0 || isSet;
-              if (!isSet) window[x][y + d] = window[x][y]; // If the key is DOWN, increase y coordinate.
-            }
-            if (keyCode == RIGHT) {
-              while (window[x + d][y] != 0) {
-                while (window[x + d][y] == window[x][y] && dd<=3)
-                {
-                  if (window[x][y] == window[x + d][y] && x + d != x) // Merging
-                  {
-                    window[x + d][y] = window[x][y] + window[x + d][y];
-                    isSet = true;
-                    break;
-                  }
-                  if (x+dd>3 || window[x+dd][y] != window[x][y]) break;
-                  dd++;
-                }
-                d--;
-                if (x + d > gridSize || d < 0) 
-                {
-                  d = 0;
-                  break;
-                }
-              }
-              tilesMoved = d != 0 || isSet;
-              if (!isSet) window[x + d][y] = window[x][y]; // If the key is RIGHT, increase x coordinate.
-            }
-
-            if ((y != y + d) || isSet)
-              window[x][y] = 0; // Then, reset value of old coordinates to zero, if the position has changed.
-          }
-        }
-      }
-    }
-    break;
-  default: 
-    {
-      println("Warning: This key is not used.");
-      break;
-    }
+      x = (int) random(0, 4); // Get random values pointing to a spot to the array.
+      y = (int) random(0, 4);
+      // If the space is empty (0) and the maximum turns (40) isn't reached, run again.
+    } 
+    while (window[x][y] != 0 && n++ < 40); // (15÷16)÷40 ~= 2,344% Probability of not adding a two at last tile.
+    if ((int) random(0, 100) <= 50) number = 2; 
+    else number = 4; // Use either a 4 or a 2.
+    window[x][y] = number; // Else, set a 2/4 at that position.
   }
 }
 
 
-void setNumbers()
+void keyPressed() 
 {
-  /*
-   * Function used to place existing numbers in the array
-   * on the black squares in-game.
-   */
+  drawS = false;
+  move();
+}
 
-  int LetterX, LetterY;
-  for (int x=0; x<=gridSize; x++) // Outer loop (left to right)
+void mousePressed() 
+{
+  if (gameover == true) 
   {
-    for (int y=0; y<=gridSize; y++) // Inner loop (top to bottom)
-    {
-      if (window[x][y] != 0) // If the array's value at that position isn't zero:
-      {
-        // Define x coordinate in the grid depending on the array coordinate.
-        switch (x) 
-        {
-        case 0: LetterX = 174; break;
-        case 1: LetterX = 358; break;
-        case 2: LetterX = 542; break;
-        case 3: LetterX = 726; break;
-        default: 
-          {
-            LetterX = 0;
-            println("Error: Out of bounds!");
-            break;
-          }
-        }
-        // Define y coordinate in the grid depending on the array coordinate.
-        switch (y) 
-        {
-        case 0: LetterY = 302; break;
-        case 1: LetterY = 486; break;
-        case 2: LetterY = 670; break;
-        case 3: LetterY = 854; break;
-        default: 
-          {
-            LetterY = 0;
-            println("Error: Out of bounds!");
-            break;
-          }
-        }
-        text(window[x][y], LetterX, LetterY); // Set the specific number at the correct spot.
-      }
-    }
+    setup();
+  } else 
+  {
+    drawS = false;
+    keyCode = 0;
+    if (mouseX < width / 4) keyCode = LEFT;
+    if (mouseX > width * 3 / 4) keyCode = RIGHT;
+    if (mouseY < 240) keyCode = UP;
+    if (mouseY > height * 3 / 4) keyCode = DOWN;
+    if (keyCode>0) move();
   }
 }
 
-void resetSquareDesigns()
+boolean gameOverOrNot() 
+/* 
+ *  Boolean function to check if the game is over.
+ *  Checks specifically, if any of the arrays values, and the values after them are still 0
+ *  If yes, return false, else true.
+ */
 {
-  /*
-   * Function used to generate the screen at the start of the game,
-   * and to reset them after every turn to make space for new squares.
-   */
-
-  int SquareX=94, SquareY=194; // Start coordinates of the inner squares
-  while (SquareY<=925) // 185*5=660
+  for (int i=0; i<4; i++) 
   {
-    fill(0xff0E4498); // dark blue
-    square(SquareX, SquareY, 160);
-    SquareX=SquareX+184;
-
-    if (SquareX>=660) // When the inner square would be out of the outer square, increase the Y coordinate.
+    for (int j=0; j<3; j++) 
     {
-      SquareY=SquareY+184;
-      SquareX=94;
+      if ( window[i][j]==0 || window[j][i]==0 ||window[i][j+1]==0 ||window[j+1][i]==0 || window[i][j]==window[i][j+1] || window[j][i]==window[j+1][i]) {
+        return false;
+      }
     }
   }
+  return true;
 }
