@@ -89,12 +89,12 @@ void move()
           if (window[x][y] != 0) // If the array's value at that position isn't zero:
           {
             int d = ((keyCode == UP) ? y : x); // d = distance. If key code is UP, use y, else x.
-            int dd  = d; // Distance for merging
+            int dd = 0; // Distance for merging
             if (keyCode == UP) 
             {
               while (window[x][y - d] != 0) 
               {
-                while (window[x][y - d] == window[x][y] && dd>=0)
+                while (window[x][y - d] == window[x][y] && dd<=3)
                 {
                   if (window[x][y] == window[x][y - d] && y + d != y) // Merging
                   {
@@ -102,7 +102,8 @@ void move()
                     isSet = true;
                     break;
                   }
-                  dd--;
+                  if (y-dd<0 || window[x][y-dd] != window[x][y]) break;
+                  dd++;
                 }
                 d--;
 
@@ -119,7 +120,7 @@ void move()
             {
               while (window[x - d][y] != 0) 
               {
-                while (window[x - d][y] == window[x][y] && dd>=0)
+                while (window[x - d][y] == window[x][y] && dd<=3)
                 {
                   if (window[x][y] == window[x - d][y] && x - d != x) // Merging
                   {
@@ -127,7 +128,8 @@ void move()
                     isSet = true;
                     break;
                   }
-                  dd--;
+                  if (x-dd<0 || window[x-dd][y] != window[x][y]) break;
+                  dd++;
                 }
                 d--;
                 if (x - d > gridSize || d < 0) 
@@ -161,7 +163,7 @@ void move()
             {
               while (window[x][y + d] != 0) 
               {
-                while (window[x][y + d] == window[x][y] && dd>=0)
+                while (window[x][y + d] == window[x][y] && dd<=3)
                 {
                   if (window[x][y] == window[x][y + d] && y + d != y) // Merging
                   {
@@ -169,7 +171,8 @@ void move()
                     isSet = true;
                     break;
                   }
-                  dd--;
+                  if (y+dd>3 || window[x][y+dd] != window[x][y]) break;
+                  dd++;
                 }
                 d--;
 
@@ -184,7 +187,7 @@ void move()
             }
             if (keyCode == RIGHT) {
               while (window[x + d][y] != 0) {
-                while (window[x + d][y] == window[x][y] && dd>=0)
+                while (window[x + d][y] == window[x][y] && dd<=3)
                 {
                   if (window[x][y] == window[x + d][y] && x + d != x) // Merging
                   {
@@ -192,7 +195,8 @@ void move()
                     isSet = true;
                     break;
                   }
-                  dd--;
+                  if (x+dd>3 || window[x+dd][y] != window[x][y]) break;
+                  dd++;
                 }
                 d--;
                 if (x + d > gridSize || d < 0) 
