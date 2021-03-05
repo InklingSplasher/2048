@@ -52,7 +52,7 @@ void setup()
 void draw()
 {
   /*
-  * Constant loops to:
+   * Constant loops to:
    * Check if drawing is still enabled
    * Check if the game is over
    * (If yes, initiate game-over-screen and mode)
@@ -72,7 +72,7 @@ void draw()
 void drawBackground() 
 {
   /*
-  * Function to draw the empty squares without an value (0) / on all parts
+  * Function to draw the empty squares without a value (0) / on all parts
    */
   noStroke(); // Remove the stroke
   background(255, 255, 255); // White background
@@ -329,7 +329,7 @@ void move()
 void fillSquareColors(int x, int y) 
 {
   /*
-  * Simple function used to set colors depending on the number
+   * Simple function used to set colors depending on the number
    * Passes the number x and the alpha value y
    * and gets the color depending on it.
    */
