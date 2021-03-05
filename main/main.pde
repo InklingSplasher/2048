@@ -128,29 +128,32 @@ void move()
 
   gameover = gameOverOrNot(); // Check if the game is over
 
+  // This function is used to check if any numbers actually moved (game over status)
+  // For this, we create an array set with zeros all over for all coordinates to check
+  // the movement.
   int[][] numberBefore = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
-  for (int i=0; i<4; i++) 
+  for (int i=0; i<4; i++) // Loop for 4*4 grid
   {
     for (int j=0; j<4; j++) 
     {
-      numberBefore[i][j] = window[i][j];
+      numberBefore[i][j] = window[i][j]; // Checking if any number moved.
     }
   }
   switch (keyCode) // Depending on the pressed key, do the following:
   {
   case UP:
     {
-      for (int i=0; i<4; i++) // Loop for 4*4 grid
+      for (int i=0; i<4; i++) // Loop for 4*4 grid (Basic Moving)
       {
         for (int j=0; j<4; j++) 
         {
-          int count = 0;
+          int count = 0; // Variable to get through the grid
           while (window[i][j] == 0 && count < 4) 
           {
             count++;
             for (int k=0; k+j<3; k++) 
             {
-              window[i][j+k] = window[i][j+k+1];
+              window[i][j+k] = window[i][j+k+1]; // Set the new position
             }
             window[i][3] = 0;
           }
@@ -176,11 +179,11 @@ void move()
     break;
   case DOWN: 
     {
-      for (int i=0; i<4; i++) // Loop for 4*4 grid
+      for (int i=0; i<4; i++) // Loop for 4*4 grid (Basic Moving)
       {
         for (int j=3; j>0; j--) 
         {
-          int count = 0;
+          int count = 0; // Variable to get through the grid
           while (window[i][j] == 0 && count < 4) 
           {
             count++;
@@ -193,7 +196,8 @@ void move()
         }
         for (int j=3; j>0; j--) // Merging
         {
-          if (j>0) {
+          if (j>0) 
+          {
             if (window[i][j] == window[i][j-1]) 
             {
               window[i][j] += window[i][j-1];
@@ -211,11 +215,11 @@ void move()
     break;
   case LEFT: 
     {
-      for (int j=0; j<4; j++) // Loop for 4*4 grid
+      for (int j=0; j<4; j++) // Loop for 4*4 grid (Basic Moving)
       {
         for (int i=0; i<4; i++) 
         {
-          int count = 0;
+          int count = 0; // Variable to get through the grid
           while (window[i][j] == 0 && count < 4) 
           {
             count++;
@@ -247,11 +251,11 @@ void move()
     break;
   case RIGHT: 
     {
-      for (int j=0; j<4; j++) // Loop for 4*4 grid
+      for (int j=0; j<4; j++) // Loop for 4*4 grid (Basic Moving)
       {
         for (int i=3; i>0; i--) 
         {
-          int count = 0;
+          int count = 0; // Variable to get through the grid
           while (window[i][j] == 0 && count < 4) 
           {
             count++;
