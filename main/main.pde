@@ -90,12 +90,19 @@ void drawBackground()
 
 void drawSquares(int a) 
 {
-  for (int i=0; i<4; i++) 
+ /*
+  * Drawing the squares with values over the
+  * already generated background rectangles.
+  * Variable 'a' is for the alpha colors of those.
+  */
+  
+  for (int i=0; i<4; i++) // Loop for 4*4 grid
   {
     for (int j=0; j<4; j++) 
     {
-      int x = window[i][j];
-      if (x != 0) {
+      int x = window[i][j]; // Aid variable
+      if (x != 0) // If the array at position i j has a value:
+      { 
         fillSquareColors(x, a); // Get the specified color depending on the number
         rect(centersX[i][j], centersY[i][j], 135, 135, 10);
         fill(#000000); // Black
