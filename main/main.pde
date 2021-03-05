@@ -3,7 +3,6 @@ float[][] centersX = new float[4][4]; // For drawing the outer
 float[][] centersY = new float[4][4]; // and inner squares
 int[][] window = new int[4][4]; // 4*4 Array for all coordinates of the grid.
 int score = 0; // Initial Score = 0
-int gridSize = window.length-1; // Array size
 boolean move = false; // Has any tile moved?
 boolean isRunning = true; // Can a new turn start?
 boolean gameover = false; // Is the game over?
