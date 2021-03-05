@@ -41,6 +41,13 @@ void setup()
 
 void draw()
 {
+ /*
+  * Constant loops to:
+  * Check if drawing is still enabled
+  * Check if the game is over
+  * (If yes, initiate game-over-screen and mode)
+  */
+  
   if (drawingAllowed == true && gameover == false) // If the game is not over and drawing is enabled:
   {
     drawSquares(12); // Draw 12 Squares (again)
@@ -54,18 +61,23 @@ void draw()
 
 void drawBackground() 
 {
+ /*
+  * Function to draw the empty squares without an value (0) / on all parts
+  */
+  
   background(255, 255, 255); // White background
   textAlign(CENTER); // Text alignment in the center
   fill(19, 182, 236); // Light blue
   textSize(66);
   text("2048", 100, 100); // Headline
-  strokeJoin(ROUND);
-  textAlign(LEFT, TOP);
+  strokeJoin(ROUND); // Make corners round
+  textAlign(LEFT, TOP); // Align text at the top left
   textSize(30);
-  text("Score: " + score, 690, 80); // Score
+  text("Score: " + score, 690, 80); // Score Headline
   fill(19, 182, 236);
-  rectMode(CENTER);
+  rectMode(CENTER); // Align rectangles at the center
   rect(435, 535, 820, 820, 10, 10, 10, 10); // Outer rectangle
+  
   for (int i=0; i<4; i++) // Loop for 4*4 grid
   {
     for (int j=0; j<4; j++)
