@@ -5,7 +5,7 @@ int[][] window = new int[4][4]; // 4*4 Array for all coordinates of the grid.
 int score = 0; // Initial Score = 0
 int gridSize = window.length-1; // Array size
 boolean move = false; // Has any tile moved?
-boolean drawingAllowed = true; // Can a new turn start?
+boolean mouseMovement = true; // Can a new turn start?
 boolean gameover = false; // Is the game over?
 PFont font; // Custom font
 
@@ -48,14 +48,14 @@ void draw()
    * (If yes, initiate game-over-screen and mode)
    */
 
-  if (drawingAllowed == true && gameover == false) // If the game is not over and drawing is enabled:
+  if (mouseMovement == true && gameover == false) // If the game is not over and drawing is enabled:
   {
     drawSquares(12); // Draw squares with the specific alpha value
   }
 
   if (gameover==true) // If the game is over
   {
-    drawingAllowed = false; // Disable Drawing
+    mouseMovement = false; // Disable Drawing
   }
 }
 
@@ -227,7 +227,7 @@ void move()
             {
               window[i+k][j] = window[i+k+1][j];
             }
-            window[3][j] = 0; // Reset the old value 
+            window[3][j] = 0; // Reset the old value
           }
         }
         for (int i=0; i<4; i++) // Merging
@@ -302,13 +302,13 @@ void move()
       }
     }
   }
-  
+
   if (move==true) 
   {
-    drawingAllowed = true; // Making a new turn initiate
+    mouseMovement = true; // Making a new turn initiate
     move = false; // Resetting the variable
   }
-  if (drawingAllowed == true) 
+  if (mouseMovement == true) 
   {
     drawBackground();
     drawSquares(256);
@@ -318,12 +318,12 @@ void move()
 
 void fillSquareColors(int x, int y) 
 {
- /*
+  /*
   * Simple function used to set colors depending on the number
-  * Passes the number x and the alpha value y
-  * and gets the color depending on it.
-  */
-  
+   * Passes the number x and the alpha value y
+   * and gets the color depending on it.
+   */
+
   switch(x) 
   {
   case 2: 
@@ -389,7 +389,7 @@ void generateNew(int turns)
    * Function used to generate new array entries if there currently is space on the
    * screen. Ran after every turn.
    */
-   
+
   for (int i=0; i<turns; i++)
   {
     int x, y, number, n = 0;
@@ -409,18 +409,18 @@ void generateNew(int turns)
 
 void keyPressed() 
 {
-  drawingAllowed = false;
+  mouseMovement = false;
   move();
 }
 
 void mousePressed() 
 {
-  if (gameover == true) 
+  if (gameover == true) // When the game is over and the mouse is pressed, restart the game.
   {
-    setup();
+    setup(); // Run the setup again and therefore reset everything.
   } else 
   {
-    drawingAllowed = false;
+    mouseMovement = false; // ...
     keyCode = 0;
     if (mouseX < width / 4) keyCode = LEFT;
     if (mouseX > width * 3 / 4) keyCode = RIGHT;
@@ -431,12 +431,12 @@ void mousePressed()
 }
 
 boolean gameOverOrNot() 
-/* 
- *  Boolean function to check if the game is over.
- *  Checks specifically, if any of the arrays values, and the values after them are still 0
- *  If yes, return false, else true.
- */
 {
+  /* 
+   *  Boolean function to check if the game is over.
+   *  Checks specifically, if any of the arrays values, and the values after them are still 0
+   *  If yes, return false, else true.
+   */
   for (int i=0; i<4; i++) // Loop for 4*4 grid
   {
     for (int j=0; j<3; j++) 
