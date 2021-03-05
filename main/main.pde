@@ -410,8 +410,8 @@ void generateNew(int turns)
       // If the space is empty (0) and the maximum turns (40) isn't reached, run again.
     } 
     while (window[x][y] != 0 && n++ < 40); // (15÷16)÷40 ~= 2,344% Probability of not adding a two at last tile.
-    if ((int) random(0, 100) <= 50) number = 2; 
-    else number = 4; // Use either a 4 or a 2.
+    if ((int) random(0, 100) <= 50) number = 2;  // Use either a 4 or a 2.
+    else number = 4;
     window[x][y] = number; // Else, set a 2/4 at that position.
   }
 }
@@ -431,13 +431,14 @@ void mousePressed()
   } 
   else 
   {
-    isRunning = false; // ...
-    keyCode = 0;
+    isRunning = false; // Pause the game
+    keyCode = 0; // Reset the keyCode
+    // Depending on the mouseX and mouseY coordinates, set the keyCode and continue.
     if (mouseX < width / 4) keyCode = LEFT;
     if (mouseX > width * 3 / 4) keyCode = RIGHT;
     if (mouseY < 240) keyCode = UP;
     if (mouseY > height * 3 / 4) keyCode = DOWN;
-    if (keyCode>0) move();
+    if (keyCode>0) move(); // If it was set correctly, return to the move() function.
   }
 }
 
