@@ -428,17 +428,6 @@ void mousePressed()
   if (gameover == true) // When the game is over and the mouse is pressed, restart the game.
   {
     setup(); // Run the setup again and therefore reset everything.
-  } 
-  else 
-  {
-    isRunning = false; // Pause the game
-    keyCode = 0; // Reset the keyCode
-    // Depending on the mouseX and mouseY coordinates, set the keyCode and continue.
-    if (mouseX < width / 4) keyCode = LEFT;
-    if (mouseX > width * 3 / 4) keyCode = RIGHT;
-    if (mouseY < 240) keyCode = UP;
-    if (mouseY > height * 3 / 4) keyCode = DOWN;
-    if (keyCode>0) move(); // If it was set correctly, return to the move() function.
   }
 }
 
