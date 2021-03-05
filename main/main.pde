@@ -33,7 +33,7 @@ void setup()
    }
  }
 
-  generateNew(2); // Generate 2 new numbers at the start of the game.
+  generateNew((int) random(1,2.99)); // Generate 1 or 2 new numbers at the start of the game.
 
   for (int i=0; i<4; i++) // Generate the inner squares
   {
