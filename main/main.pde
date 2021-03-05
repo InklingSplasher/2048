@@ -117,7 +117,7 @@ void drawSquares(int a)
 void move() 
 {
   /*
-  * Function used for all moving mechanics.
+   * Function used for all moving mechanics.
    * (This is where the real fun begins)
    * Contents:
    * Game-Over Check
@@ -323,6 +323,7 @@ void fillSquareColors(int x, int y)
   * Passes the number x and the alpha value y
   * and gets the color depending on it.
   */
+  
   switch(x) 
   {
   case 2: 
@@ -436,14 +437,12 @@ boolean gameOverOrNot()
  *  If yes, return false, else true.
  */
 {
-  for (int i=0; i<4; i++) 
+  for (int i=0; i<4; i++) // Loop for 4*4 grid
   {
     for (int j=0; j<3; j++) 
     {
-      if ( window[i][j]==0 || window[j][i]==0 ||window[i][j+1]==0 ||window[j+1][i]==0 || window[i][j]==window[i][j+1] || window[j][i]==window[j+1][i]) {
-        return false;
-      }
+      if ( window[i][j]==0 || window[j][i]==0 ||window[i][j+1]==0 ||window[j+1][i]==0 || window[i][j]==window[i][j+1] || window[j][i]==window[j+1][i]) return false; // The game is not over, since values have changed or still can change.
     }
   }
-  return true;
+  return true; // No values have changed or can change, the game is over.
 }
