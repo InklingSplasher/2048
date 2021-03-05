@@ -1,11 +1,11 @@
-// Global Variables // //<>// //<>// //<>//
+// Global Variables // //<>// //<>// //<>// //<>// //<>// //<>//
 float[][] centersX = new float[4][4]; // For drawing the outer
 float[][] centersY = new float[4][4]; // and inner squares
 int[][] window = new int[4][4]; // 4*4 Array for all coordinates of the grid.
 int score = 0; // Initial Score = 0
 int gridSize = window.length-1; // Array size
 boolean move = false; // Has any tile moved?
-boolean mouseMovement = true; // Can a new turn start?
+boolean isRunning = true; // Can a new turn start?
 boolean gameover = false; // Is the game over?
 PFont font; // Custom font
 
@@ -58,14 +58,14 @@ void draw()
    * (If yes, initiate game-over-screen and mode)
    */
 
-  if (mouseMovement == true && gameover == false) // If the game is not over and drawing is enabled:
+  if (isRunning == true && gameover == false) // If the game is not over and drawing is enabled:
   {
     drawSquares(12); // Draw squares with the specific alpha value
   }
 
   if (gameover==true) // If the game is over
   {
-    mouseMovement = false; // Disable Drawing
+    isRunning = false; // Disable Drawing
   }
 }
 
@@ -315,10 +315,10 @@ void move()
 
   if (move==true) 
   {
-    mouseMovement = true; // Making a new turn initiate
+    isRunning = true; // Making a new turn initiate
     move = false; // Resetting the variable
   }
-  if (mouseMovement == true) 
+  if (isRunning == true) 
   {
     drawBackground();
     drawSquares(256);
@@ -419,7 +419,7 @@ void generateNew(int turns)
 
 void keyPressed() 
 {
-  mouseMovement = false;
+  isRunning = false;
   move();
 }
 
@@ -428,9 +428,10 @@ void mousePressed()
   if (gameover == true) // When the game is over and the mouse is pressed, restart the game.
   {
     setup(); // Run the setup again and therefore reset everything.
-  } else 
+  } 
+  else 
   {
-    mouseMovement = false; // ...
+    isRunning = false; // ...
     keyCode = 0;
     if (mouseX < width / 4) keyCode = LEFT;
     if (mouseX > width * 3 / 4) keyCode = RIGHT;
