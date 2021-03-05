@@ -1,4 +1,4 @@
-// Global Variables // //<>// //<>// //<>// //<>// //<>// //<>//
+// Global Variables
 float[][] centersX = new float[4][4]; // For drawing the outer
 float[][] centersY = new float[4][4]; // and inner squares
 int[][] window = new int[4][4]; // 4*4 Array for all coordinates of the grid.
