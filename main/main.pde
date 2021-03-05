@@ -22,6 +22,16 @@ void setup()
   size(900, 1000, P2D); // Setting the size
   font = loadFont("Consolas-40.vlw");
   textFont(font);
+  
+ for(int i=0;i<4;i++) // Loop for 4*4 grid, resets all values to zero when the game starts over.
+ {
+   for(int j=0;j<4;j++)
+   {
+     window[i][j] = 0;
+      centersX[i][j] = 0;
+      centersY[i][j] = 0;
+   }
+ }
 
   generateNew(2); // Generate 2 new numbers at the start of the game.
 
