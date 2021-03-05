@@ -19,6 +19,8 @@ void setup()
    */
 
   size(900, 1000); // Setting the size
+  noStroke(); // Remove the stroke
+  strokeJoin(ROUND); // Make corners round
   font = loadFont("Consolas-40.vlw");
   textFont(font);
   
@@ -71,19 +73,20 @@ void draw()
 void drawBackground() 
 {
   /*
-  * Function to draw the empty squares without a value (0) / on all parts
+   * Function to draw the empty squares without a value (0) / on all parts
    */
-  noStroke(); // Remove the stroke
+   
   background(255, 255, 255); // White background
+  
   textAlign(CENTER); // Text alignment in the center
-  fill(19, 182, 236); // Light blue
   textSize(66);
-  text("2048", 100, 100); // Headline
-  strokeJoin(ROUND); // Make corners round
+  fill(19, 182, 236); // Light blue
+  text("2048", 100, 100); // Headline "2048"
+  
   textAlign(LEFT, TOP); // Align text at the top left
   textSize(30);
   text("Score: " + score, 690, 80); // Score Headline
-  fill(19, 182, 236);
+  
   rectMode(CENTER); // Align rectangles at the center
   rect(435, 535, 820, 820, 10, 10, 10, 10); // Outer rectangle
 
@@ -100,7 +103,7 @@ void drawBackground()
 void drawSquares(int a) 
 {
   /*
-  * Drawing the squares with values over the
+   * Drawing the squares with values over the
    * already generated background rectangles.
    * Variable 'a' is for the alpha colors of those.
    */
