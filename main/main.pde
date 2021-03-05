@@ -50,7 +50,7 @@ void draw()
 
   if (drawingAllowed == true && gameover == false) // If the game is not over and drawing is enabled:
   {
-    drawSquares(12); // Draw 12 Squares (again)
+    drawSquares(12); // Draw squares with the specific alpha value
   }
 
   if (gameover==true) // If the game is over
@@ -128,7 +128,7 @@ void move()
 
   gameover = gameOverOrNot(); // Check if the game is over
 
-  // This function is used to check if any numbers actually moved (game over status)
+  // This function is used to check if any numbers are falsely moving
   // For this, we create an array set with zeros all over for all coordinates to check
   // the movement.
   int[][] numberBefore = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
@@ -136,7 +136,7 @@ void move()
   {
     for (int j=0; j<4; j++) 
     {
-      numberBefore[i][j] = window[i][j]; // Checking if any number moved.
+      numberBefore[i][j] = window[i][j]; // Checking if the number removed incorrectly (0 coordinate bug).
     }
   }
   switch (keyCode) // Depending on the pressed key, do the following:
@@ -155,7 +155,7 @@ void move()
             {
               window[i][j+k] = window[i][j+k+1]; // Set the new position
             }
-            window[i][3] = 0;
+            window[i][3] = 0; // Reset the old value
           }
         }
         for (int j=0; j<4; j++) // Merging
@@ -170,7 +170,7 @@ void move()
               {
                 window[i][j+k] = window[i][j+k+1];
               }
-              window[i][3] = 0;
+              window[i][3] = 0; // Reset the old value
             }
           }
         }
@@ -191,7 +191,7 @@ void move()
             {
               window[i][j-k] = window[i][j-k-1];
             }
-            window[i][0] = 0;
+            window[i][0] = 0; // Reset the old value
           }
         }
         for (int j=3; j>0; j--) // Merging
@@ -206,7 +206,7 @@ void move()
               {
                 window[i][j-k] = window[i][j-k-1];
               }
-              window[i][0] = 0;
+              window[i][0] = 0; // Reset the old value
             }
           }
         }
@@ -227,7 +227,7 @@ void move()
             {
               window[i+k][j] = window[i+k+1][j];
             }
-            window[3][j] = 0;
+            window[3][j] = 0; // Reset the old value 
           }
         }
         for (int i=0; i<4; i++) // Merging
@@ -242,7 +242,7 @@ void move()
               {
                 window[i+k][j] = window[i+k+1][j];
               }
-              window[3][j] = 0;
+              window[3][j] = 0; // Reset the old value
             }
           }
         }
@@ -263,7 +263,7 @@ void move()
             {
               window[i-k][j] = window[i-k-1][j];
             }
-            window[0][j] = 0;
+            window[0][j] = 0; // Reset the old value
           }
         }
         for (int i=3; i>0; i--) // Merging
@@ -278,7 +278,7 @@ void move()
               {
                 window[i-k][j] = window[i-k-1][j];
               }
-              window[0][j] = 0;
+              window[0][j] = 0; // Reset the old value
             }
           }
         }
@@ -302,6 +302,7 @@ void move()
       }
     }
   }
+  
   if (move==true) 
   {
     drawingAllowed = true; // Making a new turn initiate
@@ -317,6 +318,11 @@ void move()
 
 void fillSquareColors(int x, int y) 
 {
+ /*
+  * Simple function used to set colors depending on the number
+  * Passes the number x and the alpha value y
+  * and gets the color depending on it.
+  */
   switch(x) 
   {
   case 2: 
@@ -382,6 +388,7 @@ void generateNew(int turns)
    * Function used to generate new array entries if there currently is space on the
    * screen. Ran after every turn.
    */
+   
   for (int i=0; i<turns; i++)
   {
     int x, y, number, n = 0;
