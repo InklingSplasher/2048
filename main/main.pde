@@ -1,4 +1,4 @@
-// Global Variables // //<>//
+// Global Variables // //<>// //<>// //<>//
 float[][] centersX = new float[4][4]; // For drawing the outer
 float[][] centersY = new float[4][4]; // and inner squares
 int[][] window = new int[4][4]; // 4*4 Array for all coordinates of the grid.
@@ -41,13 +41,13 @@ void setup()
 
 void draw()
 {
- /*
+  /*
   * Constant loops to:
-  * Check if drawing is still enabled
-  * Check if the game is over
-  * (If yes, initiate game-over-screen and mode)
-  */
-  
+   * Check if drawing is still enabled
+   * Check if the game is over
+   * (If yes, initiate game-over-screen and mode)
+   */
+
   if (drawingAllowed == true && gameover == false) // If the game is not over and drawing is enabled:
   {
     drawSquares(12); // Draw 12 Squares (again)
@@ -61,10 +61,10 @@ void draw()
 
 void drawBackground() 
 {
- /*
+  /*
   * Function to draw the empty squares without an value (0) / on all parts
-  */
-  
+   */
+
   background(255, 255, 255); // White background
   textAlign(CENTER); // Text alignment in the center
   fill(19, 182, 236); // Light blue
@@ -77,7 +77,7 @@ void drawBackground()
   fill(19, 182, 236);
   rectMode(CENTER); // Align rectangles at the center
   rect(435, 535, 820, 820, 10, 10, 10, 10); // Outer rectangle
-  
+
   for (int i=0; i<4; i++) // Loop for 4*4 grid
   {
     for (int j=0; j<4; j++)
@@ -90,12 +90,12 @@ void drawBackground()
 
 void drawSquares(int a) 
 {
- /*
+  /*
   * Drawing the squares with values over the
-  * already generated background rectangles.
-  * Variable 'a' is for the alpha colors of those.
-  */
-  
+   * already generated background rectangles.
+   * Variable 'a' is for the alpha colors of those.
+   */
+
   for (int i=0; i<4; i++) // Loop for 4*4 grid
   {
     for (int j=0; j<4; j++) 
@@ -104,10 +104,10 @@ void drawSquares(int a)
       if (x != 0) // If the array at position i j has a value:
       { 
         fillSquareColors(x, a); // Get the specified color depending on the number
-        rect(centersX[i][j], centersY[i][j], 135, 135, 10);
+        rect(centersX[i][j], centersY[i][j], 135, 135, 10); // Set a rectangle at the specific saved coordinates.
         fill(#000000); // Black
         textSize(48);
-        textAlign(CENTER, CENTER);
+        textAlign(CENTER, CENTER); // Align text at the center of the screen
         text(window[i][j], centersX[i][j], centersY[i][j]); // Set the number at the specific position
       }
     }
@@ -116,190 +116,198 @@ void drawSquares(int a)
 
 void move() 
 {
-  if (true) 
+  /*
+  * Function used for all moving mechanics.
+   * (This is where the real fun begins)
+   * Contents:
+   * Game-Over Check
+   * Moving
+   * Merging
+   * Fading in
+   */
+
+  gameover = gameOverOrNot(); // Check if the game is over
+
+  int[][] numberBefore = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
+  for (int i=0; i<4; i++) 
   {
-    gameover = gameOverOrNot(); // Check if the game is over
-    int[][] numberBefore = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
-    for (int i=0; i<4; i++) 
+    for (int j=0; j<4; j++) 
     {
-      for (int j=0; j<4; j++) 
-      {
-        numberBefore[i][j] = window[i][j];
-      }
+      numberBefore[i][j] = window[i][j];
     }
-    switch (keyCode) 
+  }
+  switch (keyCode) // Depending on the pressed key, do the following:
+  {
+  case UP:
     {
-    case UP:
+      for (int i=0; i<4; i++) // Loop for 4*4 grid
       {
-        for (int i=0; i<4; i++) 
+        for (int j=0; j<4; j++) 
         {
-          for (int j=0; j<4; j++) 
+          int count = 0;
+          while (window[i][j] == 0 && count < 4) 
           {
-            int count = 0;
-            while (window[i][j] == 0 && count < 4) 
+            count++;
+            for (int k=0; k+j<3; k++) 
             {
-              count++;
-              for (int k=0; k+j<3; k++) 
+              window[i][j+k] = window[i][j+k+1];
+            }
+            window[i][3] = 0;
+          }
+        }
+        for (int j=0; j<4; j++) // Merging
+        {
+          if (j<3) 
+          {
+            if (window[i][j] == window[i][j+1]) 
+            {
+              window[i][j] += window[i][j+1];
+              score += window[i][j];
+              for (int k=1; k<(3-j); k++) 
               {
                 window[i][j+k] = window[i][j+k+1];
               }
               window[i][3] = 0;
             }
           }
-          for (int j=0; j<4; j++) 
-          {
-            if (j<3) 
-            {
-              if (window[i][j] == window[i][j+1]) 
-              {
-                window[i][j] += window[i][j+1];
-                score += window[i][j];
-                for (int k=1; k<(3-j); k++) 
-                {
-                  window[i][j+k] = window[i][j+k+1];
-                }
-                window[i][3] = 0;
-              }
-            }
-          }
         }
       }
-      break;
-    case DOWN: 
+    }
+    break;
+  case DOWN: 
+    {
+      for (int i=0; i<4; i++) // Loop for 4*4 grid
       {
-        for (int i=0; i<4; i++) 
+        for (int j=3; j>0; j--) 
         {
-          for (int j=3; j>0; j--) 
+          int count = 0;
+          while (window[i][j] == 0 && count < 4) 
           {
-            int count = 0;
-            while (window[i][j] == 0 && count < 4) 
+            count++;
+            for (int k=0; j-k>0; k++) 
             {
-              count++;
-              for (int k=0; j-k>0; k++) 
+              window[i][j-k] = window[i][j-k-1];
+            }
+            window[i][0] = 0;
+          }
+        }
+        for (int j=3; j>0; j--) // Merging
+        {
+          if (j>0) {
+            if (window[i][j] == window[i][j-1]) 
+            {
+              window[i][j] += window[i][j-1];
+              score += window[i][j];
+              for (int k=1; j-k>0; k++) 
               {
                 window[i][j-k] = window[i][j-k-1];
               }
               window[i][0] = 0;
             }
           }
-          for (int j=3; j>0; j--) 
-          {
-            if (j>0) {
-              if (window[i][j] == window[i][j-1]) 
-              {
-                window[i][j] += window[i][j-1];
-                score += window[i][j];
-                for (int k=1; j-k>0; k++) 
-                {
-                  window[i][j-k] = window[i][j-k-1];
-                }
-                window[i][0] = 0;
-              }
-            }
-          }
         }
       }
-      break;
-    case LEFT: 
+    }
+    break;
+  case LEFT: 
+    {
+      for (int j=0; j<4; j++) // Loop for 4*4 grid
       {
-        for (int j=0; j<4; j++) 
+        for (int i=0; i<4; i++) 
         {
-          for (int i=0; i<4; i++) 
+          int count = 0;
+          while (window[i][j] == 0 && count < 4) 
           {
-            int count = 0;
-            while (window[i][j] == 0 && count < 4) 
+            count++;
+            for (int k=0; k+i<3; k++) 
             {
-              count++;
-              for (int k=0; k+i<3; k++) 
+              window[i+k][j] = window[i+k+1][j];
+            }
+            window[3][j] = 0;
+          }
+        }
+        for (int i=0; i<4; i++) // Merging
+        {
+          if (i<3) 
+          {
+            if (window[i][j] == window[i+1][j]) 
+            {
+              window[i][j] += window[i+1][j];
+              score += window[i][j];
+              for (int k=1; k+i<3; k++) 
               {
                 window[i+k][j] = window[i+k+1][j];
               }
               window[3][j] = 0;
             }
           }
-          for (int i=0; i<4; i++) 
-          {
-            if (i<3) 
-            {
-              if (window[i][j] == window[i+1][j]) 
-              {
-                window[i][j] += window[i+1][j];
-                score += window[i][j];
-                for (int k=1; k+i<3; k++) 
-                {
-                  window[i+k][j] = window[i+k+1][j];
-                }
-                window[3][j] = 0;
-              }
-            }
-          }
         }
       }
-      break;
-    case RIGHT: 
+    }
+    break;
+  case RIGHT: 
+    {
+      for (int j=0; j<4; j++) // Loop for 4*4 grid
       {
-        for (int j=0; j<4; j++) 
+        for (int i=3; i>0; i--) 
         {
-          for (int i=3; i>0; i--) 
+          int count = 0;
+          while (window[i][j] == 0 && count < 4) 
           {
-            int count = 0;
-            while (window[i][j] == 0 && count < 4) 
+            count++;
+            for (int k=0; i-k>0; k++) 
             {
-              count++;
-              for (int k=0; i-k>0; k++) 
+              window[i-k][j] = window[i-k-1][j];
+            }
+            window[0][j] = 0;
+          }
+        }
+        for (int i=3; i>0; i--) // Merging
+        {
+          if (i>0) 
+          {
+            if (window[i][j] == window[i-1][j]) 
+            {
+              window[i][j] += window[i-1][j];
+              score += window[i][j];
+              for (int k=1; i-k>0; k++) 
               {
                 window[i-k][j] = window[i-k-1][j];
               }
               window[0][j] = 0;
             }
           }
-          for (int i=3; i>0; i--) 
-          {
-            if (i>0) 
-            {
-              if (window[i][j] == window[i-1][j]) 
-              {
-                window[i][j] += window[i-1][j];
-                score += window[i][j];
-                for (int k=1; i-k>0; k++) 
-                {
-                  window[i-k][j] = window[i-k-1][j];
-                }
-                window[0][j] = 0;
-              }
-            }
-          }
         }
       }
-      break;
     }
+    break;
+  }
 
-    for (int i=0; i<4; i++) 
+  for (int i=0; i<4; i++) // Loop for 4*4 grid
+  {
+    for (int j=0; j<4; j++) 
     {
-      for (int j=0; j<4; j++) 
+      if (numberBefore[i][j] != window[i][j]) 
       {
-        if (numberBefore[i][j] != window[i][j]) 
-        {
-          move = true;
-          break;
-        }
-        if (move==true) 
-        {
-          break;
-        }
+        move = true;
+        break;
+      }
+      if (move==true) 
+      {
+        break;
       }
     }
-    if (move==true) 
-    {
-      drawingAllowed = true; // Making a new turn initiate
-      move = false; // Resetting the variable
-    }
-    if (drawingAllowed == true) 
-    {
-      drawBackground();
-      drawSquares(256);
-      generateNew(1);
-    }
+  }
+  if (move==true) 
+  {
+    drawingAllowed = true; // Making a new turn initiate
+    move = false; // Resetting the variable
+  }
+  if (drawingAllowed == true) 
+  {
+    drawBackground();
+    drawSquares(256);
+    generateNew(1);
   }
 }
 
