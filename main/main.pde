@@ -5,7 +5,7 @@ int[][] window = new int[4][4]; // 4*4 Array for all coordinates of the grid.
 int score = 0; // Initial Score = 0
 int gridSize = window.length-1; // Array size
 boolean move = false; // Has any tile moved?
-boolean drawS = true; // Can a new turn start?
+boolean drawingAllowed = true; // Can a new turn start?
 boolean gameover = false; // Is the game over?
 PFont font; // Custom font
 
@@ -41,14 +41,14 @@ void setup()
 
 void draw()
 {
-  if (drawS == true && gameover == false) // If the game is not over and drawing is enabled:
+  if (drawingAllowed == true && gameover == false) // If the game is not over and drawing is enabled:
   {
     drawSquares(12); // Draw 12 Squares (again)
   }
 
   if (gameover==true) // If the game is over
   {
-    drawS = false; // Disable Drawing
+    drawingAllowed = false; // Disable Drawing
   }
 }
 
@@ -272,10 +272,10 @@ void move()
     }
     if (move==true) 
     {
-      drawS = true; // Making a new turn initiate
+      drawingAllowed = true; // Making a new turn initiate
       move = false; // Resetting the variable
     }
-    if (drawS == true) 
+    if (drawingAllowed == true) 
     {
       drawBackground();
       drawSquares(256);
@@ -370,7 +370,7 @@ void generateNew(int turns)
 
 void keyPressed() 
 {
-  drawS = false;
+  drawingAllowed = false;
   move();
 }
 
@@ -381,7 +381,7 @@ void mousePressed()
     setup();
   } else 
   {
-    drawS = false;
+    drawingAllowed = false;
     keyCode = 0;
     if (mouseX < width / 4) keyCode = LEFT;
     if (mouseX > width * 3 / 4) keyCode = RIGHT;
