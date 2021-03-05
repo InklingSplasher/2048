@@ -19,7 +19,7 @@ void setup()
    * Generating the first square in our 2D-array
    */
 
-  size(900, 1000, P2D); // Setting the size
+  size(900, 1000); // Setting the size
   font = loadFont("Consolas-40.vlw");
   textFont(font);
   
