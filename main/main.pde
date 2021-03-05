@@ -74,7 +74,7 @@ void drawBackground()
   /*
   * Function to draw the empty squares without an value (0) / on all parts
    */
-
+  noStroke(); // Remove the stroke
   background(255, 255, 255); // White background
   textAlign(CENTER); // Text alignment in the center
   fill(19, 182, 236); // Light blue
