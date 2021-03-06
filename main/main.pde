@@ -94,7 +94,7 @@ void drawBackground()
   {
     for (int j=0; j<4; j++)
     {
-      fill(0xff0E4498); // Dark blue
+      fill(17, 171, 217); // Dark blue
       rect(centersX[i][j], centersY[i][j], 160, 160, 10); // Empty squares
     }
   }
