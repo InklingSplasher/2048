@@ -339,58 +339,58 @@ void fillSquareColors(int x, int y)
   switch(x) 
   {
   case 2: 
-    fill(#EFE2DB, y); 
+    fill(#B5DDE6, y); 
     break;
   case 4: 
-    fill(#F1DEC7, y); 
+    fill(#95DDEF, y); 
     break;
   case 8: 
-    fill(#F3B077, y); 
+    fill(#7DDEF7, y); 
     break;
   case 16: 
-    fill(#FF995C, y); 
+    fill(#65DBF8, y); 
     break;
   case 32: 
-    fill(#FF8558, y); 
+    fill(#36D3FA, y); 
     break;
   case 64: 
-    fill(#FF682F, y); 
+    fill(#06C8F8, y); 
     break;
   case 128: 
-    fill(#F3CB69, y); 
+    fill(#ECB2C1, y); 
     break;
   case 256: 
-    fill(#F0C552, y); 
+    fill(#EC93AB, y); 
     break;
   case 512: 
-    fill(#F5C344, y); 
+    fill(#EF7293, y); 
     break;
   case 1024: 
-    fill(#F4BF28, y); 
+    fill(#F75F88, y); 
     break;
   case 2048: 
-    fill(#F7BD00, y); 
+    fill(#F54272, y); 
     break;
   case 4096: 
-    fill(#FF736B, y); 
+    fill(#ECD8B2, y); 
     break;
   case 8192: 
-    fill(#FF5A57, y); 
+    fill(#ECCE93, y); 
     break;
   case 16384: 
-    fill(#F15030, y); 
+    fill(#EFC672, y); 
     break;
   case 32768: 
-    fill(#68ADDB, y); 
+    fill(#F7C45F, y); 
     break;
   case 65536: 
-    fill(#559AE7, y); 
+    fill(#F5B942, y); 
     break;
   case 131072: 
-    fill(#0071C6, y); 
+    fill(#FF8B37, y); 
     break;
   default: 
-    fill(#0071C6, y); 
+    fill(#B5DDE6, y); 
     break;
   }
 }
