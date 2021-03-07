@@ -115,7 +115,7 @@ void drawSquares(int a)
       int x = window[i][j]; // Aid variable
       if (x != 0) // If the array at position i j has a value:
       { 
-        fillSquareColors(x, a); // Get the specified color depending on the number
+        determineColor(x, a); // Get the specified color depending on the number
         rect(centersX[i][j], centersY[i][j], 135, 135, 10); // Set a rectangle at the specific saved coordinates.
         fill(#000000); // Black
         textSize(48);
@@ -138,17 +138,17 @@ void move()
    * Fading in
    */
 
-  gameover = gameOverOrNot(); // Check if the game is over
+  gameover = isGameOver(); // Check if the game is over
 
   // This loop is used to check if any numbers are falsely moving
-  // For this, we create an array set with zeros all over for all coordinates to check
-  // the movement.
-  int[][] numberBefore = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
+  // For this, we basically copy the old values of the array to the new one.
+  // Later on, we then check if there was any movement.
+  int[][] oldValues = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
   for (int i=0; i<4; i++) // Loop for 4*4 grid
   {
     for (int j=0; j<4; j++) 
     {
-      numberBefore[i][j] = window[i][j]; // Checking if the number moved incorrectly (0 coordinate bug).
+      oldValues[i][j] = window[i][j]; // Saving all old values into the oldValues array.
     }
   }
   
@@ -304,14 +304,14 @@ void move()
   {
     for (int j=0; j<4; j++) 
     {
-      if (numberBefore[i][j] != window[i][j]) 
+      if (oldValues[i][j] != window[i][j]) // If any value is different
       {
-        move = true;
+        move = true; // Set move to true and allow a new turn
         break;
       }
       if (move==true) 
       {
-        break;
+        break; // Then go out of the loop
       }
     }
   }
@@ -321,15 +321,15 @@ void move()
     isRunning = true; // Making a new turn initiate
     move = false; // Resetting the variable
   }
-  if (isRunning == true) 
+  if (isRunning == true) // If the game is still running
   {
-    drawBackground();
-    drawSquares(256);
-    generateNew(1);
+    drawBackground(); // Reset the background
+    drawSquares(256); // Draw the inner squares
+    generateNew(1); // And generate 1 new number.
   }
 }
 
-void fillSquareColors(int x, int y) 
+void determineColor(int x, int y) 
 {
   /*
    * Simple function used to set colors depending on the number
@@ -400,7 +400,8 @@ void generateNew(int turns)
 {
   /*
    * Function used to generate new array entries if there currently is space on the
-   * screen. Ran after every turn.
+   * screen. Ran after every turn. The turns integer is used to generate a specified amount
+   * of numbers.
    */
 
   for (int i=0; i<turns; i++)
@@ -422,7 +423,7 @@ void generateNew(int turns)
 
 void keyPressed() 
 {
-  isRunning = false;
+  isRunning = false; // Reset the variable
   move();
 }
 
@@ -434,7 +435,7 @@ void mousePressed()
   }
 }
 
-boolean gameOverOrNot() 
+boolean isGameOver() 
 {
   /* 
    *  Boolean function to check if the game is over.
@@ -445,7 +446,7 @@ boolean gameOverOrNot()
   {
     for (int j=0; j<3; j++) 
     {
-      if ( window[i][j]==0 || window[j][i]==0 ||window[i][j+1]==0 ||window[j+1][i]==0 || window[i][j]==window[i][j+1] || window[j][i]==window[j+1][i]) return false; // The game is not over, since values have changed or still can change.
+      if ( window[i][j]==0 || window[j][i]==0 || window[i][j+1]==0 || window[j+1][i]==0 || window[i][j]==window[i][j+1] || window[j][i]==window[j+1][i]) return false; // The game is not over, since values have changed or still can change.
     }
   }
   return true; // No values have changed or can change, the game is over.
