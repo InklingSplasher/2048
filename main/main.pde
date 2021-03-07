@@ -1,6 +1,6 @@
 // Global Variables
-float[][] centersX = new float[4][4]; // For drawing the outer
-float[][] centersY = new float[4][4]; // and inner squares
+float[][] squaresX = new float[4][4]; // For drawing the outer
+float[][] squaresY = new float[4][4]; // and inner squares
 int[][] window = new int[4][4]; // 4*4 Array for all coordinates of the grid.
 int score = 0; // Initial Score = 0
 boolean move = false; // Has any tile moved?
@@ -29,8 +29,8 @@ void setup()
    for(int j=0;j<4;j++)
    {
      window[i][j] = 0;
-      centersX[i][j] = 0;
-      centersY[i][j] = 0;
+     squaresX[i][j] = 0;
+     squaresY[i][j] = 0;
    }
  }
 
@@ -42,12 +42,12 @@ void setup()
     {
       float x = 140 + 195*i; // Edge + Distance to next square
       float y = 240 + 195*j; // ^
-      centersX[i][j] = x; // Set the x coordinate
-      centersY[i][j] = y; // Set the y coordinate
+      squaresX[i][j] = x; // Set the x coordinate
+      squaresY[i][j] = y; // Set the y coordinate
     }
   }
 
-  drawBackground(); // Generate the background
+  generateBackground(); // Generate the background
 }
 
 void draw()
@@ -70,7 +70,7 @@ void draw()
   }
 }
 
-void drawBackground() 
+void generateBackground() 
 {
   /*
    * Function to draw the empty squares without a value (0) / on all parts
@@ -95,7 +95,7 @@ void drawBackground()
     for (int j=0; j<4; j++)
     {
       fill(17, 171, 217); // Dark blue
-      rect(centersX[i][j], centersY[i][j], 160, 160, 10); // Empty squares
+      rect(squaresX[i][j], squaresY[i][j], 160, 160, 10); // Empty squares
     }
   }
 }
@@ -116,11 +116,11 @@ void drawSquares(int a)
       if (x != 0) // If the array at position i j has a value:
       { 
         determineColor(x, a); // Get the specified color depending on the number
-        rect(centersX[i][j], centersY[i][j], 135, 135, 10); // Set a rectangle at the specific saved coordinates.
+        rect(squaresX[i][j], squaresY[i][j], 135, 135, 10); // Set a rectangle at the specific saved coordinates.
         fill(#000000); // Black
         textSize(48);
         textAlign(CENTER, CENTER); // Align text at the center of the screen
-        text(window[i][j], centersX[i][j], centersY[i][j]); // Set the number at the specific position
+        text(window[i][j], squaresX[i][j], squaresY[i][j]); // Set the number at the specific position
       }
     }
   }
@@ -323,7 +323,7 @@ void move()
   }
   if (isRunning == true) // If the game is still running
   {
-    drawBackground(); // Reset the background
+    generateBackground(); // Reset the background
     drawSquares(256); // Draw the inner squares
     generateNew(1); // And generate 1 new number.
   }
