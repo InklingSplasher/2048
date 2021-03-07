@@ -6,7 +6,8 @@ int score = 0; // Initial Score = 0
 boolean tileMoved = false; // Has any tile moved?
 boolean isRunning = true; // Can a new turn start?
 boolean GameOver = false; // Is the game over?
-PFont font; // Custom font
+PFont font; // Custom fonts
+PFont headline;
 
 void setup()
 {
@@ -22,6 +23,7 @@ void setup()
   noStroke(); // Remove the stroke
   strokeJoin(ROUND); // Make corners round
   font = loadFont("Consolas-40.vlw");
+  headline = loadFont("URWGothic-Demi-48.vlw");
   textFont(font);
   
  for(int x=0;x<4;x++) // Loop for 4*4 grid, resets all values to zero when the game starts over.
@@ -79,13 +81,15 @@ void generateBackground()
   background(255, 255, 255); // White background
   
   textAlign(CENTER); // Text alignment in the center
-  textSize(66);
   fill(19, 182, 236); // Light blue
+  textFont(headline);
+  textSize(66);
   text("2048", 100, 100); // Headline "2048"
   
-  textAlign(LEFT, TOP); // Align text at the top left
+  textAlign(RIGHT, TOP); // Align text at the top left
   textSize(30);
-  text("Score: " + score, 690, 80); // Score Headline
+  text("Score: " + score, 820, 80); // Score Headline
+  textFont(font);
   
   rectMode(CENTER); // Align rectangles at the center
   rect(435, 535, 820, 820, 10, 10, 10, 10); // Outer rectangle
@@ -154,7 +158,7 @@ void move()
   
   switch (keyCode) // Depending on the pressed key, do the following:
   {
-  case UP:
+  case UP: // Commented only UP, all following are basically programmed the same way, just in other orders.
     {
       for (int x=0; x<4; x++) // Loop for 4*4 grid
       {
