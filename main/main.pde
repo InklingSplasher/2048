@@ -18,7 +18,7 @@ void setup()
    * Generating the first square in our 2D-array
    */
 
-  size(880, 980); // Setting the size
+  size(870, 975); // Setting the size
   noStroke(); // Remove the stroke
   strokeJoin(ROUND); // Make corners round
   font = loadFont("Consolas-40.vlw");
