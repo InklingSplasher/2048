@@ -100,7 +100,7 @@ void generateBackground()
   }
 }
 
-void drawSquares(int a) 
+void drawSquares(int alpha) 
 {
   /*
    * Drawing the squares with values over the
@@ -115,7 +115,7 @@ void drawSquares(int a)
       int x = window[i][j]; // Aid variable
       if (x != 0) // If the array at position i j has a value:
       { 
-        determineColor(x, a); // Get the specified color depending on the number
+        determineColor(x, alpha); // Get the specified color depending on the number
         rect(squaresX[i][j], squaresY[i][j], 135, 135, 10); // Set a rectangle at the specific saved coordinates.
         fill(#000000); // Black
         textSize(48);
