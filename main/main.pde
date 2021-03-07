@@ -140,7 +140,7 @@ void move()
 
   gameover = gameOverOrNot(); // Check if the game is over
 
-  // This function is used to check if any numbers are falsely moving
+  // This loop is used to check if any numbers are falsely moving
   // For this, we create an array set with zeros all over for all coordinates to check
   // the movement.
   int[][] numberBefore = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
@@ -148,9 +148,10 @@ void move()
   {
     for (int j=0; j<4; j++) 
     {
-      numberBefore[i][j] = window[i][j]; // Checking if the number removed incorrectly (0 coordinate bug).
+      numberBefore[i][j] = window[i][j]; // Checking if the number moved incorrectly (0 coordinate bug).
     }
   }
+  
   switch (keyCode) // Depending on the pressed key, do the following:
   {
   case UP:
