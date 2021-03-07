@@ -3,7 +3,7 @@ float[][] squaresX = new float[4][4]; // For drawing the outer
 float[][] squaresY = new float[4][4]; // and inner squares
 int[][] window = new int[4][4]; // 4*4 Array for all coordinates of the grid.
 int score = 0; // Initial Score = 0
-boolean move = false; // Has any tile moved?
+boolean tileMoved = false; // Has any tile moved?
 boolean isRunning = true; // Can a new turn start?
 boolean gameover = false; // Is the game over?
 PFont font; // Custom font
@@ -59,7 +59,7 @@ void draw()
    * (If yes, initiate game-over-screen and mode)
    */
 
-  if (isRunning == true && gameover == false) // If the game is not over and drawing is enabled:
+  if (gameover == false && isRunning == true) // If the game is not over and drawing is enabled:
   {
     drawSquares(12); // Draw squares with the specific alpha value
   }
@@ -306,20 +306,20 @@ void move()
     {
       if (oldValues[i][j] != window[i][j]) // If any value is different
       {
-        move = true; // Set move to true and allow a new turn
+        tileMoved = true; // Set move to true and allow a new turn
         break;
       }
-      if (move==true) 
+      if (tileMoved==true) 
       {
         break; // Then go out of the loop
       }
     }
   }
 
-  if (move==true) 
+  if (tileMoved==true) 
   {
     isRunning = true; // Making a new turn initiate
-    move = false; // Resetting the variable
+    tileMoved = false; // Resetting the variable
   }
   if (isRunning == true) // If the game is still running
   {
