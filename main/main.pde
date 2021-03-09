@@ -1,6 +1,6 @@
 // Global Variables
-float[][] squaresX = new float[4][4]; // For drawing the outer
-float[][] squaresY = new float[4][4]; // and inner squares
+int[][] squaresX = new int[4][4]; // For drawing the outer
+int[][] squaresY = new int[4][4]; // and inner squares
 int[][] window = new int[4][4]; // 4*4 Array for all coordinates of the grid.
 int score = 0; // Initial Score = 0
 boolean tileMoved = false; // Has any tile moved?
@@ -42,8 +42,8 @@ void setup()
   {
     for (int j=0; j<4; j++)
     {
-      float x = 140 + 195*i; // Edge + Distance to next square
-      float y = 240 + 195*j; // ^
+      int x = 140 + 195*i; // Edge + Distance to next square
+      int y = 240 + 195*j; // ^
       squaresX[i][j] = x; // Set the x coordinate
       squaresY[i][j] = y; // Set the y coordinate
     }
