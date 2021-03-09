@@ -44,8 +44,8 @@ void setup()
     {
       int x = 140 + 195*i; // Edge + Distance to next square
       int y = 240 + 195*j; // ^
-      squaresX[i][j] = x; // Set the x coordinate
-      squaresY[i][j] = y; // Set the y coordinate
+      squaresX[i][j] = x; // Set the x coordinates
+      squaresY[i][j] = y; // Set the y coordinates
     }
   }
 
