@@ -61,12 +61,12 @@ void draw()
    * (If yes, initiate game-over-screen and mode)
    */
 
-  if (GameOver == false && isRunning == true) // If the game is not over and drawing is enabled:
+  if (!GameOver && isRunning) // If the game is not over and drawing is enabled:
   {
     drawSquares(12); // Draw squares with the specific alpha value
   }
 
-  if (GameOver==true) // If the game is over
+  if (GameOver) // If the game is over
   {
     isRunning = false; // Disable Drawing
   }
@@ -142,7 +142,7 @@ void move()
    * Fading in
    */
 
-  GameOver = isGameOver(); // Check if the game is over
+  GameOver = isGameOver(); // Check if the game is over to save computing power
 
   // This loop is used to check if any numbers are falsely moving
   // For this, we basically copy the old values of the array to the new one.
@@ -313,19 +313,19 @@ void move()
         tileMoved = true; // Set move to true and allow a new turn
         break;
       }
-      if (tileMoved==true) 
+      if (tileMoved) 
       {
         break; // Then go out of the loop
       }
     }
   }
 
-  if (tileMoved==true) 
+  if (tileMoved) 
   {
     isRunning = true; // Making a new turn initiate
     tileMoved = false; // Resetting the variable
   }
-  if (isRunning == true) // If the game is still running
+  if (isRunning) // If the game is still running
   {
     generateBackground(); // Reset the background
     drawSquares(256); // Draw the inner squares
