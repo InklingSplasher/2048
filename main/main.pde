@@ -1,6 +1,4 @@
 // Global Variables
-int[][] squaresX = new int[4][4]; // For drawing the outer
-int[][] squaresY = new int[4][4]; // and inner squares
 int[][] window = new int[4][4]; // 4*4 Array for all coordinates of the grid.
 int score = 0; // Initial Score = 0
 boolean tileMoved = false; // Has any tile moved?
@@ -91,17 +89,6 @@ void generateBackground()
    * Function to draw the empty squares without a value (0) / on all parts
    */
 
-  for (int i=0; i<4; i++) // Generate the inner squares
-  {
-    for (int j=0; j<4; j++)
-    {
-      int x = 140 + 195*i; // Edge + Distance to next square
-      int y = 240 + 195*j; // ^
-      squaresX[i][j] = x; // Set the x coordinates
-      squaresY[i][j] = y; // Set the y coordinates
-    }
-  }
-
   background(255, 255, 255); // White background
 
   textAlign(CENTER); // Text alignment in the center
@@ -123,7 +110,7 @@ void generateBackground()
     for (int y=0; y<4; y++)
     {
       fill(17, 171, 217); // Dark blue
-      rect(squaresX[x][y], squaresY[x][y], 160, 160, 10); // Empty squares
+      rect(140+195*x, 240+195*y, 160, 160, 10); // Empty squares
     }
   }
 }
@@ -144,11 +131,11 @@ void drawSquares(int alpha)
       if (j != 0) // If the array at position i j has a value:
       { 
         determineColor(j, alpha); // Get the specified color depending on the number
-        rect(squaresX[x][y], squaresY[x][y], 135, 135, 10); // Set a rectangle at the specific saved coordinates.
+        rect(140+195*x, 240+195*y, 135, 135, 10); // Set a rectangle at the specific saved coordinates.
         fill(#000000); // Black
         textSize(48);
         textAlign(CENTER, CENTER); // Align text at the center of the screen
-        text(window[x][y], squaresX[x][y], squaresY[x][y]); // Set the number at the specific position
+        text(window[x][y], 140+195*x, 240+195*y); // Set the number at the specific position
       }
     }
   }
@@ -385,8 +372,6 @@ void reset()
     for (int y=0; y<4; y++)
     {
       window[x][y] = 0;
-      squaresX[x][y] = 0;
-      squaresY[x][y] = 0;
     }
   }
 }
