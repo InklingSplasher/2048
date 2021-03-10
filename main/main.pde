@@ -366,18 +366,21 @@ void move()
       }
     }
     break;
-  case 82: // 82 means "r"
+  case 82: // 82 for "r" (restart)
   {
-    if(!endless) score = 0; // Resetting the score
+    score = 0; // Resetting the score
+    endless = false;
     GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
     isRunning = true;
     setup();
-    break;
+    return;
   }
-  case 83:
+  case 83: // 83 for "s" (stop)
   {
-    exit();
-    break;
+    println("Goodbye!");
+    delay(600);
+    exit(); // Exit the program
+    return;
   }
   default:
     {
