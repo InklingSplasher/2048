@@ -39,6 +39,7 @@ void draw()
   {
     drawSquares(12); // Draw squares with the specific alpha value
   }
+  
   if (GameOver) // If the game is over
   {
     isRunning = false; // Disable Drawing
@@ -57,24 +58,6 @@ void draw()
     textSize(32);
     text("Click anywhere to restart!", width/2, height/2+70);
   }
-  
-  String text;
-  if (endless) 
-  { 
-    text = "ON";
-    fill(#4CFF36);
-  }
-  else 
-  {
-    text = "×";
-    fill(#fa0000);
-  }
-  
-  rect(810,40,40,40,10);
-  textAlign(CENTER);
-  fill(0,0,0);
-  textSize(35);
-  text(text, 810,50);
 }
 
 void keyPressed() 
@@ -93,15 +76,16 @@ void mousePressed()
         window[x][y] = 0;
       }
     }
-    score = 0; // Resetting the score
+    if(!endless) score = 0; // Resetting the score
     GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
     isRunning = true;
     setup(); // Run the setup again and therefore reset everything.
   }
   else if (mouseX >= 790 && mouseY <= 830 && mouseY >= 10 && mouseY <= 60)
   {
-    endless = !endless; // Turn endless mode on / off
+    endless = true; // Turn endless mode on
   }
+    generateBackground();
 }
 
 void generateNew(int turns)
@@ -158,6 +142,24 @@ void generateBackground()
       rect(140+195*x, 240+195*y, 160, 160, 10); // Empty squares
     }
   }
+  
+  String text;
+  if (endless) 
+  { 
+    text = "ON";
+    fill(#4CFF36);
+  }
+  else 
+  {
+    text = "×";
+    fill(#fa0000);
+  }
+  
+  rect(810,40,40,40,10);
+  textAlign(CENTER);
+  fill(0,0,0);
+  textSize(35);
+  text(text, 810,50);
 }
 
 void drawSquares(int alpha) 
