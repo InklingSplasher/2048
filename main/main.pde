@@ -72,6 +72,44 @@ void draw()
   }
 }
 
+void keyPressed() 
+{
+  isRunning = false; // Reset the variable
+  move();
+}
+
+void mousePressed() 
+{
+  if (GameOver == true) // When the game is over and the mouse is pressed, restart the game.
+  {
+    setup(); // Run the setup again and therefore reset everything.
+  }
+}
+
+void generateNew(int turns)
+{
+  /*
+   * Function used to generate new array entries if there currently is space on the
+   * screen. Ran after every turn. The turns integer is used to generate a specified amount
+   * of numbers.
+   */
+
+  for (int i=0; i<turns; i++)
+  {
+    int x, y, number, n = 0;
+    do 
+    {
+      x = (int) random(0, 4); // Get random values pointing to a spot to the array.
+      y = (int) random(0, 4);
+      // If the space is empty (0) and the maximum turns (40) isn't reached, run again.
+    } 
+    while (window[x][y] != 0 && n++ < 40); // (15÷16)÷40 ~= 2,344% Probability of not adding a two at last tile.
+    if ((int) random(0, 100) <= 50) number = 2;  // Use either a 4 or a 2.
+    else number = 4;
+    window[x][y] = number; // Else, set a 2/4 at that position.
+  }
+}
+
 void generateBackground() 
 {
   /*
@@ -128,6 +166,23 @@ void drawSquares(int alpha)
       }
     }
   }
+}
+
+boolean isGameOver() 
+{
+  /* 
+   *  Boolean function to check if the game is over.
+   *  Checks specifically, if any of the arrays values, and the values after them are still 0
+   *  If yes, return false, else true.
+   */
+  for (int x=0; x<4; x++) // Loop for 4*4 grid
+  {
+    for (int y=0; y<3; y++) 
+    {
+      if ( window[x][y]==0 || window[y][x]==0 || window[x][y+1]==0 || window[y+1][x]==0 || window[x][y]==window[x][y+1] || window[y][x]==window[y+1][x]) return false; // The game is not over, since values have changed or still can change.
+    }
+  }
+  return true; // No values have changed or can change, the game is over.
 }
 
 void move() 
@@ -398,60 +453,4 @@ void determineColor(int x, int y)
     fill(#B5DDE6, y); 
     break;
   }
-}
-
-void generateNew(int turns)
-{
-  /*
-   * Function used to generate new array entries if there currently is space on the
-   * screen. Ran after every turn. The turns integer is used to generate a specified amount
-   * of numbers.
-   */
-
-  for (int i=0; i<turns; i++)
-  {
-    int x, y, number, n = 0;
-    do 
-    {
-      x = (int) random(0, 4); // Get random values pointing to a spot to the array.
-      y = (int) random(0, 4);
-      // If the space is empty (0) and the maximum turns (40) isn't reached, run again.
-    } 
-    while (window[x][y] != 0 && n++ < 40); // (15÷16)÷40 ~= 2,344% Probability of not adding a two at last tile.
-    if ((int) random(0, 100) <= 50) number = 2;  // Use either a 4 or a 2.
-    else number = 4;
-    window[x][y] = number; // Else, set a 2/4 at that position.
-  }
-}
-
-
-void keyPressed() 
-{
-  isRunning = false; // Reset the variable
-  move();
-}
-
-void mousePressed() 
-{
-  if (GameOver == true) // When the game is over and the mouse is pressed, restart the game.
-  {
-    setup(); // Run the setup again and therefore reset everything.
-  }
-}
-
-boolean isGameOver() 
-{
-  /* 
-   *  Boolean function to check if the game is over.
-   *  Checks specifically, if any of the arrays values, and the values after them are still 0
-   *  If yes, return false, else true.
-   */
-  for (int x=0; x<4; x++) // Loop for 4*4 grid
-  {
-    for (int y=0; y<3; y++) 
-    {
-      if ( window[x][y]==0 || window[y][x]==0 || window[x][y+1]==0 || window[y+1][x]==0 || window[x][y]==window[x][y+1] || window[y][x]==window[y+1][x]) return false; // The game is not over, since values have changed or still can change.
-    }
-  }
-  return true; // No values have changed or can change, the game is over.
 }
