@@ -4,6 +4,7 @@ int score = 0; // Initial Score = 0
 boolean tileMoved = false; // Has any tile moved?
 boolean isRunning = true; // Can a new turn start?
 boolean GameOver = false; // Is the game over?
+boolean endless = false; // Is endless mode enabled?
 PFont font; // Custom fonts
 PFont headline;
 
@@ -33,6 +34,7 @@ void draw()
    * Check if the game is over
    */
 
+  // println(mouseX,mouseY);
   if (!GameOver && isRunning) // If the game is not over and drawing is enabled:
   {
     drawSquares(12); // Draw squares with the specific alpha value
@@ -77,6 +79,11 @@ void mousePressed()
     GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
     isRunning = true;
     setup(); // Run the setup again and therefore reset everything.
+  }
+  else if (mouseX >= 790 && mouseY <= 830 && mouseY >= 10 && mouseY <= 60)
+  {
+    endless = !endless;
+    println("!!");
   }
 }
 
@@ -134,6 +141,24 @@ void generateBackground()
       rect(140+195*x, 240+195*y, 160, 160, 10); // Empty squares
     }
   }
+  String checkorcross;
+  String usedColor;
+  if (endless) 
+  { 
+    checkorcross = "✔";
+    fill(#4CFF36);
+  }
+  else 
+  {
+    checkorcross = "×";
+    fill(#fa0000);
+  }
+  
+  rect(810,40,40,40,10);
+  textAlign(CENTER);
+  fill(0,0,0);
+  textSize(40);
+  text(checkorcross, 810,50);
 }
 
 void drawSquares(int alpha) 
