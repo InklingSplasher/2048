@@ -26,29 +26,8 @@ void setup()
   headline = loadFont("URWGothic-Demi-48.vlw");
   textFont(font);
   
- for(int x=0;x<4;x++) // Loop for 4*4 grid, resets all values to zero when the game starts over.
- {
-   for(int y=0;y<4;y++)
-   {
-     window[x][y] = 0;
-     squaresX[x][y] = 0;
-     squaresY[x][y] = 0;
-   }
- }
-
+  reset();
   generateNew((int) random(1,2.99)); // Generate 1 or 2 new numbers at the start of the game.
-
-  for (int i=0; i<4; i++) // Generate the inner squares
-  {
-    for (int j=0; j<4; j++)
-    {
-      int x = 140 + 195*i; // Edge + Distance to next square
-      int y = 240 + 195*j; // ^
-      squaresX[i][j] = x; // Set the x coordinates
-      squaresY[i][j] = y; // Set the y coordinates
-    }
-  }
-
   generateBackground(); // Generate the background
 }
 
@@ -115,7 +94,18 @@ void generateBackground()
   /*
    * Function to draw the empty squares without a value (0) / on all parts
    */
-   
+  
+  for (int i=0; i<4; i++) // Generate the inner squares
+  {
+    for (int j=0; j<4; j++)
+    {
+      int x = 140 + 195*i; // Edge + Distance to next square
+      int y = 240 + 195*j; // ^
+      squaresX[i][j] = x; // Set the x coordinates
+      squaresY[i][j] = y; // Set the y coordinates
+    }
+  }
+  
   background(255, 255, 255); // White background
   
   textAlign(CENTER); // Text alignment in the center
@@ -386,6 +376,19 @@ void move()
     drawSquares(256); // Draw the inner squares
     generateNew(1); // And generate 1 new number.
   }
+}
+
+void reset()
+{
+ for(int x=0;x<4;x++) // Loop for 4*4 grid, resets all values to zero when the game starts over.
+ {
+   for(int y=0;y<4;y++)
+   {
+     window[x][y] = 0;
+     squaresX[x][y] = 0;
+     squaresY[x][y] = 0;
+   }
+ }
 }
 
 void determineColor(int x, int y) 
