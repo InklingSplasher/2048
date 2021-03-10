@@ -23,6 +23,14 @@ void setup()
   headline = loadFont("URWGothic-Demi-48.vlw");
   textFont(font);
 
+  for (int x=0; x<4; x++) // Loop for 4*4 grid, resets all values to zero when the game starts over.
+  {
+    for (int y=0; y<4; y++)
+    {
+      window[x][y] = 0;
+    }
+  }
+  
   generateNew((int) random(1, 2.99)); // Generate 1 or 2 new numbers at the start of the game.
   generateBackground(); // Generate the background
 }
@@ -69,13 +77,6 @@ void mousePressed()
 {
   if (GameOver) // When the game is over and the mouse is pressed, restart the game.
   {
-    for (int x=0; x<4; x++) // Loop for 4*4 grid, resets all values to zero when the game starts over.
-    {
-      for (int y=0; y<4; y++)
-      {
-        window[x][y] = 0;
-      }
-    }
     if(!endless) score = 0; // Resetting the score
     GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
     isRunning = true;
@@ -365,9 +366,22 @@ void move()
       }
     }
     break;
+  case 82: // 82 means "r"
+  {
+    if(!endless) score = 0; // Resetting the score
+    GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
+    isRunning = true;
+    setup();
+    break;
+  }
+  case 83:
+  {
+    exit();
+    break;
+  }
   default:
     {
-      println("This key is not used!");
+      println("This key is not used!",keyCode);
     }
   }
 
