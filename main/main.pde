@@ -81,11 +81,11 @@ void mousePressed()
     isRunning = true;
     setup(); // Run the setup again and therefore reset everything.
   }
-  else if (mouseX >= 790 && mouseY <= 830 && mouseY >= 10 && mouseY <= 60)
+  else if (mouseX >= 790 && mouseY <= 830 && mouseY >= 10 && mouseY <= 60 && !endless)
   {
     endless = true; // Turn endless mode on
-  }
     generateBackground();
+  }
 }
 
 void generateNew(int turns)
@@ -119,7 +119,7 @@ void generateBackground()
    */
 
   background(255, 255, 255); // White background
-
+  
   textAlign(CENTER); // Text alignment in the center
   fill(19, 182, 236); // Light blue
   textFont(headline);
@@ -128,7 +128,9 @@ void generateBackground()
 
   textAlign(RIGHT, TOP); // Align text at the top left
   textSize(30);
+  if(endless) fill(#fa0000);
   text("Score: " + score, 820, 80); // Score Headline
+  fill(19, 182, 236);
   textFont(font);
 
   rectMode(CENTER); // Align rectangles at the center
@@ -154,12 +156,15 @@ void generateBackground()
     text = "×";
     fill(#fa0000);
   }
-  
+  textFont(headline);
   rect(810,40,40,40,10);
   textAlign(CENTER);
   fill(0,0,0);
-  textSize(35);
+  textSize(20);
+  text("Endless\nmode:", 740,35);
+  textSize(26);
   text(text, 810,50);
+  textFont(font);
 }
 
 void drawSquares(int alpha) 
