@@ -18,8 +18,8 @@ Sorted from top (important) to bottom (not/less important)
   4. Bug: Number a skips to the last tile even though there are numbers in between. ✔️
   5. Bug: Sometimes the array is partially reset. ✔️
 * Add Score ✔️
-* Add reset and stop actions (press 'r' / press 's') (doing)
-* Animations (doing)
-* "Game Completed" / Game Over Status
-* Option for score to be continued (Endless mode)
+* Add reset and stop actions (press 'r' / press 's') ✔️
+* Animations ✔️
+* "Game Completed" / Game Over Status (doing)
+* Option for score to be continued (Endless mode) ✔️
 * Easter Eggs?
