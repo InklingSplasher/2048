@@ -16,10 +16,8 @@ void setup()
    * Putting squares in the right places
    * Generating the first square in our 2D-array
    */
-
   size(870, 980); // Setting the size
   noStroke(); // Remove the stroke
-  strokeJoin(ROUND); // Make corners round
   font = loadFont("Consolas-40.vlw");
   headline = loadFont("URWGothic-Demi-48.vlw");
   textFont(font);
@@ -42,6 +40,20 @@ void draw()
   if (GameOver) // If the game is over
   {
     isRunning = false; // Disable Drawing
+    
+    rectMode(CENTER);
+    fill(#FF4050, 4);
+    rect(width/2, height/2+40, 520, 520, 10, 10, 10, 10);
+    
+    textFont(headline);
+    textAlign(CENTER);
+    fill(#fa0000, 36);
+    textSize(48);
+    text("GAME OVER", width/2, height/2+10);
+    
+    fill(#ffffff, 12);
+    textSize(32);
+    text("Click anywhere to restart!", width/2, height/2+70);
   }
 }
 
