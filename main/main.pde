@@ -141,23 +141,6 @@ void drawSquares(int alpha)
   }
 }
 
-boolean isGameOver() 
-{
-  /* 
-   *  Boolean function to check if the game is over.
-   *  Checks specifically, if any of the arrays values, and the values after them are still 0
-   *  If yes, return false, else true.
-   */
-  for (int x=0; x<4; x++) // Loop for 4*4 grid
-  {
-    for (int y=0; y<3; y++) 
-    {
-      if ( window[x][y]==0 || window[y][x]==0 || window[x][y+1]==0 || window[y+1][x]==0 || window[x][y]==window[x][y+1] || window[y][x]==window[y+1][x]) return false; // The game is not over, since values have changed or still can change.
-    }
-  }
-  return true; // No values have changed or can change, the game is over.
-}
-
 void move() 
 {
   /*
@@ -363,6 +346,23 @@ void move()
     drawSquares(256); // Draw the inner squares
     generateNew(1); // And generate 1 new number.
   }
+}
+
+boolean isGameOver() 
+{
+  /* 
+   *  Boolean function to check if the game is over.
+   *  Checks specifically, if any of the arrays values, and the values after them are still 0
+   *  If yes, return false, else true.
+   */
+  for (int x=0; x<4; x++) // Loop for 4*4 grid
+  {
+    for (int y=0; y<3; y++) 
+    {
+      if ( window[x][y]==0 || window[y][x]==0 || window[x][y+1]==0 || window[y+1][x]==0 || window[x][y]==window[x][y+1] || window[y][x]==window[y+1][x]) return false; // The game is not over, since values have changed or still can change.
+    }
+  }
+  return true; // No values have changed or can change, the game is over.
 }
 
 void reset()
