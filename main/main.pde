@@ -24,7 +24,6 @@ void setup()
   headline = loadFont("URWGothic-Demi-48.vlw");
   textFont(font);
 
-  reset();
   generateNew((int) random(1, 2.99)); // Generate 1 or 2 new numbers at the start of the game.
   generateBackground(); // Generate the background
 }
@@ -55,6 +54,13 @@ void mousePressed()
 {
   if (GameOver) // When the game is over and the mouse is pressed, restart the game.
   {
+    for (int x=0; x<4; x++) // Loop for 4*4 grid, resets all values to zero when the game starts over.
+    {
+      for (int y=0; y<4; y++)
+      {
+        window[x][y] = 0;
+      }
+    }
     setup(); // Run the setup again and therefore reset everything.
   }
 }
@@ -363,17 +369,6 @@ boolean isGameOver()
     }
   }
   return true; // No values have changed or can change, the game is over.
-}
-
-void reset()
-{
-  for (int x=0; x<4; x++) // Loop for 4*4 grid, resets all values to zero when the game starts over.
-  {
-    for (int y=0; y<4; y++)
-    {
-      window[x][y] = 0;
-    }
-  }
 }
 
 void determineColor(int x, int y) 
