@@ -61,6 +61,9 @@ void mousePressed()
         window[x][y] = 0;
       }
     }
+    score = 0; // Resetting the score
+    GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
+    isRunning = true;
     setup(); // Run the setup again and therefore reset everything.
   }
 }
