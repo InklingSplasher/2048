@@ -25,26 +25,23 @@ void setup()
   font = loadFont("Consolas-40.vlw");
   headline = loadFont("URWGothic-Demi-48.vlw");
   textFont(font);
-  
+
   reset();
-  generateNew((int) random(1,2.99)); // Generate 1 or 2 new numbers at the start of the game.
+  generateNew((int) random(1, 2.99)); // Generate 1 or 2 new numbers at the start of the game.
   generateBackground(); // Generate the background
 }
 
 void draw()
 {
   /*
-   * Constant loops to:
    * Check if drawing is still enabled
    * Check if the game is over
-   * (If yes, initiate game-over-screen and mode)
    */
 
   if (!GameOver && isRunning) // If the game is not over and drawing is enabled:
   {
     drawSquares(12); // Draw squares with the specific alpha value
   }
-
   if (GameOver) // If the game is over
   {
     isRunning = false; // Disable Drawing
@@ -53,13 +50,12 @@ void draw()
 
 void keyPressed() 
 {
-  isRunning = false; // Reset the variable
   move();
 }
 
 void mousePressed() 
 {
-  if (GameOver == true) // When the game is over and the mouse is pressed, restart the game.
+  if (GameOver) // When the game is over and the mouse is pressed, restart the game.
   {
     setup(); // Run the setup again and therefore reset everything.
   }
@@ -94,7 +90,7 @@ void generateBackground()
   /*
    * Function to draw the empty squares without a value (0) / on all parts
    */
-  
+
   for (int i=0; i<4; i++) // Generate the inner squares
   {
     for (int j=0; j<4; j++)
@@ -105,20 +101,20 @@ void generateBackground()
       squaresY[i][j] = y; // Set the y coordinates
     }
   }
-  
+
   background(255, 255, 255); // White background
-  
+
   textAlign(CENTER); // Text alignment in the center
   fill(19, 182, 236); // Light blue
   textFont(headline);
   textSize(66);
   text("2048", 100, 100); // Headline "2048"
-  
+
   textAlign(RIGHT, TOP); // Align text at the top left
   textSize(30);
   text("Score: " + score, 820, 80); // Score Headline
   textFont(font);
-  
+
   rectMode(CENTER); // Align rectangles at the center
   rect(435, 535, 820, 820, 10, 10, 10, 10); // Outer rectangle
 
@@ -186,8 +182,8 @@ void move()
    * Merging
    * Fading in
    */
-
-  GameOver = isGameOver(); // Check if the game is over to save computing power
+  isRunning = false; // Reset the variable
+  GameOver = isGameOver(); // Check if the game is over and save it into a variable to save computing power
 
   // This loop is used to check if any numbers are falsely moving
   // For this, we basically copy the old values of the array to the new one.
@@ -200,7 +196,7 @@ void move()
       oldValues[x][y] = window[x][y]; // Saving all old values into the oldValues array.
     }
   }
-  
+
   switch (keyCode) // Depending on the pressed key, do the following:
   {
   case UP: // Commented only UP, all following are basically programmed the same way, just in other orders.
@@ -347,6 +343,10 @@ void move()
       }
     }
     break;
+  default:
+    {
+      println("This key is not used!");
+    }
   }
 
   for (int x=0; x<4; x++) // Loop for 4*4 grid
@@ -380,15 +380,15 @@ void move()
 
 void reset()
 {
- for(int x=0;x<4;x++) // Loop for 4*4 grid, resets all values to zero when the game starts over.
- {
-   for(int y=0;y<4;y++)
-   {
-     window[x][y] = 0;
-     squaresX[x][y] = 0;
-     squaresY[x][y] = 0;
-   }
- }
+  for (int x=0; x<4; x++) // Loop for 4*4 grid, resets all values to zero when the game starts over.
+  {
+    for (int y=0; y<4; y++)
+    {
+      window[x][y] = 0;
+      squaresX[x][y] = 0;
+      squaresY[x][y] = 0;
+    }
+  }
 }
 
 void determineColor(int x, int y) 
