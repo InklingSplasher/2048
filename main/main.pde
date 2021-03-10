@@ -57,6 +57,24 @@ void draw()
     textSize(32);
     text("Click anywhere to restart!", width/2, height/2+70);
   }
+  
+  String text;
+  if (endless) 
+  { 
+    text = "ON";
+    fill(#4CFF36);
+  }
+  else 
+  {
+    text = "×";
+    fill(#fa0000);
+  }
+  
+  rect(810,40,40,40,10);
+  textAlign(CENTER);
+  fill(0,0,0);
+  textSize(35);
+  text(text, 810,50);
 }
 
 void keyPressed() 
@@ -82,8 +100,7 @@ void mousePressed()
   }
   else if (mouseX >= 790 && mouseY <= 830 && mouseY >= 10 && mouseY <= 60)
   {
-    endless = !endless;
-    println("!!");
+    endless = !endless; // Turn endless mode on / off
   }
 }
 
@@ -141,24 +158,6 @@ void generateBackground()
       rect(140+195*x, 240+195*y, 160, 160, 10); // Empty squares
     }
   }
-  String checkorcross;
-  String usedColor;
-  if (endless) 
-  { 
-    checkorcross = "✔";
-    fill(#4CFF36);
-  }
-  else 
-  {
-    checkorcross = "×";
-    fill(#fa0000);
-  }
-  
-  rect(810,40,40,40,10);
-  textAlign(CENTER);
-  fill(0,0,0);
-  textSize(40);
-  text(checkorcross, 810,50);
 }
 
 void drawSquares(int alpha) 
