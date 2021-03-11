@@ -18,7 +18,6 @@ void setup()
    * Generating the first square in our 2D-array
    */
    
-   GameOver = true;
   size(870, 980); // Setting the size
   noStroke(); // Remove the stroke
   font = loadFont("Consolas-40.vlw");
@@ -60,11 +59,11 @@ void draw()
     
     textFont(headline);
     textAlign(CENTER);
-    fill(#ED3D3D, 36);
+    fill(#ED3D3D, 80);
     textSize(48);
     text("GAME OVER", width/2, height/2+10);
     
-    fill(#000000, 12);
+    fill(#000000, 50);
     textSize(32);
     text("Click anywhere to restart!", width/2, height/2+70);
   }
