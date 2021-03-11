@@ -53,7 +53,6 @@ void draw()
     }    
   case 1:
     {
-      println(mouseX,mouseY);
       if (!GameOver && isRunning) // If the game is not over and drawing i
       {
         drawSquares(12); // Draw squares with the specific alpha value
@@ -98,15 +97,16 @@ void mousePressed()
       GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
       isRunning = true;
       setup(); // Run the setup again and therefore reset everything.
-    } 
-    else if (mouseX >= 790 && mouseX <= 830 && mouseY >= 10 && mouseY <= 60 && !endless)
+    } else if (mouseX >= 790 && mouseX <= 830 && mouseY >= 10 && mouseY <= 60 && !endless)
     {
       endless = true; // Turn endless mode on
       generateBackground();
     }
-    /*else if (mouseX >= && mouseX <= && mouseY >= && mouseY <=)
-    {
-    }*/
+  }
+  if (mouseX >= 790 && mouseX <= 830 && mouseY >= 65 && mouseY <= 110)
+  {
+    println("Goodbye!");
+    exit(); // Exit the program
   }
 }
 
@@ -173,8 +173,7 @@ void generateBackground()
     text = "ON";
     fill(#77E744);
     textSize(19);
-  } 
-  else 
+  } else 
   {
     text = "×";
     fill(#ED3D3D);
@@ -188,7 +187,7 @@ void generateBackground()
   text("Endless\nmode:", 740, 35);
   fill(0, 0, 0, 250);
   text(text, 810, 49);
-  
+
   fill(#ED3D3D);
   rect(810, 90, 40, 40, 10);
   fill(0, 0, 0);
