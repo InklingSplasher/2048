@@ -20,6 +20,7 @@ Sorted from top (important) to bottom (not/less important)
 * Add Score ✔️
 * Add reset and stop actions (press 'r' / press 's') ✔️
 * Animations ✔️
+* Startscreen
 * "Game Completed" / Game Over Status (doing)
 * Option for score to be continued (Endless mode) ✔️
 * Easter Eggs?
