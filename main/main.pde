@@ -196,7 +196,7 @@ void generateBackground()
   {
     text = "TURN\nON";
     fill(#ED3D3D);
-    textSize = 13;
+    textSize = 15;
   }
   textFont(headline);
   rect(810, 40, 40, 40, 10);
@@ -210,7 +210,7 @@ void generateBackground()
   fill(0, 0, 0);
   textAlign(CENTER, CENTER);
   textSize(textSize);
-  text(text, 810, 40);
+  text(text, 810, 43);
   textFont(font);
 }
 
