@@ -150,12 +150,14 @@ void generateBackground()
   if (endless) 
   { 
     text = "ON";
-    fill(#4CFF36);
+    fill(#77E744);
+    textSize(19);
   }
   else 
   {
     text = "×";
-    fill(#fa0000);
+    fill(#ED3D3D);
+    textSize(26);
   }
   textFont(headline);
   rect(810,40,40,40,10);
@@ -163,8 +165,8 @@ void generateBackground()
   fill(0,0,0);
   textSize(20);
   text("Endless\nmode:", 740,35);
-  textSize(26);
-  text(text, 810,50);
+  fill(0,0,0,100);
+  text(text, 810,49);
   textFont(font);
 }
 
