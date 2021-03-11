@@ -49,6 +49,19 @@ void draw()
   case 0:
     {
       // Startscreen
+        rectMode(CENTER); 
+        fill(#FFFFFF, 12);
+        rect(width/2, height/2+40, 520, 520, 10, 10, 10, 10);
+
+        textFont(headline);
+        textAlign(CENTER);
+        fill(19, 182, 236);
+        textSize(48);
+        text("Welcome", width/2, height/2-125);
+
+        fill(#000000, 12);
+        textSize(32);
+        text("Press s to start the Game", width/2, height/2-50);
       break;
     }    
   case 1:
@@ -70,7 +83,7 @@ void draw()
         textAlign(CENTER);
         fill(#ED3D3D, 36);
         textSize(48);
-        text("GAME OVER", width/2, height/2+10);
+        text("Game Over", width/2, height/2+10);
 
         fill(#000000, 12);
         textSize(32);
