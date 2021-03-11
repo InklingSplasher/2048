@@ -23,3 +23,4 @@ Sorted from top (important) to bottom (not/less important)
 * "Game Completed" / Game Over Status (doing)
 * Option for score to be continued (Endless mode) ✔️
 * Easter Eggs?
+* -> Dark Mode (game completed?)
