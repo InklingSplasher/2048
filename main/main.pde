@@ -97,7 +97,11 @@ void draw()
 void keyPressed() 
 {
   if (gamestate==1) move();
-  if (gamestate==0 && keyCode == 83) gamestate = 1;
+  if (gamestate==0 && keyCode == 83) 
+  {
+    gamestate = 1;
+    generateBackground(); 
+  }
 }
 
 void mousePressed() 
@@ -207,7 +211,7 @@ void generateBackground()
   textAlign(CENTER, CENTER);
   textSize(textSize);
   text(text, 810, 40);
-
+  textFont(font);
 }
 
 void drawSquares(int alpha) 
