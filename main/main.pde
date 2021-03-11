@@ -181,33 +181,33 @@ void generateBackground()
   }
 
   String text;
+  int textSize;
   if (endless) 
   { 
     text = "ON";
     fill(#77E744);
-    textSize(19);
-  } else 
+    textSize = 20;
+  }
+  else 
   {
-    text = "×";
+    text = "TURN\nON";
     fill(#ED3D3D);
-    textSize(26);
+    textSize = 13;
   }
   textFont(headline);
   rect(810, 40, 40, 40, 10);
+  fill(#ED3D3D);
+  rect(810, 90, 40, 40, 10);
   textAlign(CENTER);
   fill(0, 0, 0);
   textSize(20);
-  text("Endless\nmode:", 740, 35);
-  fill(0, 0, 0, 250);
-  text(text, 810, 49);
-
-  fill(#ED3D3D);
-  rect(810, 90, 40, 40, 10);
+  text("Endless mode", 710, 47);
+  text("Stop the game", 705, 97);
   fill(0, 0, 0);
-  text("Stop the\ngame:", 745, 85);
-  fill(0, 0, 0, 250);
-  text("×", 810, 99);
-  textFont(font);
+  textAlign(CENTER, CENTER);
+  textSize(textSize);
+  text(text, 810, 40);
+
 }
 
 void drawSquares(int alpha) 
