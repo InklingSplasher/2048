@@ -1,6 +1,7 @@
-// Global Variables
+// Global Variables //<>//
 int[][] window = new int[4][4]; // 4*4 Array for all coordinates of the grid.
 int score = 0; // Initial Score = 0
+int gamestate = 0;
 boolean tileMoved = false; // Has any tile moved?
 boolean isRunning = true; // Can a new turn start?
 boolean GameOver = false; // Is the game over?
@@ -17,7 +18,7 @@ void setup()
    * Putting squares in the right places
    * Generating the first square in our 2D-array
    */
-   
+
   size(870, 980); // Setting the size
   noStroke(); // Remove the stroke
   font = loadFont("Consolas-40.vlw");
@@ -31,62 +32,77 @@ void setup()
       window[x][y] = 0;
     }
   }
-  
+
   generateNew((int) random(1, 2.99)); // Generate 1 or 2 new numbers at the start of the game.
   generateBackground(); // Generate the background
 }
 
 void draw()
-{
+{   
   /*
    * Check if drawing is still enabled
    * Check if the game is over
    */
 
-  // println(mouseX,mouseY);
-  if (!GameOver && isRunning) // If the game is not over and drawing is enabled:
+  switch(gamestate)
   {
-    drawSquares(12); // Draw squares with the specific alpha value
-  }
-  
-  if (GameOver) // If the game is over
-  {
-    isRunning = false; // Disable Drawing
-    
-    rectMode(CENTER);
-    fill(#FFFFFF, 12);
-    rect(width/2, height/2+40, 520, 520, 10, 10, 10, 10);
-    
-    textFont(headline);
-    textAlign(CENTER);
-    fill(#ED3D3D, 80);
-    textSize(48);
-    text("GAME OVER", width/2, height/2+10);
-    
-    fill(#000000, 50);
-    textSize(32);
-    text("Click anywhere to restart!", width/2, height/2+70);
+  case 0:
+    {
+      // Startscreen
+      break;
+    }    
+  case 1:
+    {
+      // println(mouseX,mouseY);
+      if (!GameOver && isRunning) // If the game is not over and drawing i
+      {
+        drawSquares(12); // Draw squares with the specific alpha value
+      }
+
+      if (GameOver) // If the game is over
+      {
+        isRunning = false; // Disable Drawing
+
+        rectMode(CENTER); 
+        fill(#FFFFFF, 12);
+        rect(width/2, height/2+40, 520, 520, 10, 10, 10, 10);
+
+        textFont(headline);
+        textAlign(CENTER);
+        fill(#ED3D3D, 36);
+        textSize(48);
+        text("GAME OVER", width/2, height/2+10);
+
+        fill(#000000, 12);
+        textSize(32);
+        text("Click anywhere to restart!", width/2, height/2+70);
+      }
+      break;
+    }
   }
 }
 
 void keyPressed() 
 {
-  move();
+  if (gamestate==1) move();
+  if (gamestate==0 && keyCode == 83) gamestate = 1;
 }
 
 void mousePressed() 
 {
-  if (GameOver) // When the game is over and the mouse is pressed, restart the game.
+  if (gamestate==1)
   {
-    if(!endless) score = 0; // Resetting the score
-    GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
-    isRunning = true;
-    setup(); // Run the setup again and therefore reset everything.
-  }
-  else if (mouseX >= 790 && mouseY <= 830 && mouseY >= 10 && mouseY <= 60 && !endless)
-  {
-    endless = true; // Turn endless mode on
-    generateBackground();
+    if (GameOver) // When the game is over and the mouse is pressed, restart the game.
+    {
+      if (!endless) score = 0; // Resetting the score
+      GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
+      isRunning = true;
+      setup(); // Run the setup again and therefore reset everything.
+    } else if (mouseX >= 790 && mouseX <= 830 && mouseY >= 10 && mouseY <= 60 && !endless)
+    {
+      endless = true; // Turn endless mode on
+      generateBackground();
+    }
   }
 }
 
@@ -121,7 +137,7 @@ void generateBackground()
    */
 
   background(255, 255, 255); // White background
-  
+
   textAlign(CENTER); // Text alignment in the center
   fill(19, 182, 236); // Light blue
   textFont(headline);
@@ -130,7 +146,7 @@ void generateBackground()
 
   textAlign(CENTER, CENTER); // Align text at the top left
   textSize(30);
-  if(endless) fill(#fa0000);
+  if (endless) fill(#fa0000);
   text("Score: " + score, width/2, 65); // Score Headline
   fill(19, 182, 236);
   textFont(font);
@@ -146,28 +162,27 @@ void generateBackground()
       rect(140+195*x, 240+195*y, 160, 160, 10); // Empty squares
     }
   }
-  
+
   String text;
   if (endless) 
   { 
     text = "ON";
     fill(#77E744);
     textSize(19);
-  }
-  else 
+  } else 
   {
     text = "×";
     fill(#ED3D3D);
     textSize(26);
   }
   textFont(headline);
-  rect(810,40,40,40,10);
+  rect(810, 40, 40, 40, 10);
   textAlign(CENTER);
-  fill(0,0,0);
+  fill(0, 0, 0);
   textSize(20);
-  text("Endless\nmode:", 740,35);
-  fill(0,0,0,100);
-  text(text, 810,49);
+  text("Endless\nmode:", 740, 35);
+  fill(0, 0, 0, 100);
+  text(text, 810, 49);
   textFont(font);
 }
 
@@ -370,24 +385,17 @@ void move()
     }
     break;
   case 82: // 82 for "r" (restart)
-  {
-    score = 0; // Resetting the score
-    endless = false;
-    GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
-    isRunning = true;
-    setup();
-    return;
-  }
-  case 83: // 83 for "s" (stop)
-  {
-    println("Goodbye!");
-    delay(600);
-    exit(); // Exit the program
-    return;
-  }
+    {
+      score = 0; // Resetting the score
+      endless = false;
+      GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
+      isRunning = true;
+      setup();
+      return;
+    }
   default:
     {
-      println("This key is not used!",keyCode);
+      println("This key is not used!", keyCode);
     }
   }
 
