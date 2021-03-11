@@ -126,12 +126,12 @@ void generateBackground()
   fill(19, 182, 236); // Light blue
   textFont(headline);
   textSize(66);
-  text("2048", 100, 100); // Headline "2048"
+  text("2048", 100, 90); // Headline "2048"
 
-  textAlign(RIGHT, TOP); // Align text at the top left
+  textAlign(CENTER, CENTER); // Align text at the top left
   textSize(30);
   if(endless) fill(#fa0000);
-  text("Score: " + score, 820, 80); // Score Headline
+  text("Score: " + score, width/2, 65); // Score Headline
   fill(19, 182, 236);
   textFont(font);
 
