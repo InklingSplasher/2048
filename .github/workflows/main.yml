@@ -21,7 +21,7 @@ jobs:
     strategy:
       matrix:
         platform: [ubuntu-latest, windows-latest, macos-latest]
-        processing-version: [3.5.4, 3.5.3]
+        processing-version: [3.5.4]
 
     runs-on: ubuntu-latest
 
