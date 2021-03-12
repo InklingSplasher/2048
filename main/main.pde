@@ -66,7 +66,7 @@ void draw()
 
       fill(c[2][0], c[2][1], c[2][2], 12);
       textSize(32);
-      text("Thanks for choosing to play \nour game, the simple 2048 classic! \n\nYou can move with:\nArrow Keys / WASD / Mouse", width/2, height/2-95);
+      text("Thanks for choosing to play \nour game, the simple 2048 classic! \nYou win when a tile reaches '2048'\n\nYou can move with:\nArrow Keys / WASD / Mouse", width/2, height/2-95);
       drawButtons();
       break;
     }
@@ -267,14 +267,21 @@ void drawButtons()
   {
     fill(c[0][0], c[0][1], c[0][2]);
   }
-  if (gamestate==0) rect(340, 690, 350, 100, 10);
+  
+  if (gamestate==0) 
+  {
+    rect(340, 705, 350, 100, 10);
+    if((mouseX >= 160 && mouseX <= 515 && mouseY >= 630 && mouseY <= 745)) fill(c[0][0], c[0][1], c[0][2]);
+    else fill(c[2][0], c[2][1], c[2][2]);
+    text("PLAY", 330,720);
+  }
 
   strokeWeight(2.5);
   stroke(0);
   fill(c[2][0], c[2][1], c[2][2], 0);
   rect(810, 40, 40, 40, 10);
   rect(810, 90, 40, 40, 10);
-  if (gamestate==0) rect(340, 690, 350, 100, 10);
+  if (gamestate==0) rect(340, 705, 350, 100, 10);
   noStroke();
 }
 
