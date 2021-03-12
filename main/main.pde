@@ -20,13 +20,13 @@ void setup()
    * Putting squares in the right places
    * Generating the first square in our 2D-array
    */
-   
+
   size(870, 980); // Setting the size
   noStroke(); // Remove the stroke
   font = loadFont("Consolas-40.vlw");
   headline = loadFont("URWGothic-Demi-48.vlw");
   textFont(font);
-  
+
   for (int x=0; x<4; x++) // Loop for 4*4 grid, resets all values to zero when the game starts over.
   {
     for (int y=0; y<4; y++)
@@ -46,7 +46,7 @@ void draw()
    * Check if drawing is still enabled
    * Check if the game is over
    */
-   
+
   selectColors(darkmode);
   switch(gamestate)
   {
@@ -164,7 +164,7 @@ void generateBackground()
    */
 
   background(c[0][0], c[0][1], c[0][2]); // White background
-  
+
   textFont(headline);
   textAlign(CENTER); // Text alignment in the center
   fill(c[1][0], c[1][1], c[1][2]); // Light blue
@@ -175,7 +175,7 @@ void generateBackground()
   textSize(30);
   if (endless) fill(c[4][0], c[4][1], c[4][2]);
   text("Score: " + score, width/2, 65); // Score Headline
-  
+
   textFont(font);
   fill(c[1][0], c[1][1], c[1][2]);
   rectMode(CENTER); // Align rectangles at the center
@@ -221,7 +221,7 @@ void drawSquares(int alpha)
       int j = window[x][y]; // Aid variable
       if (j != 0) // If the array at position i j has a value:
       { 
-        determineColor(j, alpha); // Get the specified color depending on the number
+        determineColor(j, alpha, darkmode); // Get the specified color depending on the number
         rect(140+195*x, 240+195*y, 135, 135, 10); // Set a rectangle at the specific saved coordinates.
         fill(c[2][0], c[2][1], c[2][2]); // Black
         textSize(48);
@@ -251,7 +251,7 @@ void drawButtons()
     fill(c[0][0], c[0][1], c[0][2]);
   }
   rect(810, 90, 40, 40, 10);
-  
+
   strokeWeight(2.5);
   stroke(0);
   fill(c[2][0], c[2][1], c[2][2], 0);
@@ -497,13 +497,12 @@ boolean isGameOver()
 
 void selectColors(boolean a)
 {
-  if(a)
+  if (a)
   {
     // The colors used for darkmode. Always R,G,B
     // Background, Headline Text, Button Subtext...
     c = new int[][] {{0, 0, 0}, {19, 182, 236}, {0, 0, 0}, {17, 171, 217}, {237, 61, 61}};
-  }
-  else
+  } else
   {
     // Default colors. Always R,G,B
     // Background (White), Headline Text (Light Blue), Button + Subtext (Black), Squares (Dark Blue), Game Over (Light Red)
@@ -511,7 +510,7 @@ void selectColors(boolean a)
   }
 }
 
-void determineColor(int x, int y) 
+void determineColor(int x, int y, boolean dark) 
 {
   /*
    * Simple function used to set colors depending on the number
@@ -519,61 +518,123 @@ void determineColor(int x, int y)
    * and gets the color depending on it.
    */
 
-  switch(x) 
+  if (dark)
   {
-  case 2: 
-    fill(#B5DDE6, y); 
-    break;
-  case 4: 
-    fill(#95DDEF, y); 
-    break;
-  case 8: 
-    fill(#7DDEF7, y); 
-    break;
-  case 16: 
-    fill(#65DBF8, y); 
-    break;
-  case 32: 
-    fill(#36D3FA, y); 
-    break;
-  case 64: 
-    fill(#06C8F8, y); 
-    break;
-  case 128: 
-    fill(#ECB2C1, y); 
-    break;
-  case 256: 
-    fill(#EC93AB, y); 
-    break;
-  case 512: 
-    fill(#EF7293, y); 
-    break;
-  case 1024: 
-    fill(#F75F88, y); 
-    break;
-  case 2048: 
-    fill(#F54272, y); 
-    break;
-  case 4096: 
-    fill(#ECD8B2, y); 
-    break;
-  case 8192: 
-    fill(#ECCE93, y); 
-    break;
-  case 16384: 
-    fill(#EFC672, y); 
-    break;
-  case 32768: 
-    fill(#F7C45F, y); 
-    break;
-  case 65536: 
-    fill(#F5B942, y); 
-    break;
-  case 131072: 
-    fill(#FF8B37, y); 
-    break;
-  default: 
-    fill(#B5DDE6, y); 
-    break;
+    switch(x) 
+    {
+    case 2: 
+      fill(#B5DDE6, y); 
+      break;
+    case 4: 
+      fill(#95DDEF, y); 
+      break;
+    case 8: 
+      fill(#7DDEF7, y); 
+      break;
+    case 16: 
+      fill(#65DBF8, y); 
+      break;
+    case 32: 
+      fill(#36D3FA, y); 
+      break;
+    case 64: 
+      fill(#06C8F8, y); 
+      break;
+    case 128: 
+      fill(#ECB2C1, y); 
+      break;
+    case 256: 
+      fill(#EC93AB, y); 
+      break;
+    case 512: 
+      fill(#EF7293, y); 
+      break;
+    case 1024: 
+      fill(#F75F88, y); 
+      break;
+    case 2048: 
+      fill(#F54272, y); 
+      break;
+    case 4096: 
+      fill(#ECD8B2, y); 
+      break;
+    case 8192: 
+      fill(#ECCE93, y); 
+      break;
+    case 16384: 
+      fill(#EFC672, y); 
+      break;
+    case 32768: 
+      fill(#F7C45F, y); 
+      break;
+    case 65536: 
+      fill(#F5B942, y); 
+      break;
+    case 131072: 
+      fill(#FF8B37, y); 
+      break;
+    default: 
+      fill(#B5DDE6, y); 
+      break;
+    }
+  } else
+  {
+    switch(x) 
+    {
+    case 2: 
+      fill(#B5DDE6, y); 
+      break;
+    case 4: 
+      fill(#95DDEF, y); 
+      break;
+    case 8: 
+      fill(#7DDEF7, y); 
+      break;
+    case 16: 
+      fill(#65DBF8, y); 
+      break;
+    case 32: 
+      fill(#36D3FA, y); 
+      break;
+    case 64: 
+      fill(#06C8F8, y); 
+      break;
+    case 128: 
+      fill(#ECB2C1, y); 
+      break;
+    case 256: 
+      fill(#EC93AB, y); 
+      break;
+    case 512: 
+      fill(#EF7293, y); 
+      break;
+    case 1024: 
+      fill(#F75F88, y); 
+      break;
+    case 2048: 
+      fill(#F54272, y); 
+      break;
+    case 4096: 
+      fill(#ECD8B2, y); 
+      break;
+    case 8192: 
+      fill(#ECCE93, y); 
+      break;
+    case 16384: 
+      fill(#EFC672, y); 
+      break;
+    case 32768: 
+      fill(#F7C45F, y); 
+      break;
+    case 65536: 
+      fill(#F5B942, y); 
+      break;
+    case 131072: 
+      fill(#FF8B37, y); 
+      break;
+    default: 
+      fill(#B5DDE6, y); 
+      break;
+    }
   }
 }
