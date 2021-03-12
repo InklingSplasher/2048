@@ -124,6 +124,14 @@ void mousePressed()
     {
       endless = true; // Turn endless mode on
       generateBackground();
+    } else
+    {
+      // Match mouse coordinates with specifc pressed key codes.
+      if (mouseX < width / 4) keyCode = LEFT;
+      if (mouseX > width * 3 / 4) keyCode = RIGHT;
+      if (mouseY < 240) keyCode = UP;
+      if (mouseY > height * 3 / 4) keyCode = DOWN;
+      if (keyCode>0) move(); // If it was set correctly, go on to the move() function.
     }
   }
   if (mouseX >= 790 && mouseX <= 830 && mouseY >= 65 && mouseY <= 110)
@@ -290,7 +298,8 @@ void move()
 
   switch (keyCode) // Depending on the pressed key, do the following:
   {
-  case UP: case 87: // UP/W
+  case UP: 
+  case 87: // UP/W
     {
       // Commented only UP, all following are basically programmed the same way, just in other orders.
       for (int x=0; x<4; x++) // Loop for 4*4 grid
@@ -327,7 +336,8 @@ void move()
       }
     }
     break;
-  case DOWN: case 83: // DOWN/S
+  case DOWN: 
+  case 83: // DOWN/S
     {
       for (int x=0; x<4; x++) // Loop for 4*4 grid (Basic Moving)
       {
@@ -363,7 +373,8 @@ void move()
       }
     }
     break;
-  case LEFT: case 65: // LEFT/A
+  case LEFT: 
+  case 65: // LEFT/A
     {
       for (int y=0; y<4; y++) // Loop for 4*4 grid (Basic Moving)
       {
@@ -399,7 +410,8 @@ void move()
       }
     }
     break;
-  case RIGHT: case 68: // RIGHT/D
+  case RIGHT: 
+  case 68: // RIGHT/D
     {
       for (int y=0; y<4; y++) // Loop for 4*4 grid (Basic Moving)
       {
