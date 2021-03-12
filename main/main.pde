@@ -1,4 +1,4 @@
-// Global Variables //<>//
+// Global Variables //<>// //<>//
 int[][] window = new int[4][4]; // 4*4 Array for all coordinates of the grid.
 int score = 0; // Initial Score = 0
 int gamestate = 0;
@@ -43,43 +43,34 @@ void draw()
    * Check if drawing is still enabled
    * Check if the game is over
    */
-
+   
   switch(gamestate)
   {
   case 0:
     {
       // Startscreen
-        rectMode(CENTER); 
-        fill(#FFFFFF, 12);
-        rect(width/2, height/2+40, 520, 520, 10, 10, 10, 10);
+      rectMode(CENTER); 
+      fill(#FFFFFF, 12);
+      rect(width/2, height/2+40, 520, 520, 10, 10, 10, 10);
 
-        textFont(headline);
-        textAlign(CENTER);
-        fill(19, 182, 236);
-        textSize(48);
-        text("Welcome", width/2, height/2-125);
+      textFont(headline);
+      textAlign(CENTER);
+      fill(19, 182, 236);
+      textSize(48);
+      text("Welcome", width/2, height/2-125);
 
-        fill(#000000, 12);
-        textSize(32);
-        text("Press s to start the Game", width/2, height/2-50);
-        
-        drawButtons();
-        noStroke();
-        fill(255);
-        rect(810,65,50,100);
-        drawButtons();
-        noStroke();
+      fill(#000000, 12);
+      textSize(32);
+      text("Press s to start the Game", width/2, height/2-50);
+      drawButtons();
       break;
-    }    
+    }
   case 1:
     {
       if (!GameOver && isRunning) // If the game is not over and drawing i
       {
         drawSquares(12); // Draw squares with the specific alpha value
-        fill(255);
-        rect(810,65,50,100);
         drawButtons();
-        noStroke();
       }
 
       if (GameOver) // If the game is over
@@ -111,7 +102,7 @@ void keyPressed()
   if (gamestate==0 && keyCode == 83) 
   {
     gamestate = 1;
-    generateBackground(); 
+    generateBackground();
   }
 }
 
@@ -169,7 +160,6 @@ void generateBackground()
    */
 
   background(255, 255, 255); // White background
-
   textAlign(CENTER); // Text alignment in the center
   fill(19, 182, 236); // Light blue
   textFont(headline);
@@ -185,11 +175,11 @@ void generateBackground()
 
   rectMode(CENTER); // Align rectangles at the center
   rect(435, 535, 820, 820, 10, 10, 10, 10); // Outer rectangle
-  
-//  textFont(headline);
+
+  //  textFont(headline);
   fill(0);
   textSize(10);
-  text("press r to reset",80,960);
+  text("press r to reset", 80, 960);
 
   for (int x=0; x<4; x++) // Loop for 4*4 grid
   {
@@ -242,31 +232,30 @@ void drawButtons()
   if (endless || mouseX >= 790 && mouseX <= 830 && mouseY >= 10 && mouseY <= 60) 
   { 
     fill(0);
-  }
-  else 
+  } else 
   {
-    fill(0,0);
+    fill(255);
   }
   rect(810, 40, 40, 40, 10);
-  
+
   if (mouseX >= 790 && mouseX <= 830 && mouseY >= 65 && mouseY <= 110) 
   { 
     fill(0);
-  }
-  else 
+  } else 
   {
-    fill(0,0);
+    fill(255);
   }
   rect(810, 90, 40, 40, 10);
   
   strokeWeight(2.5);
   stroke(0);
-  fill(0,0);
+  fill(0, 0);
   rect(810, 40, 40, 40, 10);
   rect(810, 90, 40, 40, 10);
+  noStroke();
 }
-  
-  
+
+
 
 void move() 
 {
