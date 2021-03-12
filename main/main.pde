@@ -1,11 +1,13 @@
 // Global Variables //<>// //<>//
 int[][] window = new int[4][4]; // 4*4 Array for all coordinates of the grid.
+int[][] c; // Colors
 int score = 0; // Initial Score = 0
 int gamestate = 0;
 boolean tileMoved = false; // Has any tile moved?
 boolean isRunning = true; // Can a new turn start?
 boolean GameOver = false; // Is the game over?
 boolean endless = false; // Is endless mode enabled?
+boolean darkmode = false; // Is darkmode enabled?
 PFont font; // Custom fonts
 PFont headline;
 
@@ -18,13 +20,13 @@ void setup()
    * Putting squares in the right places
    * Generating the first square in our 2D-array
    */
-
+   
   size(870, 980); // Setting the size
   noStroke(); // Remove the stroke
   font = loadFont("Consolas-40.vlw");
   headline = loadFont("URWGothic-Demi-48.vlw");
   textFont(font);
-
+  
   for (int x=0; x<4; x++) // Loop for 4*4 grid, resets all values to zero when the game starts over.
   {
     for (int y=0; y<4; y++)
@@ -33,6 +35,7 @@ void setup()
     }
   }
 
+  selectColors(darkmode);
   generateNew((int) random(1, 2.99)); // Generate 1 or 2 new numbers at the start of the game.
   generateBackground(); // Generate the background
 }
@@ -44,22 +47,23 @@ void draw()
    * Check if the game is over
    */
    
+  selectColors(darkmode);
   switch(gamestate)
   {
   case 0:
     {
       // Startscreen
       rectMode(CENTER); 
-      fill(#FFFFFF, 12);
+      fill(c[0][0], c[0][1], c[0][2], 12);
       rect(width/2, height/2+40, 520, 520, 10, 10, 10, 10);
 
       textFont(headline);
       textAlign(CENTER);
-      fill(19, 182, 236);
+      fill(c[1][0], c[1][1], c[1][2]);
       textSize(48);
       text("Welcome", width/2, height/2-125);
 
-      fill(#000000, 12);
+      fill(c[2][0], c[2][1], c[2][2], 12);
       textSize(32);
       text("Press s to start the Game", width/2, height/2-50);
       drawButtons();
@@ -78,16 +82,16 @@ void draw()
         isRunning = false; // Disable Drawing
 
         rectMode(CENTER); 
-        fill(#FFFFFF, 12);
+        fill(c[0][0], c[0][1], c[0][2], 12);
         rect(width/2, height/2+40, 520, 520, 10, 10, 10, 10);
 
         textFont(headline);
         textAlign(CENTER);
-        fill(#ED3D3D, 36);
+        fill(c[4][0], c[4][1], c[4][2], 36);
         textSize(48);
         text("Game Over", width/2, height/2+10);
 
-        fill(#000000, 12);
+        fill(c[2][0], c[2][1], c[2][2], 12);
         textSize(32);
         text("Click anywhere to restart!", width/2, height/2+70);
       }
@@ -159,25 +163,26 @@ void generateBackground()
    * Function to draw the empty squares without a value (0) / on all parts
    */
 
-  background(255, 255, 255); // White background
-  textAlign(CENTER); // Text alignment in the center
-  fill(19, 182, 236); // Light blue
+  background(c[0][0], c[0][1], c[0][2]); // White background
+  
   textFont(headline);
+  textAlign(CENTER); // Text alignment in the center
+  fill(c[1][0], c[1][1], c[1][2]); // Light blue
   textSize(66);
   text("2048", 100, 90); // Headline "2048"
 
   textAlign(CENTER, CENTER); // Align text at the top left
   textSize(30);
-  if (endless) fill(#fa0000);
+  if (endless) fill(c[4][0], c[4][1], c[4][2]);
   text("Score: " + score, width/2, 65); // Score Headline
-  fill(19, 182, 236);
+  
   textFont(font);
-
+  fill(c[1][0], c[1][1], c[1][2]);
   rectMode(CENTER); // Align rectangles at the center
   rect(435, 535, 820, 820, 10, 10, 10, 10); // Outer rectangle
 
-  //  textFont(headline);
-  fill(0);
+  textFont(headline);
+  fill(c[2][0], c[2][1], c[2][2]);
   textSize(10);
   text("press r to reset", 80, 960);
 
@@ -185,7 +190,7 @@ void generateBackground()
   {
     for (int y=0; y<4; y++)
     {
-      fill(17, 171, 217); // Dark blue
+      fill(c[3][0], c[3][1], c[3][2]); // Dark blue
       rect(140+195*x, 240+195*y, 160, 160, 10); // Empty squares
     }
   }
@@ -193,7 +198,7 @@ void generateBackground()
   noStroke();
   textFont(headline);
   textAlign(CENTER);
-  fill(0, 0, 0);
+  fill(c[2][0], c[2][1], c[2][2]);
   textSize(20);
   text("Endless mode", 710, 47);
   text("Stop the game", 705, 97);
@@ -218,7 +223,7 @@ void drawSquares(int alpha)
       { 
         determineColor(j, alpha); // Get the specified color depending on the number
         rect(140+195*x, 240+195*y, 135, 135, 10); // Set a rectangle at the specific saved coordinates.
-        fill(#000000); // Black
+        fill(c[2][0], c[2][1], c[2][2]); // Black
         textSize(48);
         textAlign(CENTER, CENTER); // Align text at the center of the screen
         text(window[x][y], 140+195*x, 240+195*y); // Set the number at the specific position
@@ -231,25 +236,25 @@ void drawButtons()
 {
   if (endless || mouseX >= 790 && mouseX <= 830 && mouseY >= 10 && mouseY <= 60) 
   { 
-    fill(0);
+    fill(c[2][0], c[2][1], c[2][2]);
   } else 
   {
-    fill(255);
+    fill(c[0][0], c[0][1], c[0][2]);
   }
   rect(810, 40, 40, 40, 10);
 
   if (mouseX >= 790 && mouseX <= 830 && mouseY >= 65 && mouseY <= 110) 
   { 
-    fill(0);
+    fill(c[2][0], c[2][1], c[2][2]);
   } else 
   {
-    fill(255);
+    fill(c[0][0], c[0][1], c[0][2]);
   }
   rect(810, 90, 40, 40, 10);
   
   strokeWeight(2.5);
   stroke(0);
-  fill(0, 0);
+  fill(c[2][0], c[2][1], c[2][2], 0);
   rect(810, 40, 40, 40, 10);
   rect(810, 90, 40, 40, 10);
   noStroke();
@@ -488,6 +493,22 @@ boolean isGameOver()
     }
   }
   return true; // No values have changed or can change, the game is over.
+}
+
+void selectColors(boolean a)
+{
+  if(a)
+  {
+    // The colors used for darkmode. Always R,G,B
+    // Background, Headline Text, Button Subtext...
+    c = new int[][] {{0, 0, 0}, {19, 182, 236}, {0, 0, 0}, {17, 171, 217}, {237, 61, 61}};
+  }
+  else
+  {
+    // Default colors. Always R,G,B
+    // Background (White), Headline Text (Light Blue), Button + Subtext (Black), Squares (Dark Blue), Game Over (Light Red)
+    c = new int[][] {{255, 255, 255}, {19, 182, 236}, {0, 0, 0}, {17, 171, 217}, {237, 61, 61}};
+  }
 }
 
 void determineColor(int x, int y) 
