@@ -53,19 +53,20 @@ void draw()
   case 0:
     {
       // Startscreen
+      println(mouseX, mouseY);
       rectMode(CENTER); 
       fill(c[0][0], c[0][1], c[0][2], 12);
-      rect(width/2, height/2+40, 520, 520, 10, 10, 10, 10);
+      rect(width/2, height/2+40, 600, 600, 10, 10, 10, 10);
 
       textFont(headline);
       textAlign(CENTER);
       fill(c[1][0], c[1][1], c[1][2]);
       textSize(48);
-      text("Welcome", width/2, height/2-125);
+      text("Welcome", width/2, height/2-165);
 
       fill(c[2][0], c[2][1], c[2][2], 12);
       textSize(32);
-      text("Press s to start the Game", width/2, height/2-50);
+      text("Thanks for choosing to play \nour game, the simple 2048 classic! \n\nYou can move with:\nArrow Keys / WASD / Mouse", width/2, height/2-95);
       drawButtons();
       break;
     }
@@ -259,12 +260,21 @@ void drawButtons()
     fill(c[0][0], c[0][1], c[0][2]);
   }
   rect(810, 90, 40, 40, 10);
+  if (gamestate == 0 && (mouseX >= 160 && mouseX <= 515 && mouseY >= 630 && mouseY <= 745)) 
+  { 
+    fill(c[2][0], c[2][1], c[2][2]);
+  } else 
+  {
+    fill(c[0][0], c[0][1], c[0][2]);
+  }
+  if (gamestate==0) rect(340, 690, 350, 100, 10);
 
   strokeWeight(2.5);
   stroke(0);
   fill(c[2][0], c[2][1], c[2][2], 0);
   rect(810, 40, 40, 40, 10);
   rect(810, 90, 40, 40, 10);
+  if (gamestate==0) rect(340, 690, 350, 100, 10);
   noStroke();
 }
 
