@@ -62,6 +62,13 @@ void draw()
         fill(#000000, 12);
         textSize(32);
         text("Press s to start the Game", width/2, height/2-50);
+        
+        drawButtons();
+        noStroke();
+        fill(255);
+        rect(810,65,50,100);
+        drawButtons();
+        noStroke();
       break;
     }    
   case 1:
@@ -69,6 +76,10 @@ void draw()
       if (!GameOver && isRunning) // If the game is not over and drawing i
       {
         drawSquares(12); // Draw squares with the specific alpha value
+        fill(255);
+        rect(810,65,50,100);
+        drawButtons();
+        noStroke();
       }
 
       if (GameOver) // If the game is over
@@ -174,6 +185,11 @@ void generateBackground()
 
   rectMode(CENTER); // Align rectangles at the center
   rect(435, 535, 820, 820, 10, 10, 10, 10); // Outer rectangle
+  
+//  textFont(headline);
+  fill(0);
+  textSize(10);
+  text("press r to reset",80,960);
 
   for (int x=0; x<4; x++) // Loop for 4*4 grid
   {
@@ -198,19 +214,17 @@ void generateBackground()
     fill(#ED3D3D);
     textSize = 15;
   }
+  noStroke();
   textFont(headline);
-  rect(810, 40, 40, 40, 10);
-  fill(#ED3D3D);
-  rect(810, 90, 40, 40, 10);
   textAlign(CENTER);
   fill(0, 0, 0);
   textSize(20);
   text("Endless mode", 710, 47);
   text("Stop the game", 705, 97);
-  fill(0, 0, 0);
   textAlign(CENTER, CENTER);
   textSize(textSize);
   text(text, 810, 43);
+  fill(0, 0, 0);
   textFont(font);
 }
 
@@ -239,6 +253,37 @@ void drawSquares(int alpha)
     }
   }
 }
+
+void drawButtons()
+{
+  if (endless || mouseX >= 790 && mouseX <= 830 && mouseY >= 10 && mouseY <= 60) 
+  { 
+    fill(0);
+  }
+  else 
+  {
+    fill(0,0);
+  }
+  rect(810, 40, 40, 40, 10);
+  
+  if (mouseX >= 790 && mouseX <= 830 && mouseY >= 65 && mouseY <= 110) 
+  { 
+    fill(0);
+  }
+  else 
+  {
+    fill(0,0);
+  }
+  rect(810, 90, 40, 40, 10);
+  
+  strokeWeight(2.5);
+  stroke(0);
+  fill(0,0);
+  rect(810, 40, 40, 40, 10);
+  rect(810, 90, 40, 40, 10);
+}
+  
+  
 
 void move() 
 {
