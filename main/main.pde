@@ -1,4 +1,4 @@
-// Global Variables //<>// //<>//
+// Global Variables //<>//
 int[][] window = new int[4][4]; // 4*4 Array for all coordinates of the grid.
 int[][] c; // Colors
 int score = 0; // Initial Score = 0
@@ -74,7 +74,6 @@ void draw()
       if (!GameOver && isRunning) // If the game is not over and drawing i
       {
         drawSquares(12); // Draw squares with the specific alpha value
-        drawButtons();
       }
 
       if (GameOver) // If the game is over
@@ -95,6 +94,7 @@ void draw()
         textSize(32);
         text("Click anywhere to restart!", width/2, height/2+70);
       }
+      drawButtons();
       break;
     }
   }
@@ -290,8 +290,9 @@ void move()
 
   switch (keyCode) // Depending on the pressed key, do the following:
   {
-  case UP: // Commented only UP, all following are basically programmed the same way, just in other orders.
+  case UP: case 87: // UP/W
     {
+      // Commented only UP, all following are basically programmed the same way, just in other orders.
       for (int x=0; x<4; x++) // Loop for 4*4 grid
       {
         for (int y=0; y<4; y++) // Inner loop for basic movement.
@@ -326,7 +327,7 @@ void move()
       }
     }
     break;
-  case DOWN: 
+  case DOWN: case 83: // DOWN/S
     {
       for (int x=0; x<4; x++) // Loop for 4*4 grid (Basic Moving)
       {
@@ -362,7 +363,7 @@ void move()
       }
     }
     break;
-  case LEFT: 
+  case LEFT: case 65: // LEFT/A
     {
       for (int y=0; y<4; y++) // Loop for 4*4 grid (Basic Moving)
       {
@@ -398,7 +399,7 @@ void move()
       }
     }
     break;
-  case RIGHT: 
+  case RIGHT: case 68: // RIGHT/D
     {
       for (int y=0; y<4; y++) // Loop for 4*4 grid (Basic Moving)
       {
