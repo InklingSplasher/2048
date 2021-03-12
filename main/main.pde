@@ -174,6 +174,11 @@ void generateBackground()
 
   rectMode(CENTER); // Align rectangles at the center
   rect(435, 535, 820, 820, 10, 10, 10, 10); // Outer rectangle
+  
+//  textFont(headline);
+  fill(0);
+  textSize(10);
+  text("press r to reset",80,960);
 
   for (int x=0; x<4; x++) // Loop for 4*4 grid
   {
@@ -188,30 +193,28 @@ void generateBackground()
   int textSize;
   if (endless) 
   { 
-    text = "ON";
-    fill(#77E744);
-    textSize = 20;
+    fill(0);
   }
   else 
   {
-    text = "TURN\nON";
-    fill(#ED3D3D);
-    textSize = 13;
+    fill(0,0);
   }
-  textFont(headline);
   rect(810, 40, 40, 40, 10);
-  fill(#ED3D3D);
+  
+  
+  strokeWeight(2.5);
+  stroke(0);
+  rect(810, 40, 40, 40, 10);
+  fill(0,0);
   rect(810, 90, 40, 40, 10);
+  
+  noStroke();
+  textFont(headline);
   textAlign(CENTER);
   fill(0, 0, 0);
   textSize(20);
   text("Endless mode", 710, 47);
   text("Stop the game", 705, 97);
-  fill(0, 0, 0);
-  textAlign(CENTER, CENTER);
-  textSize(textSize);
-  text(text, 810, 40);
-  textFont(font);
 }
 
 void drawSquares(int alpha) 
