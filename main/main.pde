@@ -205,7 +205,7 @@ void generateBackground()
     for (int y=0; y<4; y++)
     {
       fill(c[3][0], c[3][1], c[3][2]); // Dark blue
-      rect(140+195*x, 240+195*y, 160, 160, 10); // Empty squares
+      rect(140+195*x, 240+195*y, 160, 160, 20); // Empty squares
     }
   }
 
@@ -282,7 +282,7 @@ void drawButtons()
   }
 
   strokeWeight(2.5);
-  stroke(0);
+  stroke(c[2][0], c[2][1], c[2][2]);
   fill(c[2][0], c[2][1], c[2][2], 0);
   rect(810, 40, 40, 40, 10);
   rect(810, 90, 40, 40, 10);
@@ -536,12 +536,12 @@ void selectColors(boolean a)
   {
     // The colors used for darkmode. Always R,G,B
     // Background, Headline Text, Button Subtext...
-    c = new int[][] {{0, 0, 0}, {19, 182, 236}, {0, 0, 0}, {17, 171, 217}, {237, 61, 61}};
+    c = new int[][] {{0, 0, 0}, {17, 169, 216}, {255, 255, 255}, {27, 178, 223}, {231, 75, 74}};
   } else
   {
     // Default colors. Always R,G,B
     // Background (White), Headline Text (Light Blue), Button + Subtext (Black), Squares (Dark Blue), Game Over (Light Red)
-    c = new int[][] {{255, 255, 255}, {19, 182, 236}, {0, 0, 0}, {17, 171, 217}, {237, 61, 61}};
+    c = new int[][] {{255, 255, 255}, {19, 182, 236}, {64, 64, 64}, {0, 174, 227}, {231, 75, 74}};
   }
 }
 
@@ -558,58 +558,58 @@ void determineColor(int x, int y, boolean dark)
     switch(x) 
     {
     case 2: 
-      fill(#B5DDE6, y); 
+      fill(#11A9D8, y); 
       break;
     case 4: 
-      fill(#95DDEF, y); 
+      fill(#0E9CC8, y); 
       break;
     case 8: 
-      fill(#7DDEF7, y); 
+      fill(#0A8EB7, y); 
       break;
     case 16: 
-      fill(#65DBF8, y); 
+      fill(#0780A4, y); 
       break;
     case 32: 
-      fill(#36D3FA, y); 
+      fill(#047294, y); 
       break;
     case 64: 
-      fill(#06C8F8, y); 
+      fill(#006482, y); 
       break;
     case 128: 
-      fill(#ECB2C1, y); 
+      fill(#D27313, y); 
       break;
     case 256: 
-      fill(#EC93AB, y); 
+      fill(#C95413, y); 
       break;
     case 512: 
-      fill(#EF7293, y); 
+      fill(#C13513, y); 
       break;
     case 1024: 
-      fill(#F75F88, y); 
+      fill(#B71413, y); 
       break;
     case 2048: 
-      fill(#F54272, y); 
+      fill(#BF0E93, y); 
       break;
     case 4096: 
-      fill(#ECD8B2, y); 
+      fill(#A6149A, y); 
       break;
     case 8192: 
-      fill(#ECCE93, y); 
+      fill(#8C1AA2, y); 
       break;
     case 16384: 
-      fill(#EFC672, y); 
+      fill(#721FAA, y); 
       break;
     case 32768: 
-      fill(#F7C45F, y); 
+      fill(#5925B1, y); 
       break;
     case 65536: 
-      fill(#F5B942, y); 
+      fill(#3E2BB9, y); 
       break;
     case 131072: 
-      fill(#FF8B37, y); 
+      fill(#2531C1, y); 
       break;
     default: 
-      fill(#B5DDE6, y); 
+      fill(#11A9D8, y); 
       break;
     }
   } else
@@ -617,58 +617,58 @@ void determineColor(int x, int y, boolean dark)
     switch(x) 
     {
     case 2: 
-      fill(#B5DDE6, y); 
+      fill(#5ECAED, y); 
       break;
     case 4: 
-      fill(#95DDEF, y); 
+      fill(#74D1F0, y); 
       break;
     case 8: 
-      fill(#7DDEF7, y); 
+      fill(#8AD9F3, y); 
       break;
     case 16: 
-      fill(#65DBF8, y); 
+      fill(#A0E1F6, y); 
       break;
     case 32: 
-      fill(#36D3FA, y); 
+      fill(#B8E9F9, y); 
       break;
     case 64: 
-      fill(#06C8F8, y); 
+      fill(#CEF1FC, y); 
       break;
     case 128: 
-      fill(#ECB2C1, y); 
+      fill(#EDA761, y); 
       break;
     case 256: 
-      fill(#EC93AB, y); 
+      fill(#EB8559, y); 
       break;
     case 512: 
-      fill(#EF7293, y); 
+      fill(#E96D53, y); 
       break;
     case 1024: 
-      fill(#F75F88, y); 
+      fill(#E74B4A, y); 
       break;
     case 2048: 
-      fill(#F54272, y); 
+      fill(#E047BA, y); 
       break;
     case 4096: 
-      fill(#ECD8B2, y); 
+      fill(#CB40CB, y); 
       break;
     case 8192: 
-      fill(#ECCE93, y); 
+      fill(#B138DF, y); 
       break;
     case 16384: 
-      fill(#EFC672, y); 
+      fill(#9830F2, y); 
       break;
     case 32768: 
-      fill(#F7C45F, y); 
+      fill(#7E3BEF, y); 
       break;
     case 65536: 
-      fill(#F5B942, y); 
+      fill(#6247EB, y); 
       break;
     case 131072: 
-      fill(#FF8B37, y); 
+      fill(#4852E8, y); 
       break;
     default: 
-      fill(#B5DDE6, y); 
+      fill(#5ECAED, y); 
       break;
     }
   }
