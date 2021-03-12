@@ -35,7 +35,7 @@ void setup()
     }
   }
 
-  selectColors(darkmode);
+  selectColors();
   generateNew((int) random(1, 2.99)); // Generate 1 or 2 new numbers at the start of the game.
   generateBackground(); // Generate the background
 }
@@ -47,13 +47,14 @@ void draw()
    * Check if the game is over
    */
 
-  selectColors(darkmode);
+  selectColors();
+  drawButtons();
   switch(gamestate)
   {
   case 0:
     {
       // Startscreen
-      println(mouseX, mouseY);
+      // println(mouseX, mouseY);
       rectMode(CENTER); 
       fill(c[0][0], c[0][1], c[0][2], 12);
       rect(width/2, height/2+40, 600, 600, 10, 10, 10, 10);
@@ -67,7 +68,6 @@ void draw()
       fill(c[2][0], c[2][1], c[2][2], 12);
       textSize(32);
       text("Thanks for choosing to play \nour game, the simple 2048 classic! \nYou win when a tile reaches '2048'\n\nYou can move with:\nArrow Keys / WASD / Mouse", width/2, height/2-95);
-      drawButtons();
       break;
     }
   case 1:
@@ -95,7 +95,6 @@ void draw()
         textSize(32);
         text("Click anywhere to restart!", width/2, height/2+70);
       }
-      drawButtons();
       break;
     }
   }
@@ -178,7 +177,8 @@ void generateBackground()
    */
 
   background(c[0][0], c[0][1], c[0][2]); // White background
-
+  if(gamestate==1) drawButtons();
+  
   textFont(headline);
   textAlign(CENTER); // Text alignment in the center
   fill(c[1][0], c[1][1], c[1][2]); // Light blue
@@ -235,7 +235,7 @@ void drawSquares(int alpha)
       int j = window[x][y]; // Aid variable
       if (j != 0) // If the array at position i j has a value:
       { 
-        determineColor(j, alpha, darkmode); // Get the specified color depending on the number
+        determineColor(j, alpha); // Get the specified color depending on the number
         rect(140+195*x, 240+195*y, 135, 135, 10); // Set a rectangle at the specific saved coordinates.
         fill(c[2][0], c[2][1], c[2][2]); // Black
         textSize(48);
@@ -530,9 +530,9 @@ boolean isGameOver()
   return true; // No values have changed or can change, the game is over.
 }
 
-void selectColors(boolean a)
+void selectColors()
 {
-  if (a)
+  if (darkmode)
   {
     // The colors used for darkmode. Always R,G,B
     // Background, Headline Text, Button Subtext...
@@ -545,15 +545,16 @@ void selectColors(boolean a)
   }
 }
 
-void determineColor(int x, int y, boolean dark) 
+void determineColor(int x, int y) 
 {
   /*
    * Simple function used to set colors depending on the number
    * Passes the number x and the alpha value y
-   * and gets the color depending on it.
+   * and gets the color depending on it. TODO: Make this a one-liner
+   * 1 << 2
    */
 
-  if (dark)
+  if (darkmode)
   {
     switch(x) 
     {
