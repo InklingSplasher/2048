@@ -62,6 +62,13 @@ void draw()
         fill(#000000, 12);
         textSize(32);
         text("Press s to start the Game", width/2, height/2-50);
+        
+        drawButtons();
+        noStroke();
+        fill(255);
+        rect(810,65,50,100);
+        drawButtons();
+        noStroke();
       break;
     }    
   case 1:
@@ -69,6 +76,10 @@ void draw()
       if (!GameOver && isRunning) // If the game is not over and drawing i
       {
         drawSquares(12); // Draw squares with the specific alpha value
+        fill(255);
+        rect(810,65,50,100);
+        drawButtons();
+        noStroke();
       }
 
       if (GameOver) // If the game is over
@@ -188,23 +199,6 @@ void generateBackground()
       rect(140+195*x, 240+195*y, 160, 160, 10); // Empty squares
     }
   }
-
-  if (endless) 
-  { 
-    fill(0);
-  }
-  else 
-  {
-    fill(0,0);
-  }
-  rect(810, 40, 40, 40, 10);
-  
-  
-  strokeWeight(2.5);
-  stroke(0);
-  rect(810, 40, 40, 40, 10);
-  fill(0,0);
-  rect(810, 90, 40, 40, 10);
   
   noStroke();
   textFont(headline);
@@ -213,6 +207,7 @@ void generateBackground()
   textSize(20);
   text("Endless mode", 710, 47);
   text("Stop the game", 705, 97);
+  textFont(font);
 }
 
 void drawSquares(int alpha) 
@@ -240,6 +235,28 @@ void drawSquares(int alpha)
     }
   }
 }
+
+void drawButtons()
+{
+  if (endless || mouseX >= 790 && mouseX <= 830 && mouseY >= 10 && mouseY <= 60) 
+  { 
+    fill(0);
+  }
+  else 
+  {
+    fill(0,0);
+  }
+  rect(810, 40, 40, 40, 10);
+  
+  
+  strokeWeight(2.5);
+  stroke(0);
+  rect(810, 40, 40, 40, 10);
+  fill(0,0);
+  rect(810, 90, 40, 40, 10);
+}
+  
+  
 
 void move() 
 {
