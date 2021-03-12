@@ -248,11 +248,20 @@ void drawButtons()
   }
   rect(810, 40, 40, 40, 10);
   
+  if (mouseX >= 790 && mouseX <= 830 && mouseY >= 65 && mouseY <= 110) 
+  { 
+    fill(0);
+  }
+  else 
+  {
+    fill(0,0);
+  }
+  rect(810, 90, 40, 40, 10);
   
   strokeWeight(2.5);
   stroke(0);
-  rect(810, 40, 40, 40, 10);
   fill(0,0);
+  rect(810, 40, 40, 40, 10);
   rect(810, 90, 40, 40, 10);
 }
   
