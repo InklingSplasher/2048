@@ -113,6 +113,11 @@ void keyPressed()
 
 void mousePressed() 
 {
+  if (gamestate == 0 && (mouseX >= 160 && mouseX <= 515 && mouseY >= 645 && mouseY <= 745)) 
+  {
+    gamestate=1;
+    generateBackground();
+  }
   if (gamestate==1)
   {
     if (GameOver) // When the game is over and the mouse is pressed, restart the game.
@@ -260,20 +265,20 @@ void drawButtons()
     fill(c[0][0], c[0][1], c[0][2]);
   }
   rect(810, 90, 40, 40, 10);
-  if (gamestate == 0 && (mouseX >= 160 && mouseX <= 515 && mouseY >= 630 && mouseY <= 745)) 
+  if (gamestate == 0 && (mouseX >= 160 && mouseX <= 515 && mouseY >= 645 && mouseY <= 745)) 
   { 
     fill(c[2][0], c[2][1], c[2][2]);
   } else 
   {
     fill(c[0][0], c[0][1], c[0][2]);
   }
-  
+
   if (gamestate==0) 
   {
     rect(340, 705, 350, 100, 10);
-    if((mouseX >= 160 && mouseX <= 515 && mouseY >= 630 && mouseY <= 745)) fill(c[0][0], c[0][1], c[0][2]);
+    if ((mouseX >= 160 && mouseX <= 515 && mouseY >= 645 && mouseY <= 745)) fill(c[0][0], c[0][1], c[0][2]);
     else fill(c[2][0], c[2][1], c[2][2]);
-    text("PLAY", 330,720);
+    text("PLAY", 330, 720);
   }
 
   strokeWeight(2.5);
