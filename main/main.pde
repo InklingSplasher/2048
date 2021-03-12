@@ -1,4 +1,4 @@
-// Global Variables //<>//
+// Global Variables
 int[][] window = new int[4][4]; // 4*4 Array for all coordinates of the grid.
 int[][] c; // Colors
 int score = 0; // Initial Score = 0
@@ -10,6 +10,8 @@ boolean endless = false; // Is endless mode enabled?
 boolean darkmode = false; // Is darkmode enabled?
 PFont font; // Custom fonts
 PFont headline;
+PShape sun;
+PShape moon;
 
 void setup()
 {
@@ -23,6 +25,8 @@ void setup()
 
   size(870, 980); // Setting the size
   noStroke(); // Remove the stroke
+  sun = loadShape("sun.svg");
+  moon = loadShape("moon.svg");
   font = loadFont("Consolas-40.vlw");
   headline = loadFont("URWGothic-Demi-48.vlw");
   textFont(font);
@@ -143,6 +147,12 @@ void mousePressed()
   {
     println("Goodbye!");
     exit(); // Exit the program
+  } 
+  if (gamestate == 0 && (mouseX >= 560 && mouseX <= 685 && mouseY >= 650 && mouseY <= 755)) 
+  {
+    darkmode = !darkmode;
+    selectColors();
+    generateBackground();
   }
 }
 
@@ -265,7 +275,16 @@ void drawButtons()
     fill(c[0][0], c[0][1], c[0][2]);
   }
   rect(810, 90, 40, 40, 10);
-  if (gamestate == 0 && (mouseX >= 160 && mouseX <= 515 && mouseY >= 645 && mouseY <= 745)) 
+  if (gamestate == 0 && (mouseX >= 560 && mouseX <= 685 && mouseY >= 650 && mouseY <= 755)) 
+  { 
+    fill(c[2][0], c[2][1], c[2][2]);
+  } else 
+  {
+    fill(c[0][0], c[0][1], c[0][2]);
+  }
+  if (gamestate==0) rect(625, 705, 120, 100, 10);
+  
+  if (gamestate == 0 && (mouseX >= 160 && mouseX <= 515 && mouseY >= 650 && mouseY <= 755)) 
   { 
     fill(c[2][0], c[2][1], c[2][2]);
   } else 
@@ -278,7 +297,7 @@ void drawButtons()
     rect(340, 705, 350, 100, 10);
     if ((mouseX >= 160 && mouseX <= 515 && mouseY >= 645 && mouseY <= 745)) fill(c[0][0], c[0][1], c[0][2]);
     else fill(c[2][0], c[2][1], c[2][2]);
-    text("PLAY", 330, 720);
+    text("PLAY", 335, 720);
   }
 
   strokeWeight(2.5);
@@ -286,7 +305,10 @@ void drawButtons()
   fill(c[2][0], c[2][1], c[2][2], 0);
   rect(810, 40, 40, 40, 10);
   rect(810, 90, 40, 40, 10);
-  if (gamestate==0) rect(340, 705, 350, 100, 10);
+  if (gamestate==0) rect(340, 705, 350, 100, 10); 
+  if (gamestate==0) rect(625, 705, 120, 100, 10);
+  if (gamestate==0 && !darkmode) shape(sun, 592, 672, 65, 65);
+  if (gamestate==0 && darkmode) shape(moon, 592, 672, 65, 65);
   noStroke();
 }
 
