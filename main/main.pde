@@ -200,20 +200,6 @@ void generateBackground()
     }
   }
 
-  String text;
-  int textSize;
-  if (endless) 
-  { 
-    text = "ON";
-    fill(#77E744);
-    textSize = 20;
-  }
-  else 
-  {
-    text = "TURN\nON";
-    fill(#ED3D3D);
-    textSize = 15;
-  }
   noStroke();
   textFont(headline);
   textAlign(CENTER);
@@ -222,9 +208,6 @@ void generateBackground()
   text("Endless mode", 710, 47);
   text("Stop the game", 705, 97);
   textAlign(CENTER, CENTER);
-  textSize(textSize);
-  text(text, 810, 43);
-  fill(0, 0, 0);
   textFont(font);
 }
 
