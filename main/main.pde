@@ -189,8 +189,6 @@ void generateBackground()
     }
   }
 
-  String text;
-  int textSize;
   if (endless) 
   { 
     fill(0);
