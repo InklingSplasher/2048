@@ -258,39 +258,22 @@ void drawSquares(int alpha)
 
 void drawButtons()
 {
-  if (endless || mouseX >= 790 && mouseX <= 830 && mouseY >= 10 && mouseY <= 60) 
-  { 
-    fill(c[2][0], c[2][1], c[2][2]);
-  } else 
-  {
-    fill(c[0][0], c[0][1], c[0][2]);
-  }
+  if (endless || mouseX >= 790 && mouseX <= 830 && mouseY >= 10 && mouseY <= 60) fill(c[2][0], c[2][1], c[2][2]);
+  else fill(c[0][0], c[0][1], c[0][2]);
   rect(810, 40, 40, 40, 10);
 
-  if (mouseX >= 790 && mouseX <= 830 && mouseY >= 65 && mouseY <= 110) 
-  { 
-    fill(c[2][0], c[2][1], c[2][2]);
-  } else 
-  {
-    fill(c[0][0], c[0][1], c[0][2]);
-  }
+  if (mouseX >= 790 && mouseX <= 830 && mouseY >= 65 && mouseY <= 110) fill(c[2][0], c[2][1], c[2][2]);
+  else fill(c[0][0], c[0][1], c[0][2]);
+
   rect(810, 90, 40, 40, 10);
-  if (gamestate == 0 && (mouseX >= 560 && mouseX <= 685 && mouseY >= 650 && mouseY <= 755)) 
-  { 
-    fill(c[2][0], c[2][1], c[2][2]);
-  } else 
-  {
-    fill(c[0][0], c[0][1], c[0][2]);
-  }
+  if (gamestate == 0 && (mouseX >= 560 && mouseX <= 685 && mouseY >= 650 && mouseY <= 755)) fill(c[2][0], c[2][1], c[2][2]);
+  else 
+  fill(c[0][0], c[0][1], c[0][2]);
+
   if (gamestate==0) rect(625, 705, 120, 100, 10);
   
-  if (gamestate == 0 && (mouseX >= 160 && mouseX <= 515 && mouseY >= 650 && mouseY <= 755)) 
-  { 
-    fill(c[2][0], c[2][1], c[2][2]);
-  } else 
-  {
-    fill(c[0][0], c[0][1], c[0][2]);
-  }
+  if (gamestate == 0 && (mouseX >= 160 && mouseX <= 515 && mouseY >= 650 && mouseY <= 755)) fill(c[2][0], c[2][1], c[2][2]);
+  else fill(c[0][0], c[0][1], c[0][2]);
 
   if (gamestate==0) 
   {
@@ -305,10 +288,13 @@ void drawButtons()
   fill(c[2][0], c[2][1], c[2][2], 0);
   rect(810, 40, 40, 40, 10);
   rect(810, 90, 40, 40, 10);
-  if (gamestate==0) rect(340, 705, 350, 100, 10); 
-  if (gamestate==0) rect(625, 705, 120, 100, 10);
-  if (gamestate==0 && !darkmode) shape(sun, 592, 672, 65, 65);
-  if (gamestate==0 && darkmode) shape(moon, 592, 672, 65, 65);
+  if (gamestate==0) 
+  {
+    rect(340, 705, 350, 100, 10); 
+    rect(625, 705, 120, 100, 10);
+    if (!darkmode) shape(sun, 592, 672, 65, 65);
+    if (darkmode) shape(moon, 592, 672, 65, 65);
+  }
   noStroke();
 }
 
@@ -580,119 +566,47 @@ void determineColor(int x, int y)
   {
     switch(x) 
     {
-    case 2: 
-      fill(#11A9D8, y); 
-      break;
-    case 4: 
-      fill(#0E9CC8, y); 
-      break;
-    case 8: 
-      fill(#0A8EB7, y); 
-      break;
-    case 16: 
-      fill(#0780A4, y); 
-      break;
-    case 32: 
-      fill(#047294, y); 
-      break;
-    case 64: 
-      fill(#006482, y); 
-      break;
-    case 128: 
-      fill(#D27313, y); 
-      break;
-    case 256: 
-      fill(#C95413, y); 
-      break;
-    case 512: 
-      fill(#C13513, y); 
-      break;
-    case 1024: 
-      fill(#B71413, y); 
-      break;
-    case 2048: 
-      fill(#BF0E93, y); 
-      break;
-    case 4096: 
-      fill(#A6149A, y); 
-      break;
-    case 8192: 
-      fill(#8C1AA2, y); 
-      break;
-    case 16384: 
-      fill(#721FAA, y); 
-      break;
-    case 32768: 
-      fill(#5925B1, y); 
-      break;
-    case 65536: 
-      fill(#3E2BB9, y); 
-      break;
-    case 131072: 
-      fill(#2531C1, y); 
-      break;
-    default: 
-      fill(#11A9D8, y); 
-      break;
+    case 2: fill(#11A9D8, y); break;
+    case 4: fill(#0E9CC8, y); break;
+    case 8: fill(#0A8EB7, y); break;
+    case 16: fill(#0780A4, y); break;
+    case 32: fill(#047294, y); break;
+    case 64: fill(#006482, y); break;
+    case 128: fill(#D27313, y); break;
+    case 256: fill(#C95413, y); break;
+    case 512: fill(#C13513, y); break;
+    case 1024: fill(#B71413, y); break;
+    case 2048: fill(#BF0E93, y); break;
+    case 4096: fill(#A6149A, y); break;
+    case 8192: fill(#8C1AA2, y); break;
+    case 16384: fill(#721FAA, y); break;
+    case 32768: fill(#5925B1, y); break;
+    case 65536: fill(#3E2BB9, y); break;
+    case 131072: fill(#2531C1, y); break;
+    default: fill(#11A9D8, y); break;
     }
   } else
   {
     switch(x) 
     {
-    case 2: 
-      fill(#5ECAED, y); 
-      break;
-    case 4: 
-      fill(#74D1F0, y); 
-      break;
-    case 8: 
-      fill(#8AD9F3, y); 
-      break;
-    case 16: 
-      fill(#A0E1F6, y); 
-      break;
-    case 32: 
-      fill(#B8E9F9, y); 
-      break;
-    case 64: 
-      fill(#CEF1FC, y); 
-      break;
-    case 128: 
-      fill(#EDA761, y); 
-      break;
-    case 256: 
-      fill(#EB8559, y); 
-      break;
-    case 512: 
-      fill(#E96D53, y); 
-      break;
-    case 1024: 
-      fill(#E74B4A, y); 
-      break;
-    case 2048: 
-      fill(#E047BA, y); 
-      break;
-    case 4096: 
-      fill(#CB40CB, y); 
-      break;
-    case 8192: 
-      fill(#B138DF, y); 
-      break;
-    case 16384: 
-      fill(#9830F2, y); 
-      break;
-    case 32768: 
-      fill(#7E3BEF, y); 
-      break;
-    case 65536: 
-      fill(#6247EB, y); 
-      break;
-    case 131072: 
-      fill(#4852E8, y); 
-      break;
-    default: 
-      fill(#5ECAED, y); 
-      break;
+    case 2: fill(#5ECAED, y); break;
+    case 4: fill(#74D1F0, y); break;
+    case 8: fill(#8AD9F3, y); break;
+    case 16: fill(#A0E1F6, y); break;
+    case 32: fill(#B8E9F9, y); break;
+    case 64: fill(#CEF1FC, y); break;
+    case 128: fill(#EDA761, y); break;
+    case 256: fill(#EB8559, y); break;
+    case 512: fill(#E96D53, y); break;
+    case 1024: fill(#E74B4A, y); break;
+    case 2048: fill(#E047BA, y); break;
+    case 4096: fill(#CB40CB, y); break;
+    case 8192: fill(#B138DF, y); break;
+    case 16384: fill(#9830F2, y); break;
+    case 32768: fill(#7E3BEF, y); break;
+    case 65536: fill(#6247EB, y); break;
+    case 131072: fill(#4852E8, y); break;
+    default: fill(#5ECAED, y); break;
     }
   }
 }
