@@ -116,43 +116,55 @@ void keyPressed()
 
 void mousePressed()
 {
-	if (gamestate == 0 && (mouseX >= 160 && mouseX <= 515 && mouseY >= 645 && mouseY <= 745))
+
+	switch(gamestate)
 	{
-		gamestate=1;
-		generateBackground();
-	}
-	if (gamestate==1)
-	{
-		if (GameOver) // When the game is over and the mouse is pressed, restart the game.
-		{
-			if (!endless) score = 0; // Resetting the score
-			GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
-			isRunning = true;
-			setup(); // Run the setup again and therefore reset everything.
-		} else if (mouseX >= 790 && mouseX <= 830 && mouseY >= 10 && mouseY <= 60 && !endless)
-		{
-			endless = true; // Turn endless mode on
-			generateBackground();
-		} else
-		{
-			// Match mouse coordinates with specifc pressed key codes.
-			if (mouseX < width / 4) keyCode = LEFT;
-			if (mouseX > width * 3 / 4) keyCode = RIGHT;
-			if (mouseY < 240) keyCode = UP;
-			if (mouseY > height * 3 / 4) keyCode = DOWN;
-			if (keyCode>0) move(); // If it was set correctly, go on to the move() function.
-		}
+
+		case 0:
+			{
+				if(mouseX >= 160 && mouseX <= 515 && mouseY >= 645 && mouseY <= 745)
+				{
+					gamestate=1;
+					generateBackground();
+				}
+
+				if (mouseX >= 560 && mouseX <= 685 && mouseY >= 650 && mouseY <= 755)
+				{
+					darkmode = !darkmode;
+					selectColors();
+					generateBackground();
+				}
+				break;
+			}
+		case 1:
+			{
+				if (GameOver) // When the game is over and the mouse is pressed, restart the game.
+				{
+					if (!endless) score = 0; // Resetting the score
+					GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
+					isRunning = true;
+					setup(); // Run the setup again and therefore reset everything.
+				} else if (mouseX >= 790 && mouseX <= 830 && mouseY >= 10 && mouseY <= 60 && !endless)
+				{
+					endless = true; // Turn endless mode on
+					generateBackground();
+					drawSquares(12);
+				} else
+				{
+					// Match mouse coordinates with specifc pressed key codes.
+					if (mouseX < width / 4) keyCode = LEFT;
+					if (mouseX > width * 3 / 4) keyCode = RIGHT;
+					if (mouseY < 240) keyCode = UP;
+					if (mouseY > height * 3 / 4) keyCode = DOWN;
+					if (keyCode>0) move(); // If it was set correctly, go on to the move() function.
+				}
+				break;
+			}
 	}
 	if (mouseX >= 790 && mouseX <= 830 && mouseY >= 65 && mouseY <= 110)
 	{
 		println("Goodbye!");
 		exit(); // Exit the program
-	}
-	if (gamestate == 0 && (mouseX >= 560 && mouseX <= 685 && mouseY >= 650 && mouseY <= 755))
-	{
-		darkmode = !darkmode;
-		selectColors();
-		generateBackground();
 	}
 }
 
@@ -194,11 +206,6 @@ void generateBackground()
 	fill(c[1][0], c[1][1], c[1][2]); // Light blue
 	textSize(66);
 	text("2048", 100, 90); // Headline "2048"
-
-	textAlign(CENTER, CENTER); // Align text at the top left
-	textSize(30);
-	if (endless) fill(c[4][0], c[4][1], c[4][2]);
-	text("Score: " + score, width/2, 65); // Score Headline
 
 	textFont(font);
 	fill(c[1][0], c[1][1], c[1][2]);
@@ -297,8 +304,6 @@ void drawButtons()
 	}
 	noStroke();
 }
-
-
 
 void move()
 {
