@@ -60,7 +60,7 @@ void draw()
 				// Startscreen
 				// println(mouseX, mouseY);
 				rectMode(CENTER);
-				fill(c[0][0], c[0][1], c[0][2], 12);
+				fill(c[0][0], c[0][1], c[0][2], 15);
 				rect(width/2, height/2+40, 600, 600, 10, 10, 10, 10);
 
 				textFont(headline);
@@ -544,7 +544,7 @@ void selectColors()
 	{
 		// The colors used for darkmode. Always R,G,B
 		// Background, Headline Text, Button Subtext...
-		c = new int[][] {{0, 0, 0}, {17, 169, 216}, {255, 255, 255}, {27, 178, 223}, {231, 75, 74}};
+		c = new int[][] {{13, 13, 13}, {39, 46, 124}, {255, 255, 255}, {29, 35, 104}, {183, 20, 10}};
 	} else
 	{
 		// Default colors. Always R,G,B
@@ -566,12 +566,12 @@ void determineColor(int x, int y)
 	{
 		switch(x)
 		{
-			case 2: fill(#11A9D8, y); break;
-			case 4: fill(#0E9CC8, y); break;
-			case 8: fill(#0A8EB7, y); break;
-			case 16: fill(#0780A4, y); break;
-			case 32: fill(#047294, y); break;
-			case 64: fill(#006482, y); break;
+			case 2: fill(#006482, y); break;
+			case 4: fill(#047294, y); break;
+			case 8: fill(#0780A4, y); break;
+			case 16: fill(#0A8EB7, y); break;
+			case 32: fill(#0E9CC8, y); break;
+			case 64: fill(#11A9D8, y); break;
 			case 128: fill(#D27313, y); break;
 			case 256: fill(#C95413, y); break;
 			case 512: fill(#C13513, y); break;
@@ -583,7 +583,7 @@ void determineColor(int x, int y)
 			case 32768: fill(#5925B1, y); break;
 			case 65536: fill(#3E2BB9, y); break;
 			case 131072: fill(#2531C1, y); break;
-			default: fill(#11A9D8, y); break;
+			default: fill(#006482, y); break;
 		}
 	} else
 	{
