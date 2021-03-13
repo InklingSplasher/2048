@@ -207,6 +207,11 @@ void generateBackground()
 	textSize(66);
 	text("2048", 100, 90); // Headline "2048"
 
+	textAlign(CENTER, CENTER); // Align text at the top left
+	textSize(30);
+	if (endless) fill(c[4][0], c[4][1], c[4][2]);
+	text("Score: " + score, width/2, 65); // Score Headline
+
 	textFont(font);
 	fill(c[1][0], c[1][1], c[1][2]);
 	rectMode(CENTER); // Align rectangles at the center
