@@ -101,6 +101,25 @@ void draw()
 				}
 				break;
 			}
+		case 2:
+			{
+
+				rectMode(CENTER);
+				fill(c[0][0], c[0][1], c[0][2], 12);
+				rect(width/2, height/2+40, 520, 520, 10, 10, 10, 10);
+
+				textFont(headline);
+				textAlign(CENTER);
+				fill(c[1][0], c[1][1], c[1][2], 36);
+				textSize(48);
+				text("Game Completed", width/2, height/2+10);
+
+				fill(c[2][0], c[2][1], c[2][2], 12);
+				textSize(32);
+				text("Congratulations! You finished the game.\nCurrent score: " + score + "\n\nNow click the mouse to continue!", width/2, height/2+70);
+				break;
+			}
+		default: println("Invalid gamestate " + gamestate + "! Report this to the developer!"); break;
 	}
 }
 
@@ -160,6 +179,14 @@ void mousePressed()
 				}
 				break;
 			}
+		case 2:
+			{
+				gamestate = 1;
+				generateBackground();
+				break;
+			}
+		default:	println("Invalid gamestate " + gamestate + "! Report this to the developer!");
+
 	}
 	if (mouseX >= 790 && mouseX <= 830 && mouseY >= 65 && mouseY <= 110)
 	{
@@ -321,6 +348,7 @@ void move()
 	 * Merging
 	 * Fading in
 	 */
+	int oldscore = score;
 	isRunning = false; // Reset the variable
 	GameOver = isGameOver(); // Check if the game is over and save it into a variable to save computing power
 
@@ -363,6 +391,7 @@ void move()
 						{
 							if (window[x][y] == window[x][y+1]) // If the value right after the current value is equal
 							{
+								if (window[x][y] == 1024) gamestate = 2;
 								window[x][y] += window[x][y+1]; // Add those up &
 								score += window[x][y]; // Increase the score
 								for (int k=1; k<(3-y); k++) // As long as
@@ -400,6 +429,7 @@ void move()
 						{
 							if (window[x][y] == window[x][y-1])
 							{
+								if (window[x][y] == 1024) gamestate = 2;
 								window[x][y] += window[x][y-1];
 								score += window[x][y];
 								for (int k=1; y-k>0; k++)
@@ -437,6 +467,7 @@ void move()
 						{
 							if (window[x][y] == window[x+1][y])
 							{
+								if (window[x][y] == 1024) gamestate = 2;
 								window[x][y] += window[x+1][y];
 								score += window[x][y];
 								for (int k=1; k+x<3; k++)
@@ -474,6 +505,7 @@ void move()
 						{
 							if (window[x][y] == window[x-1][y])
 							{
+								if (window[x][y] == 1024) gamestate = 2;
 								window[x][y] += window[x-1][y];
 								score += window[x][y];
 								for (int k=1; x-k>0; k++)
