@@ -306,7 +306,7 @@ void drawButtons()
 		if (mouseX >= 560 && mouseX <= 685 && mouseY >= 650 && mouseY <= 755) fill(c[2][0], c[2][1], c[2][2]);
 		else fill(c[0][0], c[0][1], c[0][2]);
 		rect(625, 705, 120, 100, 10); // Dark mode button
-		
+
 		if (mouseX >= 160 && mouseX <= 515 && mouseY >= 650 && mouseY <= 755) fill(c[2][0], c[2][1], c[2][2]);
 		else fill(c[0][0], c[0][1], c[0][2]);
 		rect(340, 705, 350, 100, 10); // Play button

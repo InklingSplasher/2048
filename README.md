@@ -21,7 +21,8 @@ Sorted from top (important) to bottom (not/less important)
 * Add reset and stop actions (press 'r' / press 's') ✔️
 * Animations ✔️
 * Startscreen
-* "Game Completed" / Game Over Status (doing)
+* "Game Completed" / Game Over Status ✔️
 * Option for score to be continued (Endless mode) ✔️
-* Easter Eggs?
-* -> Dark Mode (game completed?)
+* Easter Eggs? ✔️
+* -> Dark Mode (game completed?) ✔️
+* Game Sounds
