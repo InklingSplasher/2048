@@ -24,7 +24,7 @@ void setup()
 	 */
 
 	size(870, 980); // Setting the size
-	noStroke(); // Remove the stroke
+	//noStroke(); // Remove the stroke
 	sun = loadShape("sun.svg");
 	moon = loadShape("moon.svg");
 	font = loadFont("Consolas-40.vlw");
