@@ -24,7 +24,6 @@ void setup()
 	 */
 
 	size(870, 980); // Setting the size
-	//noStroke(); // Remove the stroke
 	sun = loadShape("sun.svg");
 	moon = loadShape("moon.svg");
 	font = loadFont("Consolas-40.vlw");
@@ -58,7 +57,7 @@ void draw()
 		case 0:
 			{
 				// Startscreen
-				// println(mouseX, mouseY);
+				// println(mouseX, mouseY);	
 				rectMode(CENTER); // Inner Rectangle
 				fill(c[0][0], c[0][1], c[0][2], 15);
 				rect(width/2, height/2+40, 600, 600, 10, 10, 10, 10);
@@ -180,7 +179,7 @@ void mousePressed()
 				generateBackground(); // Regenerate the background
 				break;
 			}
-		default:	println("Invalid gamestate " + gamestate + "! Report this to the developer!");
+		default: println("Invalid gamestate " + gamestate + "! Report this to the developer!");
 
 	}
 	if (mouseX >= 790 && mouseX <= 830 && mouseY >= 65 && mouseY <= 110) // Exit button
@@ -221,6 +220,7 @@ void generateBackground()
 	 */
 
 	background(c[0][0], c[0][1], c[0][2]); // White background
+	noStroke(); // Remove the stroke
 	if(gamestate==1) drawButtons();
 
 	textFont(headline);
@@ -241,7 +241,7 @@ void generateBackground()
 
 	textFont(headline);
 	fill(c[2][0], c[2][1], c[2][2]);
-	textSize(10);
+	textSize(16);
 	text("press r to reset", 80, 960);
 
 	for (int x=0; x<4; x++) // Loop for 4*4 grid
@@ -253,14 +253,10 @@ void generateBackground()
 		}
 	}
 
-	noStroke(); // Button subtexts
-	textFont(headline);
-	textAlign(CENTER);
 	fill(c[2][0], c[2][1], c[2][2]);
 	textSize(20);
 	text("Endless mode", 710, 47);
 	text("Stop the game", 705, 97);
-	textAlign(CENTER, CENTER);
 	textFont(font);
 }
 
@@ -280,7 +276,7 @@ void drawSquares(int alpha)
 			if (j != 0) // If the array at position i j has a value:
 			{
 				determineColor(j, alpha); // Get the specified color depending on the number
-				rect(140+195*x, 240+195*y, 135, 135, 10); // Set a rectangle at the specific saved coordinates.
+				rect(140+195*x, 240+195*y, 135, 135, 10); // Set a rectangle at the specific coordinates.
 				fill(c[2][0], c[2][1], c[2][2]); // Black
 				textSize(48);
 				textAlign(CENTER, CENTER); // Align text at the center of the screen
@@ -342,13 +338,16 @@ void move()
 	 * Merging
 	 * Fading in
 	 */
+
 	int oldscore = score;
 	isRunning = false; // Reset the variable
 	GameOver = isGameOver(); // Check if the game is over and save it into a variable to save computing power
 
-	// This loop is used to check if any numbers are falsely moving
-	// For this, we basically copy the old values of the array to the new one.
-	// Later on, we then check if there was any movement.
+       /* 
+	* This loop is used to check if any numbers are falsely moving
+	* For this, we basically copy the old values of the array to the new one.
+	* Later on, we then check if there was any movement.
+	*/
 	int[][] oldValues = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
 	for (int x=0; x<4; x++) // Loop for 4*4 grid
 	{
@@ -522,10 +521,7 @@ void move()
 				setup();
 				return;
 			}
-		default:
-			{
-				println("This key is not used!", keyCode);
-			}
+		default: println("This key is not used!", keyCode);
 	}
 
 	for (int x=0; x<4; x++) // Loop for 4*4 grid
@@ -564,6 +560,7 @@ boolean isGameOver()
 	 *  Checks specifically, if any of the arrays values, and the values after them are still 0
 	 *  If yes, return false, else true.
 	 */
+
 	for (int x=0; x<4; x++) // Loop for 4*4 grid
 	{
 		for (int y=0; y<3; y++)
