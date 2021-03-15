@@ -59,24 +59,24 @@ void draw()
 			{
 				// Startscreen
 				// println(mouseX, mouseY);
-				rectMode(CENTER);
+				rectMode(CENTER); // Inner Rectangle
 				fill(c[0][0], c[0][1], c[0][2], 15);
 				rect(width/2, height/2+40, 600, 600, 10, 10, 10, 10);
 
-				textFont(headline);
+				textFont(headline); // "Welcome"
 				textAlign(CENTER);
 				fill(c[1][0], c[1][1], c[1][2]);
 				textSize(48);
 				text("Welcome", width/2, height/2-165);
 
-				fill(c[2][0], c[2][1], c[2][2], 12);
+				fill(c[2][0], c[2][1], c[2][2], 12); // Subtext
 				textSize(32);
 				text("Thanks for choosing to play \nour game, the simple 2048 classic! \nYou win when a tile reaches '2048'\n\nYou can move with:\nArrow Keys / WASD / Mouse", width/2, height/2-95);
 				break;
 			}
 		case 1:
 			{
-				if (!GameOver && isRunning) // If the game is not over and drawing i
+				if (!GameOver && isRunning) // If the game is not over and drawing is enabled
 				{
 					drawSquares(12); // Draw squares with the specific alpha value
 				}
@@ -85,17 +85,17 @@ void draw()
 				{
 					isRunning = false; // Disable Drawing
 
-					rectMode(CENTER);
+					rectMode(CENTER); // Inner Rectangle
 					fill(c[0][0], c[0][1], c[0][2], 12);
 					rect(width/2, height/2+40, 520, 520, 10, 10, 10, 10);
 
-					textFont(headline);
+					textFont(headline); // "Game Over"
 					textAlign(CENTER);
 					fill(c[4][0], c[4][1], c[4][2], 36);
 					textSize(48);
 					text("Game Over", width/2, height/2+10);
 
-					fill(c[2][0], c[2][1], c[2][2], 12);
+					fill(c[2][0], c[2][1], c[2][2], 12); // Subtext
 					textSize(32);
 					text("Click anywhere to restart!", width/2, height/2+70);
 				}
@@ -104,19 +104,19 @@ void draw()
 		case 2:
 			{
 
-				rectMode(CENTER);
+				rectMode(CENTER); // Inner Rectangle
 				fill(c[0][0], c[0][1], c[0][2], 12);
 				rect(width/2, height/2+40, 520, 520, 10, 10, 10, 10);
 
-				textFont(headline);
+				textFont(headline); // "Game Completed"
 				textAlign(CENTER);
 				fill(c[1][0], c[1][1], c[1][2], 36);
 				textSize(48);
 				text("Game Completed", width/2, height/2+10);
 
-				fill(c[2][0], c[2][1], c[2][2], 12);
+				fill(c[2][0], c[2][1], c[2][2], 12); // Subtext
 				textSize(32);
-				text("Congratulations! You finished the game.\nCurrent score: " + score + "\n\nNow click the mouse to continue!", width/2, height/2+70);
+				text("Congratulations!\nYou finished the game.\nCurrent score: " + score + "\n\nNow click the mouse to continue!", width/2, height/2+70);
 				break;
 			}
 		default: println("Invalid gamestate " + gamestate + "! Report this to the developer!"); break;
@@ -126,11 +126,6 @@ void draw()
 void keyPressed()
 {
 	if (gamestate==1) move();
-	if (gamestate==0 && keyCode == 83)
-	{
-		gamestate = 1;
-		generateBackground();
-	}
 }
 
 void mousePressed()
@@ -141,17 +136,17 @@ void mousePressed()
 
 		case 0:
 			{
-				if(mouseX >= 160 && mouseX <= 515 && mouseY >= 645 && mouseY <= 745)
+				if(mouseX >= 160 && mouseX <= 515 && mouseY >= 645 && mouseY <= 745) // Play Button
 				{
-					gamestate=1;
-					generateBackground();
+					gamestate=1; // Set gamestate to running mode
+					generateBackground(); // Regenerate the background
 				}
 
-				if (mouseX >= 560 && mouseX <= 685 && mouseY >= 650 && mouseY <= 755)
+				if (mouseX >= 560 && mouseX <= 685 && mouseY >= 650 && mouseY <= 755) // Darkmode Button
 				{
-					darkmode = !darkmode;
-					selectColors();
-					generateBackground();
+					darkmode = !darkmode; // Switch the variable over
+					selectColors(); // Rewrite the colors
+					generateBackground(); // Regenerate the background
 				}
 				break;
 			}
@@ -179,16 +174,16 @@ void mousePressed()
 				}
 				break;
 			}
-		case 2:
+		case 2: // If the game is completed, on mouse click:
 			{
-				gamestate = 1;
-				generateBackground();
+				gamestate = 1; // Set the gamestate back to normal playing
+				generateBackground(); // Regenerate the background
 				break;
 			}
 		default:	println("Invalid gamestate " + gamestate + "! Report this to the developer!");
 
 	}
-	if (mouseX >= 790 && mouseX <= 830 && mouseY >= 65 && mouseY <= 110)
+	if (mouseX >= 790 && mouseX <= 830 && mouseY >= 65 && mouseY <= 110) // Exit button
 	{
 		println("Goodbye!");
 		exit(); // Exit the program
@@ -258,7 +253,7 @@ void generateBackground()
 		}
 	}
 
-	noStroke();
+	noStroke(); // Button subtexts
 	textFont(headline);
 	textAlign(CENTER);
 	fill(c[2][0], c[2][1], c[2][2]);
@@ -299,27 +294,26 @@ void drawButtons()
 {
 	if (endless || mouseX >= 790 && mouseX <= 830 && mouseY >= 10 && mouseY <= 60) fill(c[2][0], c[2][1], c[2][2]);
 	else fill(c[0][0], c[0][1], c[0][2]);
-	rect(810, 40, 40, 40, 10);
+	rect(810, 40, 40, 40, 10); // Endless button
 
 	if (mouseX >= 790 && mouseX <= 830 && mouseY >= 65 && mouseY <= 110) fill(c[2][0], c[2][1], c[2][2]);
 	else fill(c[0][0], c[0][1], c[0][2]);
-
-	rect(810, 90, 40, 40, 10);
-	if (gamestate == 0 && (mouseX >= 560 && mouseX <= 685 && mouseY >= 650 && mouseY <= 755)) fill(c[2][0], c[2][1], c[2][2]);
-	else
-		fill(c[0][0], c[0][1], c[0][2]);
-
-	if (gamestate==0) rect(625, 705, 120, 100, 10);
-
-	if (gamestate == 0 && (mouseX >= 160 && mouseX <= 515 && mouseY >= 650 && mouseY <= 755)) fill(c[2][0], c[2][1], c[2][2]);
-	else fill(c[0][0], c[0][1], c[0][2]);
+	rect(810, 90, 40, 40, 10); // Exit button
 
 	if (gamestate==0)
 	{
-		rect(340, 705, 350, 100, 10);
+
+		if (mouseX >= 560 && mouseX <= 685 && mouseY >= 650 && mouseY <= 755) fill(c[2][0], c[2][1], c[2][2]);
+		else fill(c[0][0], c[0][1], c[0][2]);
+		rect(625, 705, 120, 100, 10); // Dark mode button
+		
+		if (mouseX >= 160 && mouseX <= 515 && mouseY >= 650 && mouseY <= 755) fill(c[2][0], c[2][1], c[2][2]);
+		else fill(c[0][0], c[0][1], c[0][2]);
+		rect(340, 705, 350, 100, 10); // Play button
+
 		if ((mouseX >= 160 && mouseX <= 515 && mouseY >= 645 && mouseY <= 745)) fill(c[0][0], c[0][1], c[0][2]);
 		else fill(c[2][0], c[2][1], c[2][2]);
-		text("PLAY", 335, 720);
+		text("PLAY", 335, 720); // "PLAY" text
 	}
 
 	strokeWeight(2.5);
