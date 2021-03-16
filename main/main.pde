@@ -57,7 +57,7 @@ void draw()
 		case 0:
 			{
 				// Startscreen
-				// println(mouseX, mouseY);	
+				// println(mouseX, mouseY);
 				rectMode(CENTER); // Inner Rectangle
 				fill(c[0][0], c[0][1], c[0][2], 15);
 				rect(width/2, height/2+40, 600, 600, 10, 10, 10, 10);
@@ -129,63 +129,51 @@ void keyPressed()
 
 void mousePressed()
 {
-
-	switch(gamestate)
+	if(gamestate==0)
 	{
-
-		case 0:
-			{
-				if(mouseX >= 160 && mouseX <= 515 && mouseY >= 645 && mouseY <= 745) // Play Button
-				{
-					gamestate=1; // Set gamestate to running mode
-					generateBackground(); // Regenerate the background
-				}
-
-				if (mouseX >= 560 && mouseX <= 685 && mouseY >= 650 && mouseY <= 755) // Darkmode Button
-				{
-					darkmode = !darkmode; // Switch the variable over
-					selectColors(); // Rewrite the colors
-					generateBackground(); // Regenerate the background
-				}
-				break;
-			}
-		case 1:
-			{
-				if (GameOver) // When the game is over and the mouse is pressed, restart the game.
-				{
-					if (!endless) score = 0; // Resetting the score
-					GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
-					isRunning = true;
-					setup(); // Run the setup again and therefore reset everything.
-				} else if (mouseX >= 790 && mouseX <= 830 && mouseY >= 10 && mouseY <= 60 && !endless)
-				{
-					endless = true; // Turn endless mode on
-					generateBackground();
-					drawSquares(12);
-				} else
-				{
-					// Match mouse coordinates with specifc pressed key codes.
-					if (mouseX < width / 4) keyCode = LEFT;
-					if (mouseX > width * 3 / 4) keyCode = RIGHT;
-					if (mouseY < 240) keyCode = UP;
-					if (mouseY > height * 3 / 4) keyCode = DOWN;
-					if (keyCode>0) move(); // If it was set correctly, go on to the move() function.
-				}
-				break;
-			}
-		case 2: // If the game is completed, on mouse click:
-			{
-				gamestate = 1; // Set the gamestate back to normal playing
-				generateBackground(); // Regenerate the background
-				break;
-			}
-		default: println("Invalid gamestate " + gamestate + "! Report this to the developer!");
-
+		if(mouseX >= 160 && mouseX <= 515 && mouseY >= 645 && mouseY <= 745) // Play Button
+		{
+			gamestate=1; // Set gamestate to running mode
+			generateBackground(); // Regenerate the background
+		}
+		if (mouseX >= 560 && mouseX <= 685 && mouseY >= 650 && mouseY <= 755) // Darkmode Button
+		{
+			darkmode = !darkmode; // Switch the variable over
+			selectColors(); // Rewrite the colors
+			generateBackground(); // Regenerate the background
+		}
+	}
+	if (gamestate==2) // If the game is completed, on mouse click:
+	{
+		gamestate = 1; // Set the gamestate back to normal playing
+		generateBackground(); // Regenerate the background
 	}
 	if (mouseX >= 790 && mouseX <= 830 && mouseY >= 65 && mouseY <= 110) // Exit button
 	{
 		println("Goodbye!");
 		exit(); // Exit the program
+	}
+	else if (mouseX >= 790 && mouseX <= 830 && mouseY >= 10 && mouseY <= 60 && !endless) // Endless button
+	{
+		endless = true; // Turn endless mode on
+		generateBackground();
+		drawSquares(12);
+	} 
+	else if (GameOver) // When the game is over and the mouse is pressed, restart the game.
+	{
+		if (!endless) score = 0; // Resetting the score
+		GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
+		isRunning = true;
+		setup(); // Run the setup again and therefore reset everything.
+	}
+	else
+	{
+		// Match mouse coordinates with specifc pressed key codes.
+		if (mouseX < width / 4) keyCode = LEFT;
+		if (mouseX > width * 3 / 4) keyCode = RIGHT;
+		if (mouseY < 240) keyCode = UP;
+		if (mouseY > height * 3 / 4) keyCode = DOWN;
+		if (keyCode>0) move(); // If it was set correctly, go on to the move() function.
 	}
 }
 
@@ -343,11 +331,11 @@ void move()
 	isRunning = false; // Reset the variable
 	GameOver = isGameOver(); // Check if the game is over and save it into a variable to save computing power
 
-       /* 
-	* This loop is used to check if any numbers are falsely moving
-	* For this, we basically copy the old values of the array to the new one.
-	* Later on, we then check if there was any movement.
-	*/
+	/*
+	 * This loop is used to check if any numbers are falsely moving
+	 * For this, we basically copy the old values of the array to the new one.
+	 * Later on, we then check if there was any movement.
+	 */
 	int[][] oldValues = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
 	for (int x=0; x<4; x++) // Loop for 4*4 grid
 	{
