@@ -328,7 +328,7 @@ void drawButtons()
 	else fill(c[0][0], c[0][1], c[0][2]);
 	rect(810, 62, 31, 31, 10); // Endless button
 
-	fill(c[2][0], c[2][1], c[2][2]);
+	fill(c[0][0], c[0][1], c[0][2]);
 	rect(810, 102, 31, 31, 10); // Music button
 
 	if (gamestate==0)
