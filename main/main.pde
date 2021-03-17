@@ -1,3 +1,5 @@
+import processing.sound.*;
+
 // Global Variables
 int[][] window = new int[4][4]; // 4*4 Array for all coordinates of the grid.
 int[][] c; // Colors
@@ -13,6 +15,7 @@ PFont headline;
 PShape sun;
 PShape moon;
 PShape crown;
+SoundFile soundtrack;
 
 void setup()
 {
@@ -27,9 +30,10 @@ void setup()
 	size(870, 980); // Setting the size
 	sun = loadShape("sun.svg");
 	moon = loadShape("moon.svg");
-  crown = loadShape("crown.svg");
+	crown = loadShape("crown.svg");
 	font = loadFont("Consolas-40.vlw");
-	headline = loadFont("URWGothic-Demi-48.vlw");
+	headline = loadFont("URWGothic-Demi-48.vlw");	
+	soundtrack = new SoundFile(this, "soundtrack.wav");
 	textFont(font);
 
 	for (int x=0; x<4; x++) // Loop for 4*4 grid, resets all values to zero when the game starts over.
@@ -42,6 +46,9 @@ void setup()
 	selectColors();
 	if (gamestate==1) generateNew((int) random(1, 2.99)); // Generate 1 or 2 new numbers at the start of the game.
 	generateBackground(); // Generate the background
+
+	soundtrack.play(1, 0.3);
+	soundtrack.loop();
 }
 
 void draw()
