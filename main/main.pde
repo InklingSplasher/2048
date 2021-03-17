@@ -37,7 +37,6 @@ void setup()
 			window[x][y] = 0;
 		}
 	}
-	GameOver  = true;
 	selectColors();
 	generateNew((int) random(1, 2.99)); // Generate 1 or 2 new numbers at the start of the game.
 	generateBackground(); // Generate the background
