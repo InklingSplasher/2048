@@ -37,7 +37,7 @@ void setup()
 			window[x][y] = 0;
 		}
 	}
-
+	GameOver  = true;
 	selectColors();
 	generateNew((int) random(1, 2.99)); // Generate 1 or 2 new numbers at the start of the game.
 	generateBackground(); // Generate the background
@@ -85,7 +85,7 @@ void draw()
 					isRunning = false; // Disable Drawing
 
 					rectMode(CENTER); // Inner Rectangle
-					fill(c[0][0], c[0][1], c[0][2], 12);
+					fill(c[0][0], c[0][1], c[0][2], 16);
 					rect(width/2, height/2+40, 520, 520, 10, 10, 10, 10);
 
 					textFont(headline); // "Game Over"
@@ -104,7 +104,7 @@ void draw()
 			{
 
 				rectMode(CENTER); // Inner Rectangle
-				fill(c[0][0], c[0][1], c[0][2], 12);
+				fill(c[0][0], c[0][1], c[0][2], 15);
 				rect(width/2, height/2+40, 520, 520, 10, 10, 10, 10);
 
 				textFont(headline); // "Game Completed"
