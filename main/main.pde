@@ -12,6 +12,7 @@ PFont font; // Custom fonts
 PFont headline;
 PShape sun;
 PShape moon;
+PShape crown;
 
 void setup()
 {
@@ -26,6 +27,7 @@ void setup()
 	size(870, 980); // Setting the size
 	sun = loadShape("sun.svg");
 	moon = loadShape("moon.svg");
+  crown = loadShape("crown.svg");
 	font = loadFont("Consolas-40.vlw");
 	headline = loadFont("URWGothic-Demi-48.vlw");
 	textFont(font);
@@ -110,11 +112,15 @@ void draw()
 				textAlign(CENTER);
 				fill(c[1][0], c[1][1], c[1][2], 36);
 				textSize(48);
-				text("Game Completed", width/2, height/2+10);
+				text("Game Completed", width/2, height/2-135);
 
 				fill(c[2][0], c[2][1], c[2][2], 12); // Subtext
 				textSize(32);
-				text("Congratulations!\nYou finished the game.\nCurrent score: " + score + "\n\nNow click the mouse to continue!", width/2, height/2+70);
+				text("Congratulations!\nYou finished the game.\nCurrent score: " + score, width/2, height/2+60);
+        textSize(25);
+        text("Click the mouse to continue!", width/2, height/2+205);
+
+        shape(crown, width/2-35, height/2-100, 100, 100);
 				break;
 			}
 		default: println("Invalid gamestate " + gamestate + "! Report this to the developer!"); break;
