@@ -15,7 +15,17 @@ PFont headline;
 PShape sun;
 PShape moon;
 PShape crown;
+PShape speaker;
+PShape mute;
 SoundFile soundtrack;
+
+void settings()
+{
+	size(870, 980); // Setting the size
+	soundtrack = new SoundFile(this, "soundtrack.wav");
+	soundtrack.play(1, 0.3);
+	soundtrack.loop();
+}
 
 void setup()
 {
@@ -27,13 +37,13 @@ void setup()
 	 * Generating the first square in our 2D-array
 	 */
 
-	size(870, 980); // Setting the size
 	sun = loadShape("sun.svg");
 	moon = loadShape("moon.svg");
+	speaker = loadShape("audio.svg");
+	mute = loadShape("mute.svg");
 	crown = loadShape("crown.svg");
 	font = loadFont("Consolas-40.vlw");
-	headline = loadFont("URWGothic-Demi-48.vlw");	
-	soundtrack = new SoundFile(this, "soundtrack.wav");
+	headline = loadFont("URWGothic-Demi-48.vlw");
 	textFont(font);
 
 	for (int x=0; x<4; x++) // Loop for 4*4 grid, resets all values to zero when the game starts over.
@@ -46,9 +56,6 @@ void setup()
 	selectColors();
 	if (gamestate==1) generateNew((int) random(1, 2.99)); // Generate 1 or 2 new numbers at the start of the game.
 	generateBackground(); // Generate the background
-
-	soundtrack.play(1, 0.3);
-	soundtrack.loop();
 }
 
 void draw()
@@ -124,10 +131,10 @@ void draw()
 				fill(c[2][0], c[2][1], c[2][2], 12); // Subtext
 				textSize(32);
 				text("Congratulations!\nYou finished the game.\nCurrent score: " + score, width/2, height/2+60);
-        textSize(25);
-        text("Click the mouse to continue!", width/2, height/2+205);
+				textSize(25);
+				text("Click the mouse to continue!", width/2, height/2+205);
 
-        shape(crown, width/2-35, height/2-100, 100, 100);
+				shape(crown, width/2-35, height/2-100, 100, 100);
 				break;
 			}
 		default: println("Invalid gamestate " + gamestate + "! Report this to the developer!"); break;
@@ -142,18 +149,29 @@ void keyPressed()
 void mousePressed()
 {
 	boolean buttonPressed = false; // Variable to check if the button moved before initiating the mouse-movement.
-	if (mouseX >= 790 && mouseX <= 830 && mouseY >= 65 && mouseY <= 110) // Exit button
+	if (mouseX >= 792 && mouseX <= 828 && mouseY >= 6 && mouseY <= 40) // Exit button
 	{
 		println("Goodbye!");
 		exit(); // Exit the program
 		buttonPressed = true;
 	}
-	else if (mouseX >= 790 && mouseX <= 830 && mouseY >= 10 && mouseY <= 60 && !endless) // Endless button
+	else if (mouseX >= 792 && mouseX <= 828 && mouseY >= 56 && mouseY <= 82 && !endless) // Endless button
 	{
 		endless = true; // Turn endless mode on
 		generateBackground();
 		drawSquares(12);
 		buttonPressed = true;
+	}
+	else if (mouseX >= 792 && mouseX <= 828 && mouseY >= 88 && mouseY <= 122)
+	{
+		if (soundtrack.isPlaying())
+		{
+			soundtrack.pause();
+		}
+		else
+		{
+			soundtrack.play();
+		}
 	}
 	else if (GameOver) // When the game is over and the mouse is pressed, restart the game.
 	{
@@ -268,8 +286,9 @@ void generateBackground()
 
 	fill(c[2][0], c[2][1], c[2][2]);
 	textSize(20);
-	text("Endless mode", 710, 40);
-	text("Stop the game", 705, 92);
+	text("Stop the game", 710, 22);
+	text("Endless Mode", 710, 62);
+	text("Sound", 710, 102);
 	textFont(font);
 }
 
@@ -301,13 +320,16 @@ void drawSquares(int alpha)
 
 void drawButtons()
 {
-	if (endless || mouseX >= 790 && mouseX <= 830 && mouseY >= 10 && mouseY <= 60) fill(c[2][0], c[2][1], c[2][2]);
+	if (mouseX >= 792 && mouseX <= 828 && mouseY >= 6 && mouseY <= 40) fill(c[2][0], c[2][1], c[2][2]);
 	else fill(c[0][0], c[0][1], c[0][2]);
-	rect(810, 40, 40, 40, 10); // Endless button
+	rect(810, 22, 31, 31, 10); // Exit button
 
-	if (mouseX >= 790 && mouseX <= 830 && mouseY >= 65 && mouseY <= 110) fill(c[2][0], c[2][1], c[2][2]);
+	if (endless || (mouseX >= 792 && mouseX <= 828 && mouseY >= 56 && mouseY <= 82)) fill(c[2][0], c[2][1], c[2][2]);
 	else fill(c[0][0], c[0][1], c[0][2]);
-	rect(810, 90, 40, 40, 10); // Exit button
+	rect(810, 62, 31, 31, 10); // Endless button
+
+	fill(c[2][0], c[2][1], c[2][2]);
+	rect(810, 102, 31, 31, 10); // Music button
 
 	if (gamestate==0)
 	{
@@ -328,8 +350,12 @@ void drawButtons()
 	strokeWeight(2.5);
 	stroke(c[2][0], c[2][1], c[2][2]);
 	fill(c[2][0], c[2][1], c[2][2], 0);
-	rect(810, 40, 40, 40, 10);
-	rect(810, 90, 40, 40, 10);
+	rect(810, 22, 31, 31, 10); // Exit button
+	rect(810, 62, 31, 31, 10); // Endless button
+	rect(810, 102, 31, 31, 10); // Music 1 button
+
+	if (soundtrack.isPlaying()) shape(speaker, 798, 90, 25, 25);
+	else shape(mute, 798, 90, 25, 25);
 	if (gamestate==0)
 	{
 		rect(340, 705, 350, 100, 10);
@@ -352,7 +378,6 @@ void move()
 	 * Fading in
 	 */
 
-	int oldscore = score;
 	isRunning = false; // Reset the variable
 	GameOver = isGameOver(); // Check if the game is over and save it into a variable to save computing power
 
