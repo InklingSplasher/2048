@@ -38,7 +38,7 @@ void setup()
 		}
 	}
 	selectColors();
-	generateNew((int) random(1, 2.99)); // Generate 1 or 2 new numbers at the start of the game.
+	if (gamestate==1) generateNew((int) random(1, 2.99)); // Generate 1 or 2 new numbers at the start of the game.
 	generateBackground(); // Generate the background
 }
 
@@ -135,6 +135,7 @@ void mousePressed()
 				if(mouseX >= 160 && mouseX <= 515 && mouseY >= 645 && mouseY <= 745) // Play Button
 				{
 					gamestate=1; // Set gamestate to running mode
+					if (gamestate==1) generateNew((int) random(1, 2.99)); // Generate 1 or 2 new numbers at the start of the game.
 					generateBackground(); // Regenerate the background
 				}
 				if (mouseX >= 560 && mouseX <= 685 && mouseY >= 650 && mouseY <= 755) // Darkmode Button
