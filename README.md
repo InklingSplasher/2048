@@ -25,4 +25,7 @@ Sorted from top (important) to bottom (not/less important)
 * Option for score to be continued (Endless mode) ✔️
 * Easter Eggs? ✔️
 * -> Dark Mode (game completed?) ✔️
-* Game Sounds
+* Game Sounds (doing)
+
+## References
+Icons made by [Freepik](https://www.freepik.com) from [Flaticon](https://www.flaticon.com/)
