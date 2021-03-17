@@ -37,8 +37,6 @@ void setup()
 			window[x][y] = 0;
 		}
 	}
-	window[0][0] = 1024;
-	window[0][1] = 1024;
 	selectColors();
 	if (gamestate==1) generateNew((int) random(1, 2.99)); // Generate 1 or 2 new numbers at the start of the game.
 	generateBackground(); // Generate the background
