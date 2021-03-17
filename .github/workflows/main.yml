@@ -36,11 +36,12 @@ jobs:
           sudo tar zxf /opt/processing-${{ matrix.processing-version }}-linux64.tgz -C /opt/
       - name: Install necessary libraries
         run: |
-          sudo mkdir "$PWD"/sketchbook/libraries
-          sudo git clone https://github.com/processing/processing-sound "$PWD"/sketchbook/libraries/processing-sound
-          cd "$PWD"/sketchbook/libraries/processing-sound
+          sudo mkdir "$HOME"/sketchbook
+          sudo mkdir "$HOME"/sketchbook/libraries
+          sudo git clone https://github.com/processing/processing-sound "$HOME"/sketchbook/libraries/processing-sound
+          cd "$HOME"/sketchbook/libraries/processing-sound
           sudo ant dist
-          sudo unzip sound.zip -d "$PWD"/sketchbook/libraries
+          sudo unzip sound.zip -d "$HOME"/sketchbook/libraries
           cd
       - name: Build the Project
         run: /opt/processing-${{ matrix.processing-version }}/processing-java --sketch="$PWD"/main --output=/tmp/processing/ --build
