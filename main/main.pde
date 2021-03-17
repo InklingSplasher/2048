@@ -37,6 +37,8 @@ void setup()
 			window[x][y] = 0;
 		}
 	}
+	window[0][0] = 1024;
+	window[0][1] = 1024;
 	selectColors();
 	if (gamestate==1) generateNew((int) random(1, 2.99)); // Generate 1 or 2 new numbers at the start of the game.
 	generateBackground(); // Generate the background
@@ -128,6 +130,27 @@ void keyPressed()
 
 void mousePressed()
 {
+	boolean buttonPressed = false; // Variable to check if the button moved before initiating the mouse-movement.
+	if (mouseX >= 790 && mouseX <= 830 && mouseY >= 65 && mouseY <= 110) // Exit button
+	{
+		println("Goodbye!");
+		exit(); // Exit the program
+		buttonPressed = true;
+	}
+	else if (mouseX >= 790 && mouseX <= 830 && mouseY >= 10 && mouseY <= 60 && !endless) // Endless button
+	{
+		endless = true; // Turn endless mode on
+		generateBackground();
+		drawSquares(12);
+		buttonPressed = true;
+	}
+	else if (GameOver) // When the game is over and the mouse is pressed, restart the game.
+	{
+		if (!endless) score = 0; // Resetting the score
+		GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
+		isRunning = true;
+		setup(); // Run the setup again and therefore reset everything.
+	}
 	switch(gamestate)
 	{
 		case 0:
@@ -149,11 +172,14 @@ void mousePressed()
 		case 1:
 			{
 				// Match mouse coordinates with specifc pressed key codes.
-				if (mouseX < width / 4) keyCode = LEFT;
-				if (mouseX > width * 3 / 4) keyCode = RIGHT;
-				if (mouseY < 240) keyCode = UP;
-				if (mouseY > height * 3 / 4) keyCode = DOWN;
-				if (keyCode>0) move(); // If it was set correctly, go on to the move() function.
+				if (!buttonPressed)
+				{
+					if (mouseX < width / 4) keyCode = LEFT;
+					if (mouseX > width * 3 / 4) keyCode = RIGHT;
+					if (mouseY < 240) keyCode = UP;
+					if (mouseY > height * 3 / 4) keyCode = DOWN;
+					if (keyCode>0) move(); // If it was set correctly, go on to the move() function.
+				}
 				break;
 			}
 		case 2: // If the game is completed, on mouse click:
@@ -162,24 +188,6 @@ void mousePressed()
 				generateBackground(); // Regenerate the background
 				break;
 			}
-	}
-	if (mouseX >= 790 && mouseX <= 830 && mouseY >= 65 && mouseY <= 110) // Exit button
-	{
-		println("Goodbye!");
-		exit(); // Exit the program
-	}
-	else if (mouseX >= 790 && mouseX <= 830 && mouseY >= 10 && mouseY <= 60 && !endless) // Endless button
-	{
-		endless = true; // Turn endless mode on
-		generateBackground();
-		drawSquares(12);
-	}
-	else if (GameOver) // When the game is over and the mouse is pressed, restart the game.
-	{
-		if (!endless) score = 0; // Resetting the score
-		GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
-		isRunning = true;
-		setup(); // Run the setup again and therefore reset everything.
 	}
 }
 
@@ -249,8 +257,8 @@ void generateBackground()
 
 	fill(c[2][0], c[2][1], c[2][2]);
 	textSize(20);
-	text("Endless mode", 710, 47);
-	text("Stop the game", 705, 97);
+	text("Endless mode", 710, 40);
+	text("Stop the game", 705, 92);
 	textFont(font);
 }
 
@@ -301,7 +309,7 @@ void drawButtons()
 		else fill(c[0][0], c[0][1], c[0][2]);
 		rect(340, 705, 350, 100, 10); // Play button
 
-		if ((mouseX >= 160 && mouseX <= 515 && mouseY >= 645 && mouseY <= 745)) fill(c[0][0], c[0][1], c[0][2]);
+		if ((mouseX >= 160 && mouseX <= 515 && mouseY >= 650 && mouseY <= 755)) fill(c[0][0], c[0][1], c[0][2]);
 		else fill(c[2][0], c[2][1], c[2][2]);
 		text("PLAY", 335, 720); // "PLAY" text
 	}
