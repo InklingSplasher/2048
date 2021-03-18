@@ -3,6 +3,24 @@
 ## Computer Science Project 2021
 Programmed by Lukas Klärchen & Jan Klotz
 
+## Features
+* Full-featured 2048-game.
+* Soundtrack & Sounds (can toggle)
+* Darkmode
+* Score
+* Easily programmed to understand easily.
+
+## Installing
+### With Processing installed:
+Just download the archive, extract, open the main/main.pde with Processing and install the Sound library under "Add tools".
+### Without Processing installed:
+Download the latest software from the releases page corresponding to your OS and just run the executable.
+
+## How to Play
+The goal of 2048 is to merge same powers of 2 to higher and higher numbers until you are able to merge 2 numbers into 2048.
+You can move all numbers to how far they can go by using the arrow keys, WASD or just clicking the mouse at N E S W.
+The game is over when the 4\*4 tile is full and no number can move any further.
+
 ## To-Do
 Sorted from top (important) to bottom (not/less important)
 
