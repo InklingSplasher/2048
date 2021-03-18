@@ -640,7 +640,6 @@ void determineColor(int x, int y)
 	{
 		switch(x)
 		{
-			case 1<<1: fill(#006482, y); break;
 			case 1<<2: fill(#047294, y); break;
 			case 1<<3: fill(#0780A4, y); break;
 			case 1<<4: fill(#0A8EB7, y); break;
@@ -663,7 +662,6 @@ void determineColor(int x, int y)
 	{
 		switch(x)
 		{
-			case 1<<1: fill(#5ECAED, y); break;
 			case 1<<2: fill(#74D1F0, y); break;
 			case 1<<3: fill(#8AD9F3, y); break;
 			case 1<<4: fill(#A0E1F6, y); break;
