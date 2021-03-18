@@ -34,7 +34,7 @@ void setup()
 	 * General look
 	 * Loading all external elements
 	 * Resetting the array
-   * Getting the colors depending on if darkmode is enabled
+	 * Getting the colors depending on if darkmode is enabled
 	 * Generating the first number in our array
 	 */
 
@@ -173,14 +173,14 @@ void mousePressed()
 		{
 			soundtrack.play();
 		}
-    buttonPressed = true;
+		buttonPressed = true;
 	}
 	else if (GameOver) // When the game is over and the mouse is pressed, restart the game.
 	{
 		if (!endless) score = 0; // Resetting the score
 		GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
 		isRunning = true;
-    buttonPressed = true;
+		buttonPressed = true;
 		setup(); // Run the setup again and therefore reset everything.
 	}
 	switch(gamestate)
@@ -632,7 +632,7 @@ void determineColor(int x, int y)
 	/*
 	 * Simple function used to set colors depending on the number
 	 * Passes the number x and the alpha value y
-	 * and gets the color depending on it. 
+	 * and gets the color depending on it.
 	 * 1 << 2 Bitshifting :)
 	 */
 
