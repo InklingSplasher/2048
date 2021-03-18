@@ -22,19 +22,20 @@ SoundFile soundtrack;
 void settings()
 {
 	size(870, 980); // Setting the size
-	soundtrack = new SoundFile(this, "soundtrack.wav");
-	soundtrack.play(1, 0.3);
-	soundtrack.loop();
+	soundtrack = new SoundFile(this, "soundtrack.wav"); // Load our soundtrack
+	soundtrack.play(1, 0.3); // Start playing it at 1x speed and 30% volume.
+	soundtrack.loop(); // Loop the track
 }
 
 void setup()
 {
 	/*
-	 * All the code that is for the designing and mandatory backend reasons. Especially:
+	 * All the code that is for the designing and mandatory frontend and backend reasons. Especially:
 	 * General look
-	 * Headline
-	 * Putting squares in the right places
-	 * Generating the first square in our 2D-array
+	 * Loading all external elements
+	 * Resetting the array
+   * Getting the colors depending on if darkmode is enabled
+	 * Generating the first number in our array
 	 */
 
 	sun = loadShape("sun.svg");
@@ -172,12 +173,14 @@ void mousePressed()
 		{
 			soundtrack.play();
 		}
+    buttonPressed = true;
 	}
 	else if (GameOver) // When the game is over and the mouse is pressed, restart the game.
 	{
 		if (!endless) score = 0; // Resetting the score
 		GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
 		isRunning = true;
+    buttonPressed = true;
 		setup(); // Run the setup again and therefore reset everything.
 	}
 	switch(gamestate)
@@ -629,8 +632,8 @@ void determineColor(int x, int y)
 	/*
 	 * Simple function used to set colors depending on the number
 	 * Passes the number x and the alpha value y
-	 * and gets the color depending on it. TODO: Make this a one-liner
-	 * 1 << 2
+	 * and gets the color depending on it. 
+	 * 1 << 2 Bitshifting :)
 	 */
 
 	if (darkmode)
