@@ -5,6 +5,7 @@ int[][] window = new int[4][4]; // 4*4 Array for all coordinates of the grid.
 int[][] c; // Colors
 int score = 0; // Initial Score = 0
 int gamestate = 0;
+int highscore;
 boolean tileMoved = false; // Has any tile moved?
 boolean isRunning = true; // Can a new turn start?
 boolean GameOver = false; // Is the game over?
@@ -25,6 +26,7 @@ void settings()
 	soundtrack = new SoundFile(this, "soundtrack.wav"); // Load our soundtrack
 	soundtrack.play(1, 0.3); // Start playing it at 1x speed and 30% volume.
 	soundtrack.loop(); // Loop the track
+	highScore();
 }
 
 void setup()
@@ -266,10 +268,11 @@ void generateBackground()
 	textAlign(CENTER, CENTER); // Align text at the top left
 	textSize(30);
 	if (endless) fill(c[4][0], c[4][1], c[4][2]);
-	text("Score: " + score, width/2, 65); // Score Headline
+	text("Score: " + score, width/2, 45); // Score Headline
+	fill(c[1][0], c[1][1], c[1][2]);
+	text("High Score: " + highscore, width/2, 80);
 
 	textFont(font);
-	fill(c[1][0], c[1][1], c[1][2]);
 	rectMode(CENTER); // Align rectangles at the center
 	rect(435, 535, 820, 820, 10, 10, 10, 10); // Outer rectangle
 
@@ -565,6 +568,8 @@ void move()
 		default: println("This key is not used!", keyCode);
 	}
 
+	highScore();
+
 	for (int x=0; x<4; x++) // Loop for 4*4 grid
 	{
 		for (int y=0; y<4; y++)
@@ -592,6 +597,35 @@ void move()
 		drawSquares(256); // Draw the inner squares
 		generateNew(1); // And generate 1 new number.
 	}
+}
+
+void highScore()
+{
+	File f = dataFile("highscore.txt");
+	String filePath = f.getPath();
+	if (f.isFile())
+	{
+		String[] lines = loadStrings(filePath);
+		int savedhighscore = Integer.parseInt(lines[0]);
+		if (score > savedhighscore && !endless)
+		{
+			String[] newscore = new String[1];
+			newscore[0] = String.valueOf(score);
+			saveStrings(filePath, newscore);
+			highscore = score;
+		}
+		else
+		{
+			highscore = savedhighscore;
+		}
+	}
+	else // Create the file
+	{
+		highscore = 0;
+		String[] empty = {"0"};
+		saveStrings(filePath, empty);
+	}
+	//if(score>)
 }
 
 boolean isGameOver()
