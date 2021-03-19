@@ -11,6 +11,7 @@ boolean isRunning = true; // Can a new turn start?
 boolean GameOver = false; // Is the game over?
 boolean endless = false; // Is endless mode enabled?
 boolean darkmode = false; // Is darkmode enabled?
+boolean sound = true;
 PFont font; // Custom fonts
 PFont headline;
 PShape sun;
@@ -19,6 +20,10 @@ PShape crown;
 PShape speaker;
 PShape mute;
 SoundFile soundtrack;
+SoundFile merge;
+SoundFile select;
+SoundFile deselect;
+SoundFile completed;
 
 void settings()
 {
@@ -26,7 +31,7 @@ void settings()
 	soundtrack = new SoundFile(this, "soundtrack.wav"); // Load our soundtrack
 	soundtrack.play(1, 0.3); // Start playing it at 1x speed and 30% volume.
 	soundtrack.loop(); // Loop the track
-	highScore();
+	highScore(); // Load any previous highscore
 }
 
 void setup()
@@ -47,6 +52,10 @@ void setup()
 	crown = loadShape("crown.svg");
 	font = loadFont("Consolas-40.vlw");
 	headline = loadFont("URWGothic-Demi-48.vlw");
+  merge = new SoundFile(this, "merge.wav");
+  select = new SoundFile(this, "select.wav");
+  deselect = new SoundFile(this, "deselect.wav");
+  completed = new SoundFile(this, "completed.wav");
 	textFont(font);
 
 	for (int x=0; x<4; x++) // Loop for 4*4 grid, resets all values to zero when the game starts over.
@@ -120,7 +129,7 @@ void draw()
 			}
 		case 2:
 			{
-
+        completed.play(1, 0.8);
 				rectMode(CENTER); // Inner Rectangle
 				fill(c[0][0], c[0][1], c[0][2], 15);
 				rect(width/2, height/2+40, 520, 520, 10, 10, 10, 10);
@@ -151,15 +160,18 @@ void keyPressed()
 
 void mousePressed()
 {
-	boolean buttonPressed = false; // Variable to check if the button moved before initiating the mouse-movement.
+	boolean buttonPressed = false; // Variable to check if any button was pressed before initiating the mouse-movement.
 	if (mouseX >= 792 && mouseX <= 828 && mouseY >= 6 && mouseY <= 40) // Exit button
 	{
+    if (sound) select.play(1, 0.3);
+    delay(50);
 		println("Goodbye!");
 		exit(); // Exit the program
 		buttonPressed = true;
 	}
 	else if (mouseX >= 792 && mouseX <= 828 && mouseY >= 56 && mouseY <= 82 && !endless) // Endless button
 	{
+    if (sound) select.play(1, 0.3);
 		endless = true; // Turn endless mode on
 		generateBackground();
 		drawSquares(12);
@@ -169,11 +181,15 @@ void mousePressed()
 	{
 		if (soundtrack.isPlaying())
 		{
+      select.play(1, 0.1);
 			soundtrack.pause();
+      sound = false;
 		}
 		else
 		{
+      deselect.play(1, 0.1);
 			soundtrack.play();
+      sound = true;
 		}
 		buttonPressed = true;
 	}
@@ -191,12 +207,15 @@ void mousePressed()
 			{
 				if(mouseX >= 160 && mouseX <= 515 && mouseY >= 645 && mouseY <= 745) // Play Button
 				{
+          if (sound) select.play(1, 0.3);
 					gamestate=1; // Set gamestate to running mode
-					if (gamestate==1) generateNew((int) random(1, 2.99)); // Generate 1 or 2 new numbers at the start of the game.
+					generateNew((int) random(1, 2.99)); // Generate 1 or 2 new numbers at the start of the game.
 					generateBackground(); // Regenerate the background
 				}
 				if (mouseX >= 560 && mouseX <= 685 && mouseY >= 650 && mouseY <= 755) // Darkmode Button
 				{
+          if (!darkmode && sound) select.play(1, 0.3);
+          else if (sound) deselect.play(1, 0.3);
 					darkmode = !darkmode; // Switch the variable over
 					selectColors(); // Rewrite the colors
 					generateBackground(); // Regenerate the background
@@ -383,7 +402,7 @@ void move()
 	 * Merging
 	 * Fading in
 	 */
-
+  int oldScore = score;
 	isRunning = false; // Reset the variable
 	GameOver = isGameOver(); // Check if the game is over and save it into a variable to save computing power
 
@@ -569,6 +588,8 @@ void move()
 	}
 
 	highScore();
+  
+  if (oldScore < score && !merge.isPlaying() && sound) merge.play(1, 0.3); // Play the merging sound when it's not currently playing and the score changed.
 
 	for (int x=0; x<4; x++) // Loop for 4*4 grid
 	{
@@ -601,31 +622,30 @@ void move()
 
 void highScore()
 {
-	File f = dataFile("highscore.txt");
-	String filePath = f.getPath();
-	if (f.isFile())
+	File f = dataFile("highscore.txt"); // Specify file in data directory
+	String filePath = f.getPath(); // Save the path to a String
+	if (f.isFile()) // If the file is present
 	{
 		String[] lines = loadStrings(filePath);
-		int savedhighscore = Integer.parseInt(lines[0]);
-		if (score > savedhighscore && !endless)
+		int savedhighscore = Integer.parseInt(lines[0]); // Save the value into savedhighscore
+		if (score > savedhighscore && !endless) // Then, if the current score is higher and endless is not turned on
 		{
 			String[] newscore = new String[1];
-			newscore[0] = String.valueOf(score);
-			saveStrings(filePath, newscore);
-			highscore = score;
+			newscore[0] = String.valueOf(score); // Transfer the String to an int
+			saveStrings(filePath, newscore); // save it
+			highscore = score; // and set the new highscore in-game.
 		}
-		else
+		else // Else, just use the old highscore
 		{
 			highscore = savedhighscore;
 		}
 	}
-	else // Create the file
+	else // Create the file if there is none
 	{
-		highscore = 0;
+		highscore = 0; // Set the highscore to 0
 		String[] empty = {"0"};
-		saveStrings(filePath, empty);
+		saveStrings(filePath, empty); // Save it to the file and create it.
 	}
-	//if(score>)
 }
 
 boolean isGameOver()
