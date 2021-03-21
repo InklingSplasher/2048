@@ -45,7 +45,9 @@ jobs:
           sudo unzip sound.zip
           cd
       - name: Build the Project
-        run: /opt/processing-${{ matrix.processing-version }}/processing-java --sketch=main/ --export && ls main/
+        run: |
+          sudo mkdir /tmp/processing/
+          /opt/processing-${{ matrix.processing-version }}/processing-java --sketch=main/ --output=/tmp/processing/ --export
 
         
       #- uses: actions/upload-artifact@v2
