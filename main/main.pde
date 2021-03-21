@@ -58,7 +58,6 @@ void setup()
 	completed = new SoundFile(this, "completed.wav");
 	textFont(font);
 
-
 	for (int x=0; x<4; x++) // Loop for 4*4 grid, resets all values to zero when the game starts over.
 	{
 		for (int y=0; y<4; y++)
@@ -67,6 +66,7 @@ void setup()
 		}
 	}
 	selectColors();
+	GameOver = true;
 	if (gamestate==1) generateNew((int) random(1, 2.99)); // Generate 1 or 2 new numbers at the start of the game.
 	generateBackground(); // Generate the background
 }
@@ -113,16 +113,16 @@ void draw()
 					isRunning = false; // Disable Drawing
 
 					rectMode(CENTER); // Inner Rectangle
-					fill(c[0][0], c[0][1], c[0][2], 16);
+					fill(c[0][0], c[0][1], c[0][2], 30);
 					rect(width/2, height/2+40, 520, 520, 10, 10, 10, 10);
 
 					textFont(headline); // "Game Over"
 					textAlign(CENTER);
-					fill(c[4][0], c[4][1], c[4][2], 36);
+					fill(c[4][0], c[4][1], c[4][2], 38);
 					textSize(48);
 					text("Game Over", width/2, height/2+10);
 
-					fill(c[2][0], c[2][1], c[2][2], 12); // Subtext
+					fill(c[2][0], c[2][1], c[2][2], 32); // Subtext
 					textSize(32);
 					text("Click anywhere to restart!", width/2, height/2+70);
 				}
@@ -402,6 +402,7 @@ void move()
 	 * Merging
 	 * Fading in
 	 */
+
 	int oldScore = score;
 	isRunning = false; // Reset the variable
 	GameOver = isGameOver(); // Check if the game is over and save it into a variable to save computing power
@@ -602,7 +603,6 @@ void move()
 			}
 		default: println("This key is not used!", keyCode);
 	}
-
 	highScore();
 
 	if (oldScore < score && !merge.isPlaying() && sound) merge.play(1, 0.3); // Play the merging sound when it's not currently playing and the score changed.
