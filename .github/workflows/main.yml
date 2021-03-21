@@ -34,6 +34,7 @@ jobs:
         run: | 
           sudo curl -L -o /opt/processing-${{ matrix.processing-version }}-linux64.tgz https://download.processing.org/processing-${{ matrix.processing-version }}-linux64.tgz
           sudo tar zxf /opt/processing-${{ matrix.processing-version }}-linux64.tgz -C /opt/
+          
       - name: Install necessary libraries
         run: |
           sudo mkdir "$HOME"/sketchbook
@@ -44,12 +45,18 @@ jobs:
           cd ..
           sudo unzip sound.zip
           cd
+          
       - name: Build the Project
-        continue-on-error: true
-        run: /opt/processing-${{ matrix.processing-version }}/processing-java --sketch=main/ --export && ls main/
-
+        run: /opt/processing-${{ matrix.processing-version }}/processing-java --sketch="$PWD"/main --output=/tmp/processing/ --build
         
+      - name: Export the Project
+        continue-on-error: true
+        run: /opt/processing-${{ matrix.processing-version }}/processing-java --sketch=main/ --export
+        
+      - name: Debug
+        run: ls main/
+
       #- uses: actions/upload-artifact@v2
-      #  with: 
-      #    name: Upload Artifacts
-      #    path: /tmp/processing/*
+        #with: 
+          #name: Upload Artifacts
+          #path: /tmp/processing/
