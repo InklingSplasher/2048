@@ -60,6 +60,7 @@ jobs:
           name: Linux Build
           path: main/linux
           
+      - uses: actions/upload-artifact@v2
       - name: Upload Windows Build
         with: 
           name: Windows Build
