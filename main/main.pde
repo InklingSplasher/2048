@@ -168,7 +168,7 @@ void mousePressed()
 		exit(); // Exit the program
 		buttonPressed = true;
 	}
-	else if (mouseX >= 792 && mouseX <= 828 && mouseY >= 56 && mouseY <= 82 && !endless) // Endless button
+	else if (mouseX >= 792 && mouseX <= 828 && mouseY >= 48 && mouseY <= 78 && !endless) // Endless button
 	{
 		if (sound) select.play(1, 0.3);
 		endless = true; // Turn endless mode on
@@ -348,7 +348,7 @@ void drawButtons()
 	else fill(c[0][0], c[0][1], c[0][2]);
 	rect(810, 22, 31, 31, 10); // Exit button
 
-	if (endless || (mouseX >= 792 && mouseX <= 828 && mouseY >= 56 && mouseY <= 82)) fill(c[2][0], c[2][1], c[2][2]);
+	if (endless || (mouseX >= 792 && mouseX <= 828 && mouseY >= 48 && mouseY <= 78)) fill(c[2][0], c[2][1], c[2][2]);
 	else fill(c[0][0], c[0][1], c[0][2]);
 	rect(810, 62, 31, 31, 10); // Endless button
 
