@@ -53,6 +53,9 @@ jobs:
         run: |
           /opt/processing-${{ matrix.processing-version }}/processing-java --sketch=main/ --output=main/linux --platform=linux --export
           /opt/processing-${{ matrix.processing-version }}/processing-java --sketch=main/ --output=main/windows --platform=windows --export
+          ls main/
+          ls main/linux
+          ls main/windows
 
       - uses: actions/upload-artifact@v2
         with: 
