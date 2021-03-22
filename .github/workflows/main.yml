@@ -53,16 +53,14 @@ jobs:
         run: |
           /opt/processing-${{ matrix.processing-version }}/processing-java --sketch=main/ --output=main/linux --platform=linux --export
           /opt/processing-${{ matrix.processing-version }}/processing-java --sketch=main/ --output=main/windows --platform=windows --export
-          ls main/
-          ls main/linux
-          ls main/windows
 
       - uses: actions/upload-artifact@v2
+      - name: Upload Linux Build
         with: 
           name: Linux Build
-          path: /home/runner/work/2048/2048/main/linux/
+          path: main/linux
           
-      - uses: actions/upload-artifact@v2
+      - name: Upload Windows Build
         with: 
           name: Windows Build
-          path: /home/runner/work/2048/2048/main/windows/
+          path: main/windows
