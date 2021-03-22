@@ -53,16 +53,16 @@ jobs:
         run: |
           /opt/processing-${{ matrix.processing-version }}/processing-java --sketch=main/ --output=main/linux --platform=linux --export
           /opt/processing-${{ matrix.processing-version }}/processing-java --sketch=main/ --output=main/windows --platform=windows --export
-          # cd main/
-          # zip -r linux-build.zip linux/
-          # zip -r windows-build.zip windows/
+          cd main/
+          zip -r linux.zip linux/
+          zip -r windows.zip windows/
 
       - uses: actions/upload-artifact@v2
         with: 
           name: linux-build-2048
-          path: main/linux/
+          path: main/linux.zip
           
       - uses: actions/upload-artifact@v2
         with: 
           name: windows-build-2048
-          path: main/windows/
+          path: main/windows.zip
