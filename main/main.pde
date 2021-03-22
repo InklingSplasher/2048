@@ -27,7 +27,8 @@ SoundFile completed;
 
 void settings()
 {
-	size(870, 980); // Setting the size
+	size(435, 490); // Setting the size
+  pixelDensity(displayDensity()); // Define the pixels depending on the display size.
 	soundtrack = new SoundFile(this, "soundtrack.wav"); // Load our soundtrack
 	soundtrack.play(1, 0.3); // Start playing it at 1x speed and 30% volume.
 	soundtrack.loop(); // Loop the track
@@ -87,17 +88,17 @@ void draw()
 				// println(mouseX, mouseY);
 				rectMode(CENTER); // Inner Rectangle
 				fill(c[0][0], c[0][1], c[0][2], 15);
-				rect(width/2, height/2+40, 600, 600, 10, 10, 10, 10);
+				rect(width/2, height/2+20, 300, 300, 5);
 
 				textFont(headline); // "Welcome"
 				textAlign(CENTER);
 				fill(c[1][0], c[1][1], c[1][2]);
-				textSize(48);
-				text("Welcome", width/2, height/2-165);
+				textSize(24);
+				text("Welcome", width/2, height/2-82);
 
 				fill(c[2][0], c[2][1], c[2][2], 12); // Subtext
-				textSize(32);
-				text("Thanks for choosing to play \nour game, the simple 2048 classic! \nYou win when a tile reaches '2048'\n\nYou can move with:\nArrow Keys / WASD / Mouse", width/2, height/2-95);
+				textSize(16);
+				text("Thanks for choosing to play \nour game, the simple 2048 classic! \nYou win when a tile reaches '2048'\n\nYou can move with:\nArrow Keys / WASD / Mouse", width/2, height/2-47);
 				break;
 			}
 		case 1:
@@ -113,17 +114,17 @@ void draw()
 
 					rectMode(CENTER); // Inner Rectangle
 					fill(c[0][0], c[0][1], c[0][2], 30);
-					rect(width/2, height/2+40, 520, 520, 10, 10, 10, 10);
+					rect(width/2, height/2+20, 260, 260, 5);
 
 					textFont(headline); // "Game Over"
 					textAlign(CENTER);
 					fill(c[4][0], c[4][1], c[4][2], 38);
-					textSize(48);
-					text("Game Over", width/2, height/2+10);
+					textSize(24);
+					text("Game Over", width/2, height/2+5);
 
 					fill(c[2][0], c[2][1], c[2][2], 32); // Subtext
-					textSize(32);
-					text("Click anywhere to restart!", width/2, height/2+70);
+					textSize(16);
+					text("Click anywhere to restart!", width/2, height/2+35);
 				}
 				break;
 			}
@@ -131,21 +132,21 @@ void draw()
 			{
 				rectMode(CENTER); // Inner Rectangle
 				fill(c[0][0], c[0][1], c[0][2], 15);
-				rect(width/2, height/2+40, 520, 520, 10, 10, 10, 10);
+				rect(width/2, height/2+20, 260, 260, 5);
 
 				textFont(headline); // "Game Completed"
 				textAlign(CENTER);
 				fill(c[1][0], c[1][1], c[1][2], 36);
-				textSize(48);
-				text("Game Completed", width/2, height/2-135);
+				textSize(24);
+				text("Game Completed", width/2, height/2-67);
 
 				fill(c[2][0], c[2][1], c[2][2], 12); // Subtext
-				textSize(32);
-				text("Congratulations!\nYou finished the game.\nCurrent score: " + score, width/2, height/2+60);
-				textSize(25);
-				text("Click the mouse to continue!", width/2, height/2+205);
+				textSize(16);
+				text("Congratulations!\nYou finished the game.\nCurrent score: " + score, width/2, height/2+30);
+				textSize(17);
+				text("Click the mouse to continue!", width/2, height/2+102);
 
-				shape(crown, width/2-35, height/2-100, 100, 100);
+				shape(crown, width/2-25, height/2-50, 50, 50);
 				break;
 			}
 		default: println("Invalid gamestate " + gamestate + "! Report this to the developer!"); break;
@@ -160,7 +161,7 @@ void keyPressed()
 void mousePressed()
 {
 	boolean buttonPressed = false; // Variable to check if any button was pressed before initiating the mouse-movement.
-	if (mouseX >= 792 && mouseX <= 828 && mouseY >= 6 && mouseY <= 40) // Exit button
+	if (mouseX >= 396 && mouseX <= 414 && mouseY >= 3 && mouseY <= 20) // Exit button
 	{
 		if (sound) select.play(1, 0.3);
 		delay(50);
@@ -168,7 +169,7 @@ void mousePressed()
 		exit(); // Exit the program
 		buttonPressed = true;
 	}
-	else if (mouseX >= 792 && mouseX <= 828 && mouseY >= 48 && mouseY <= 78 && !endless) // Endless button
+	else if (mouseX >= 396 && mouseX <= 414 && mouseY >= 24 && mouseY <= 39 && !endless) // Endless button
 	{
 		if (sound) select.play(1, 0.3);
 		endless = true; // Turn endless mode on
@@ -176,7 +177,7 @@ void mousePressed()
 		drawSquares(12);
 		buttonPressed = true;
 	}
-	else if (mouseX >= 792 && mouseX <= 828 && mouseY >= 88 && mouseY <= 122)
+	else if (mouseX >= 396 && mouseX <= 414 && mouseY >= 44 && mouseY <= 61)
 	{
 		if (soundtrack.isPlaying())
 		{
@@ -204,14 +205,14 @@ void mousePressed()
 	{
 		case 0:
 			{
-				if(mouseX >= 160 && mouseX <= 515 && mouseY >= 645 && mouseY <= 745) // Play Button
+				if(mouseX >= 80 && mouseX <= 257 && mouseY >= 322 && mouseY <= 372) // Play Button
 				{
 					if (sound) select.play(1, 0.3);
 					gamestate=1; // Set gamestate to running mode
 					generateNew((int) random(1, 2.99)); // Generate 1 or 2 new numbers at the start of the game.
 					generateBackground(); // Regenerate the background
 				}
-				if (mouseX >= 560 && mouseX <= 685 && mouseY >= 650 && mouseY <= 755) // Darkmode Button
+				if (mouseX >= 280 && mouseX <= 342 && mouseY >= 325 && mouseY <= 377) // Darkmode Button
 				{
 					if (!darkmode && sound) select.play(1, 0.3);
 					else if (sound) deselect.play(1, 0.3);
@@ -280,39 +281,39 @@ void generateBackground()
 	textFont(headline);
 	textAlign(CENTER); // Text alignment in the center
 	fill(c[1][0], c[1][1], c[1][2]); // Light blue
-	textSize(66);
-	text("2048", 100, 90); // Headline "2048"
+	textSize(33);
+	text("2048", 50, 45); // Headline "2048"
 
 	textAlign(CENTER, CENTER); // Align text at the top left
-	textSize(30);
+	textSize(15);
 	if (endless) fill(c[4][0], c[4][1], c[4][2]);
-	text("Score: " + score, width/2, 45); // Score Headline
+	text("Score: " + score, width/2, 22); // Score Headline
 	fill(c[1][0], c[1][1], c[1][2]);
-	text("High Score: " + highscore, width/2, 80);
+	text("High Score: " + highscore, width/2, 40);
 
 	textFont(font);
 	rectMode(CENTER); // Align rectangles at the center
-	rect(435, 535, 820, 820, 10, 10, 10, 10); // Outer rectangle
+	rect(217, 267, 410, 410, 10, 10, 10, 10); // Outer rectangle
 
 	textFont(headline);
 	fill(c[2][0], c[2][1], c[2][2]);
-	textSize(16);
-	text("press r to reset", 80, 960);
+	textSize(8);
+	text("press r to reset", 40, 480);
 
 	for (int x=0; x<4; x++) // Loop for 4*4 grid
 	{
 		for (int y=0; y<4; y++)
 		{
 			fill(c[3][0], c[3][1], c[3][2]); // Dark blue
-			rect(140+195*x, 240+195*y, 160, 160, 20); // Empty squares
+			rect(70+97*x, 120+97*y, 80, 80, 20); // Empty squares
 		}
 	}
 
 	fill(c[2][0], c[2][1], c[2][2]);
-	textSize(20);
-	text("Stop the game", 710, 22);
-	text("Endless Mode", 710, 62);
-	text("Sound", 710, 102);
+	textSize(10);
+	text("Stop the game", 355, 11);
+	text("Endless Mode", 355, 31);
+	text("Sound", 355, 51);
 	textFont(font);
 }
 
@@ -332,11 +333,11 @@ void drawSquares(int alpha)
 			if (j != 0) // If the array at position i j has a value:
 			{
 				determineColor(j, alpha); // Get the specified color depending on the number
-				rect(140+195*x, 240+195*y, 135, 135, 10); // Set a rectangle at the specific coordinates.
+				rect(70+97*x, 120+97*y, 67, 67, 10); // Set a rectangle at the specific coordinates.
 				fill(c[2][0], c[2][1], c[2][2]); // Black
-				textSize(48);
+				textSize(24);
 				textAlign(CENTER, CENTER); // Align text at the center of the screen
-				text(window[x][y], 140+195*x, 240+195*y); // Set the number at the specific position
+				text(window[x][y], 70+97*x, 120+97*y); // Set the number at the specific position
 			}
 		}
 	}
@@ -344,48 +345,48 @@ void drawSquares(int alpha)
 
 void drawButtons()
 {
-	if (mouseX >= 792 && mouseX <= 828 && mouseY >= 6 && mouseY <= 40) fill(c[2][0], c[2][1], c[2][2]);
+	if (mouseX >= 396 && mouseX <= 414 && mouseY >= 3 && mouseY <= 20) fill(c[2][0], c[2][1], c[2][2]);
 	else fill(c[0][0], c[0][1], c[0][2]);
-	rect(810, 22, 31, 31, 10); // Exit button
+	rect(405, 11, 15, 15, 5); // Exit button
 
-	if (endless || (mouseX >= 792 && mouseX <= 828 && mouseY >= 48 && mouseY <= 78)) fill(c[2][0], c[2][1], c[2][2]);
+	if (endless || (mouseX >= 396 && mouseX <= 414 && mouseY >= 24 && mouseY <= 39)) fill(c[2][0], c[2][1], c[2][2]);
 	else fill(c[0][0], c[0][1], c[0][2]);
-	rect(810, 62, 31, 31, 10); // Endless button
+	rect(405, 31, 15, 15, 5); // Endless button
 
 	fill(c[0][0], c[0][1], c[0][2]);
-	rect(810, 102, 31, 31, 10); // Music button
+	rect(405, 51, 15, 15, 5); // Music button
 
 	if (gamestate==0)
 	{
 
-		if (mouseX >= 560 && mouseX <= 685 && mouseY >= 650 && mouseY <= 755) fill(c[2][0], c[2][1], c[2][2]);
+		if (mouseX >= 280 && mouseX <= 342 && mouseY >= 325 && mouseY <= 377) fill(c[2][0], c[2][1], c[2][2]);
 		else fill(c[0][0], c[0][1], c[0][2]);
-		rect(625, 705, 120, 100, 10); // Dark mode button
+		rect(312, 352, 60, 50, 5); // Dark mode button
 
-		if (mouseX >= 160 && mouseX <= 515 && mouseY >= 650 && mouseY <= 755) fill(c[2][0], c[2][1], c[2][2]);
+		if (mouseX >= 80 && mouseX <= 257 && mouseY >= 322 && mouseY <= 372) fill(c[2][0], c[2][1], c[2][2]);
 		else fill(c[0][0], c[0][1], c[0][2]);
-		rect(340, 705, 350, 100, 10); // Play button
+		rect(170, 352, 175, 50, 5); // Play button
 
-		if ((mouseX >= 160 && mouseX <= 515 && mouseY >= 650 && mouseY <= 755)) fill(c[0][0], c[0][1], c[0][2]);
+		if ((mouseX >= 80 && mouseX <= 257 && mouseY >= 322 && mouseY <= 372)) fill(c[0][0], c[0][1], c[0][2]);
 		else fill(c[2][0], c[2][1], c[2][2]);
-		text("PLAY", 335, 720); // "PLAY" text
+		text("PLAY", 167, 360); // "PLAY" text
 	}
 
-	strokeWeight(2.5);
+	strokeWeight(1.25);
 	stroke(c[2][0], c[2][1], c[2][2]);
 	fill(c[2][0], c[2][1], c[2][2], 0);
-	rect(810, 22, 31, 31, 10); // Exit button
-	rect(810, 62, 31, 31, 10); // Endless button
-	rect(810, 102, 31, 31, 10); // Music 1 button
+	rect(405, 11, 15, 15, 5); // Exit button
+	rect(405, 31, 15, 15, 5); // Endless button
+	rect(405, 51, 15, 15, 5); // Music 1 button
 
-	if (soundtrack.isPlaying()) shape(speaker, 798, 90, 25, 25);
-	else shape(mute, 798, 90, 25, 25);
+	if (soundtrack.isPlaying()) shape(speaker, 399, 45, 12, 12);
+	else shape(mute, 399, 45, 12, 12);
 	if (gamestate==0)
 	{
-		rect(340, 705, 350, 100, 10);
-		rect(625, 705, 120, 100, 10);
-		if (!darkmode) shape(sun, 592, 672, 65, 65);
-		if (darkmode) shape(moon, 592, 672, 65, 65);
+		rect(170, 352, 175, 50, 5);
+		rect(312, 352, 60, 50, 5);
+		if (!darkmode) shape(sun, 296, 336, 32, 32);
+		if (darkmode) shape(moon, 296, 336, 32, 32);
 	}
 	noStroke();
 }
