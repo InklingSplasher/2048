@@ -59,6 +59,6 @@ jobs:
         with: 
           name: Upload Artifacts
           path: |
-            "$PWD"/main/linux
-            "$PWD"/main/windows
-#           "$PWD"/main/macosx
+            /home/runner/work/2048/2048/main/linux
+            /home/runner/work/2048/2048/main/windows
+#           /home/runner/work/2048/2048/main/macosx
