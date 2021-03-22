@@ -28,7 +28,7 @@ SoundFile completed;
 void settings()
 {
 	size(435, 490); // Setting the size
-  pixelDensity(displayDensity()); // Define the pixels depending on the display size.
+	pixelDensity(displayDensity()); // Define the pixels depending on the display size.
 	soundtrack = new SoundFile(this, "soundtrack.wav"); // Load our soundtrack
 	soundtrack.play(1, 0.3); // Start playing it at 1x speed and 30% volume.
 	soundtrack.loop(); // Loop the track
