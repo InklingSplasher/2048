@@ -52,14 +52,16 @@ jobs:
       - name: Export the Project
         run: |
           /opt/processing-${{ matrix.processing-version }}/processing-java --sketch=main/ --output=main/linux --platform=linux --export
+          zip -r linux-build.zip main/linux
           /opt/processing-${{ matrix.processing-version }}/processing-java --sketch=main/ --output=main/windows --platform=windows --export
+          zip -r windows-build.zip main/windows
 
       - uses: actions/upload-artifact@v2
         with: 
           name: Linux Build
-          path: main/linux
+          path: linux-build.zip
           
       - uses: actions/upload-artifact@v2
         with: 
           name: Windows Build
-          path: main/windows
+          path: windows-build.zip
