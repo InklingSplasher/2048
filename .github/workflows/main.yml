@@ -22,8 +22,9 @@ jobs:
       matrix:
         platform: [ubuntu-latest, windows-latest, macos-latest]
         processing-version: [3.5.4]
+        exports: [linux, windows, macosx]
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.platform }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -49,11 +50,11 @@ jobs:
       - name: Build the Project
         run: /opt/processing-${{ matrix.processing-version }}/processing-java --sketch="$PWD"/main --output=/tmp/processing/ --build
         
-      #- name: Export the Project
-        #continue-on-error: true
-        #run: /opt/processing-${{ matrix.processing-version }}/processing-java --sketch=main/ --export
+      - name: Export the Project
+        continue-on-error: true
+        run: /opt/processing-${{ matrix.processing-version }}/processing-java --sketch=main/ --output=main/${{ matrix.exports }} --platform=${{ matrix.exports }} --export
 
-      #- uses: actions/upload-artifact@v2
-        #with: 
-          #name: Upload Artifacts
-          #path: /tmp/processing/
+      - uses: actions/upload-artifact@v2
+        with: 
+          name: Upload Artifacts
+          path: main/${{ matrix.exports }}
