@@ -53,7 +53,7 @@ jobs:
         run: |
           /opt/processing-${{ matrix.processing-version }}/processing-java --sketch=main/ --output=main/linux --platform=linux --export
           /opt/processing-${{ matrix.processing-version }}/processing-java --sketch=main/ --output=main/windows --platform=windows --export
-          /opt/processing-${{ matrix.processing-version }}/processing-java --sketch=main/ --output=main/macosx --platform=macosx --export
+#         /opt/processing-${{ matrix.processing-version }}/processing-java --sketch=main/ --output=main/macosx --platform=macosx --export
 
       - uses: actions/upload-artifact@v2
         with: 
@@ -61,4 +61,4 @@ jobs:
           path: |
             "$PWD"/main/linux
             "$PWD"/main/windows
-            "$PWD"/main/macosx
+#           "$PWD"/main/macosx
