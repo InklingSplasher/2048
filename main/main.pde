@@ -293,7 +293,7 @@ void generateBackground()
 
 	textFont(font);
 	rectMode(CENTER); // Align rectangles at the center
-	rect(217, 267, 410, 410, 10, 10, 10, 10); // Outer rectangle
+	rect(217, 267, 410, 410, 5); // Outer rectangle
 
 	textFont(headline);
 	fill(c[2][0], c[2][1], c[2][2]);
@@ -333,7 +333,7 @@ void drawSquares(int alpha)
 			if (j != 0) // If the array at position i j has a value:
 			{
 				determineColor(j, alpha); // Get the specified color depending on the number
-				rect(70+97*x, 120+97*y, 67, 67, 10); // Set a rectangle at the specific coordinates.
+				rect(70+97*x, 120+97*y, 67, 67, 5); // Set a rectangle at the specific coordinates.
 				fill(c[2][0], c[2][1], c[2][2]); // Black
 				textSize(24);
 				textAlign(CENTER, CENTER); // Align text at the center of the screen
