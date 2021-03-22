@@ -54,8 +54,8 @@ jobs:
           /opt/processing-${{ matrix.processing-version }}/processing-java --sketch=main/ --output=main/linux --platform=linux --export
           /opt/processing-${{ matrix.processing-version }}/processing-java --sketch=main/ --output=main/windows --platform=windows --export
           cd main/
-          zip -r linux-build.zip main/linux
-          zip -r windows-build.zip main/windows
+          zip -r linux-build.zip linux/
+          zip -r windows-build.zip windows/
 
       - uses: actions/upload-artifact@v2
         with: 
