@@ -20,11 +20,10 @@ jobs:
     # The versions of processing that should be used
     strategy:
       matrix:
-        platform: [ubuntu-latest, windows-latest, macos-latest]
+        platform: [ubuntu-latest]
         processing-version: [3.5.4]
-        exports: [linux, windows, macosx]
 
-    runs-on: ${{ matrix.platform }}
+    runs-on:  ${{ matrix.platform }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -51,10 +50,15 @@ jobs:
         run: /opt/processing-${{ matrix.processing-version }}/processing-java --sketch="$PWD"/main --output=/tmp/processing/ --build
         
       - name: Export the Project
-        continue-on-error: true
-        run: /opt/processing-${{ matrix.processing-version }}/processing-java --sketch=main/ --output=main/${{ matrix.exports }} --platform=${{ matrix.exports }} --export
+        run: |
+          /opt/processing-${{ matrix.processing-version }}/processing-java --sketch=main/ --output=main/linux --platform=linux --export
+          /opt/processing-${{ matrix.processing-version }}/processing-java --sketch=main/ --output=main/windows --platform=windows --export
+          /opt/processing-${{ matrix.processing-version }}/processing-java --sketch=main/ --output=main/macosx --platform=macosx --export
 
       - uses: actions/upload-artifact@v2
         with: 
           name: Upload Artifacts
-          path: main/${{ matrix.exports }}
+          path: |
+            "$PWD"/main/linux
+            "$PWD"/main/windows
+            "$PWD"/main/macosx
