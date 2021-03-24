@@ -45,7 +45,7 @@ void setup()
 	 * Getting the colors depending on if darkmode is enabled
 	 * Generating the first number in our array
 	 */
-
+	println("displayDensity : " + displayDensity());
 	sun = loadShape("sun.svg");
 	moon = loadShape("moon.svg");
 	speaker = loadShape("audio.svg");
@@ -305,7 +305,7 @@ void generateBackground()
 		for (int y=0; y<4; y++)
 		{
 			fill(c[3][0], c[3][1], c[3][2]); // Dark blue
-			rect(70+97*x, 120+97*y, 80, 80, 20); // Empty squares
+			rect(70+97*x, 120+97*y, 80, 80, 10); // Empty squares
 		}
 	}
 
