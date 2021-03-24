@@ -66,6 +66,7 @@ void setup()
 			window[x][y] = 0;
 		}
 	}
+
 	selectColors();
 	if (gamestate==1) generateNew((int) random(1, 2.99)); // Generate 1 or 2 new numbers at the start of the game.
 	generateBackground(); // Generate the background
@@ -146,7 +147,7 @@ void draw()
 				textSize(17);
 				text("Click the mouse to continue!", width/2, height/2+102);
 
-				shape(crown, width/2-25, height/2-50, 50, 50);
+				shape(crown, width/2-25, height/2-50, 50, 40);
 				break;
 			}
 		default: println("Invalid gamestate " + gamestate + "! Report this to the developer!"); break;
