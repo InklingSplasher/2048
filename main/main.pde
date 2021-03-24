@@ -45,7 +45,7 @@ void setup()
 	 * Getting the colors depending on if darkmode is enabled
 	 * Generating the first number in our array
 	 */
-	println("displayDensity : " + displayDensity());
+	
 	sun = loadShape("sun.svg");
 	moon = loadShape("moon.svg");
 	speaker = loadShape("audio.svg");
