@@ -11,7 +11,7 @@ boolean isRunning = true; // Can a new turn start?
 boolean GameOver = false; // Is the game over?
 boolean endless = false; // Is endless mode enabled?
 boolean darkmode = false; // Is darkmode enabled?
-boolean sound = true;
+boolean sound = true; // Is sound enabled?
 PFont font; // Custom fonts
 PFont headline;
 PShape sun;
@@ -46,7 +46,7 @@ void setup()
 	 * Getting the colors depending on if darkmode is enabled
 	 * Generating the first number in our array
 	 */
-	
+
 	sun = loadShape("sun.svg");
 	moon = loadShape("moon.svg");
 	speaker = loadShape("audio.svg");
@@ -58,7 +58,7 @@ void setup()
 	select = new SoundFile(this, "select.wav");
 	deselect = new SoundFile(this, "deselect.wav");
 	completed = new SoundFile(this, "completed.wav");
-  over = new SoundFile(this, "over.wav");
+	over = new SoundFile(this, "over.wav");
 	textFont(font);
 
 	for (int x=0; x<4; x++) // Loop for 4*4 grid, resets all values to zero when the game starts over.
@@ -83,12 +83,11 @@ void draw()
 
 	selectColors();
 	drawButtons();
+
 	switch(gamestate)
 	{
-		case 0:
+		case 0: // Startscreen
 			{
-				// Startscreen
-				// println(mouseX, mouseY);
 				rectMode(CENTER); // Inner Rectangle
 				fill(c[0][0], c[0][1], c[0][2], 15);
 				rect(width/2, height/2+20, 300, 300, 5);
@@ -104,34 +103,36 @@ void draw()
 				text("Thanks for choosing to play \nour game, the simple 2048 classic! \nYou win when a tile reaches '2048'\n\nYou can move with:\nArrow Keys / WASD / Mouse", width/2, height/2-47);
 				break;
 			}
-		case 1:
+		case 1: // Running Game
 			{
 				if (!GameOver && isRunning) // If the game is not over and drawing is enabled
 				{
 					drawSquares(12); // Draw squares with the specific alpha value
 				}
 
-				if (GameOver) // If the game is over
-				{
-					isRunning = false; // Disable Drawing 
-
-					rectMode(CENTER); // Inner Rectangle
-					fill(c[0][0], c[0][1], c[0][2], 30);
-					rect(width/2, height/2+20, 260, 260, 5);
-
-					textFont(headline); // "Game Over"
-					textAlign(CENTER);
-					fill(c[4][0], c[4][1], c[4][2], 38);
-					textSize(24);
-					text("Game Over", width/2, height/2+5);
-
-					fill(c[2][0], c[2][1], c[2][2], 32); // Subtext
-					textSize(16);
-					text("Click anywhere to restart!", width/2, height/2+35);
-				}
+				if (GameOver) gamestate = 2; // If the game is over
 				break;
 			}
-		case 2:
+		case 2: // Game Over
+			{
+				isRunning = false; // Disable Drawing
+
+				rectMode(CENTER); // Inner Rectangle
+				fill(c[0][0], c[0][1], c[0][2], 30);
+				rect(width/2, height/2+20, 260, 260, 5);
+
+				textFont(headline); // "Game Over"
+				textAlign(CENTER);
+				fill(c[4][0], c[4][1], c[4][2], 38);
+				textSize(24);
+				text("Game Over", width/2, height/2+5);
+
+				fill(c[2][0], c[2][1], c[2][2], 32); // Subtext
+				textSize(16);
+				text("Click anywhere to restart!", width/2, height/2+35);
+				break;
+			}
+		case 3: // Game Completed
 			{
 				rectMode(CENTER); // Inner Rectangle
 				fill(c[0][0], c[0][1], c[0][2], 15);
@@ -152,7 +153,9 @@ void draw()
 				shape(crown, width/2-25, height/2-50, 50, 40);
 				break;
 			}
-		default: println("Invalid gamestate " + gamestate + "! Report this to the developer!"); break;
+		default:
+			println("Invalid gamestate " + gamestate + "! Report this to the developer!");
+			break;
 	}
 }
 
@@ -171,44 +174,42 @@ void mousePressed()
 		println("Goodbye!");
 		exit(); // Exit the program
 		buttonPressed = true;
-	}
-	else if (mouseX >= 396 && mouseX <= 414 && mouseY >= 24 && mouseY <= 39 && !endless) // Endless button
+	} else if (mouseX >= 396 && mouseX <= 414 && mouseY >= 24 && mouseY <= 39 && !endless) // Endless button
 	{
 		if (sound) select.play(1, 0.3);
 		endless = true; // Turn endless mode on
 		generateBackground();
 		drawSquares(12);
 		buttonPressed = true;
-	}
-	else if (mouseX >= 396 && mouseX <= 414 && mouseY >= 44 && mouseY <= 61)
+	} else if (mouseX >= 396 && mouseX <= 414 && mouseY >= 44 && mouseY <= 61) // Music button
 	{
 		if (soundtrack.isPlaying())
 		{
 			select.play(1, 0.1);
 			soundtrack.pause();
 			sound = false;
-		}
-		else
+		} else
 		{
 			deselect.play(1, 0.1);
 			soundtrack.play();
 			sound = true;
 		}
 		buttonPressed = true;
-	}
-	else if (GameOver) // When the game is over and the mouse is pressed, restart the game.
+	} else if (GameOver) // When the game is over and the mouse is pressed, restart the game.
 	{
 		if (!endless) score = 0; // Resetting the score
+		if (sound & !soundtrack.isPlaying()) soundtrack.play();
 		GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
 		isRunning = true;
 		buttonPressed = true;
 		setup(); // Run the setup again and therefore reset everything.
 	}
-	switch(gamestate)
+
+	switch(gamestate) // Buttons actions that should only be ran in a specific gamemode.
 	{
 		case 0:
 			{
-				if(mouseX >= 80 && mouseX <= 257 && mouseY >= 322 && mouseY <= 372) // Play Button
+				if (mouseX >= 80 && mouseX <= 257 && mouseY >= 322 && mouseY <= 372) // Play Button
 				{
 					if (sound) select.play(1, 0.3);
 					gamestate=1; // Set gamestate to running mode
@@ -238,7 +239,7 @@ void mousePressed()
 				}
 				break;
 			}
-		case 2: // If the game is completed, on mouse click:
+		case 3: // If the game is completed, on mouse click:
 			{
 				gamestate = 1; // Set the gamestate back to normal playing
 				generateBackground(); // Regenerate the background
@@ -279,7 +280,7 @@ void generateBackground()
 
 	background(c[0][0], c[0][1], c[0][2]); // White background
 	noStroke(); // Remove the stroke
-	if(gamestate==1) drawButtons();
+	if (gamestate==1) drawButtons();
 
 	textFont(headline);
 	textAlign(CENTER); // Text alignment in the center
@@ -403,7 +404,7 @@ void move()
 	 * Game-Over Check
 	 * Moving
 	 * Merging
-	 * Fading in
+	 * Fading in / out
 	 */
 
 	int oldScore = score;
@@ -426,8 +427,7 @@ void move()
 
 	switch (keyCode) // Depending on the pressed key, do the following:
 	{
-		case UP:
-		case 87: // UP/W
+		case UP: case 87: // UP/W
 			{
 				// Commented only UP, all following are basically programmed the same way, just in other orders.
 				for (int x=0; x<4; x++) // Loop for 4*4 grid
@@ -453,7 +453,7 @@ void move()
 							{
 								if (window[x][y] == 1024)
 								{
-									gamestate = 2;
+									gamestate = 3;
 									if (sound) completed.play(1, 0.8);
 								}
 								window[x][y] += window[x][y+1]; // Add those up &
@@ -469,8 +469,7 @@ void move()
 				}
 			}
 			break;
-		case DOWN:
-		case 83: // DOWN/S
+		case DOWN: case 83: // DOWN/S
 			{
 				for (int x=0; x<4; x++) // Loop for 4*4 grid (Basic Moving)
 				{
@@ -495,7 +494,7 @@ void move()
 							{
 								if (window[x][y] == 1024)
 								{
-									gamestate = 2;
+									gamestate = 3;
 									if (sound) completed.play(1, 0.8);
 								}
 								window[x][y] += window[x][y-1];
@@ -511,8 +510,7 @@ void move()
 				}
 			}
 			break;
-		case LEFT:
-		case 65: // LEFT/A
+		case LEFT: case 65: // LEFT/A
 			{
 				for (int y=0; y<4; y++) // Loop for 4*4 grid (Basic Moving)
 				{
@@ -537,7 +535,7 @@ void move()
 							{
 								if (window[x][y] == 1024)
 								{
-									gamestate = 2;
+									gamestate = 3;
 									if (sound) completed.play(1, 0.8);
 								}
 								window[x][y] += window[x+1][y];
@@ -553,8 +551,7 @@ void move()
 				}
 			}
 			break;
-		case RIGHT:
-		case 68: // RIGHT/D
+		case RIGHT: case 68: // RIGHT/D
 			{
 				for (int y=0; y<4; y++) // Loop for 4*4 grid (Basic Moving)
 				{
@@ -579,7 +576,7 @@ void move()
 							{
 								if (window[x][y] == 1024)
 								{
-									gamestate = 2;
+									gamestate = 3;
 									if (sound) completed.play(1, 0.8);
 								}
 								window[x][y] += window[x-1][y];
@@ -637,11 +634,11 @@ void move()
 		drawSquares(256); // Draw the inner squares
 		generateNew(1); // And generate 1 new number.
 	}
-  if(GameOver && sound)
-  {
-    soundtrack.pause();
-    over.play(1, 0.3);
-  }    
+	if (GameOver && sound)
+	{
+		soundtrack.pause();
+		over.play(1, 0.3);
+	}
 }
 
 void highScore()
@@ -658,13 +655,8 @@ void highScore()
 			newscore[0] = String.valueOf(score); // Transfer the String to an int
 			saveStrings(filePath, newscore); // save it
 			highscore = score; // and set the new highscore in-game.
-		}
-		else // Else, just use the old highscore
-		{
-			highscore = savedhighscore;
-		}
-	}
-	else // Create the file if there is none
+		} else highscore = savedhighscore; // Else, just use the old highscore
+	} else // Create the file if there is none
 	{
 		highscore = 0; // Set the highscore to 0
 		String[] empty = {"0"};
