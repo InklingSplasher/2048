@@ -199,6 +199,7 @@ void mousePressed()
 	{
 		if (!endless) score = 0; // Resetting the score
 		if (sound & !soundtrack.isPlaying()) soundtrack.play();
+		gamestate = 1;
 		GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
 		isRunning = true;
 		buttonPressed = true;
