@@ -24,6 +24,7 @@ SoundFile merge;
 SoundFile select;
 SoundFile deselect;
 SoundFile completed;
+SoundFile over;
 
 void settings()
 {
@@ -57,6 +58,7 @@ void setup()
 	select = new SoundFile(this, "select.wav");
 	deselect = new SoundFile(this, "deselect.wav");
 	completed = new SoundFile(this, "completed.wav");
+  over = new SoundFile(this, "over.wav");
 	textFont(font);
 
 	for (int x=0; x<4; x++) // Loop for 4*4 grid, resets all values to zero when the game starts over.
@@ -111,7 +113,7 @@ void draw()
 
 				if (GameOver) // If the game is over
 				{
-					isRunning = false; // Disable Drawing
+					isRunning = false; // Disable Drawing 
 
 					rectMode(CENTER); // Inner Rectangle
 					fill(c[0][0], c[0][1], c[0][2], 30);
@@ -635,6 +637,11 @@ void move()
 		drawSquares(256); // Draw the inner squares
 		generateNew(1); // And generate 1 new number.
 	}
+  if(GameOver && sound)
+  {
+    soundtrack.pause();
+    over.play(1, 0.3);
+  }    
 }
 
 void highScore()
