@@ -1,5 +1,5 @@
 # 2048
-[![Processing Build](https://github.com/InklingSplasher/2048/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/InklingSplasher/2048/actions/workflows/main.yml)
+[![Processing Build & Export](https://github.com/InklingSplasher/2048/actions/workflows/build-and-export.yml/badge.svg)](https://github.com/InklingSplasher/2048/actions/workflows/build-and-export.yml)
 ## Computer Science Project 2021
 Programmed by Lukas Klärchen & Jan Klotz
 
