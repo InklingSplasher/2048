@@ -5,13 +5,10 @@ name: Processing Export
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
-  workflow_run:
-    workflows:
-      - Processing Build
-    types: 
-      - completed
-    branches:
-      - main
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -48,6 +45,9 @@ jobs:
           cd ..
           sudo unzip sound.zip
           cd
+          
+      - name: Build the Project
+        run: /opt/processing-${{ matrix.processing-version }}/processing-java --sketch="$PWD"/main --output=/tmp/processing/ --build
 
       - name: Export the Project
         run: |
