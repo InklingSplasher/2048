@@ -29,7 +29,7 @@ SoundFile over;
 void settings()
 {
 	size(435, 490); // Setting the size
-	pixelDensity(displayDensity()); // Define the pixels depending on the display size.
+	pixelDensity(displayDensity()); // Define the pixel size depending on the display size (HiDPI compatibility)
 	soundtrack = new SoundFile(this, "soundtrack.wav"); // Load our soundtrack
 	soundtrack.play(1, 0.3); // Start playing it at 1x speed and 30% volume.
 	soundtrack.loop(); // Loop the track
@@ -161,7 +161,7 @@ void draw()
 
 void keyPressed()
 {
-	if (gamestate==1) move();
+	if (gamestate==1) move(); // If the game is running, initiate move.
 }
 
 void mousePressed()
@@ -183,7 +183,7 @@ void mousePressed()
 		buttonPressed = true;
 	} else if (mouseX >= 396 && mouseX <= 414 && mouseY >= 44 && mouseY <= 61) // Music button
 	{
-		if (soundtrack.isPlaying())
+		if (sound && soundtrack.isPlaying())
 		{
 			select.play(1, 0.1);
 			soundtrack.pause();
@@ -198,7 +198,7 @@ void mousePressed()
 	} else if (GameOver) // When the game is over and the mouse is pressed, restart the game.
 	{
 		if (!endless) score = 0; // Resetting the score
-		if (sound & !soundtrack.isPlaying()) soundtrack.play();
+		if (sound && !soundtrack.isPlaying()) soundtrack.play();
 		gamestate = 1;
 		GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
 		isRunning = true;
@@ -208,7 +208,7 @@ void mousePressed()
 
 	switch(gamestate) // Buttons actions that should only be ran in a specific gamemode.
 	{
-		case 0:
+		case 0: // Startscreen
 			{
 				if (mouseX >= 80 && mouseX <= 257 && mouseY >= 322 && mouseY <= 372) // Play Button
 				{
@@ -227,7 +227,7 @@ void mousePressed()
 				}
 				break;
 			}
-		case 1:
+		case 1: // Running Game
 			{
 				// Match mouse coordinates with specifc pressed key codes.
 				if (!buttonPressed)
@@ -384,7 +384,7 @@ void drawButtons()
 	rect(405, 31, 15, 15, 5); // Endless button
 	rect(405, 51, 15, 15, 5); // Music 1 button
 
-	if (soundtrack.isPlaying()) shape(speaker, 399, 45, 12, 12);
+	if (sound || soundtrack.isPlaying()) shape(speaker, 399, 45, 12, 12);
 	else shape(mute, 399, 45, 12, 12);
 	if (gamestate==0)
 	{
@@ -635,7 +635,7 @@ void move()
 		drawSquares(256); // Draw the inner squares
 		generateNew(1); // And generate 1 new number.
 	}
-	if (GameOver && sound)
+	if (GameOver && sound) // On GameOver, play the specific sound.
 	{
 		soundtrack.pause();
 		over.play(1, 0.3);
