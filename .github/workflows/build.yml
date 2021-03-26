@@ -18,7 +18,7 @@ jobs:
     # The versions of processing that should be used
     strategy:
       matrix:
-        platform: [ubuntu-latest, macos-latest]
+        platform: [ubuntu-latest]
         processing-version: [3.5.4]
 
     runs-on:  ${{ matrix.platform }}
