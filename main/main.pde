@@ -9,7 +9,7 @@ int highscore;
 boolean tileMoved = false; // Has any tile moved?
 boolean isRunning = true; // Can a new turn start?
 boolean GameOver = false; // Is the game over?
-boolean endless = false; // Is endless mode enabled?
+boolean cheatmode = false; // Is cheatmode mode enabled?
 boolean darkmode = false; // Is darkmode enabled?
 boolean sound = true; // Is sound enabled?
 PFont font; // Custom fonts
@@ -80,7 +80,7 @@ void draw()
 	 * Check if drawing is still enabled
 	 * Check if the game is over
 	 */
-
+  
 	selectColors();
 	drawButtons();
 
@@ -174,10 +174,10 @@ void mousePressed()
 		println("Goodbye!");
 		exit(); // Exit the program
 		buttonPressed = true;
-	} else if (mouseX >= 396 && mouseX <= 414 && mouseY >= 24 && mouseY <= 39 && !endless) // Endless button
+	} else if (mouseX >= 396 && mouseX <= 414 && mouseY >= 24 && mouseY <= 39 && !cheatmode) // cheatmode button
 	{
 		if (sound) select.play(1, 0.3);
-		endless = true; // Turn endless mode on
+		cheatmode = true; // Turn cheatmode mode on
 		generateBackground();
 		drawSquares(12);
 		buttonPressed = true;
@@ -197,7 +197,7 @@ void mousePressed()
 		buttonPressed = true;
 	} else if (GameOver) // When the game is over and the mouse is pressed, restart the game.
 	{
-		if (!endless) score = 0; // Resetting the score
+		if (!cheatmode) score = 0; // Resetting the score
 		if (sound && !soundtrack.isPlaying()) soundtrack.play();
 		gamestate = 1;
 		GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
@@ -229,8 +229,22 @@ void mousePressed()
 			}
 		case 1: // Running Game
 			{
+				if (cheatmode)
+				{
+					for(int x=0; x<=3; x++)
+					{
+						for(int y=0; y<=3; y++)
+						{
+							if (mouseX>=30+97*x && mouseX <= 120+97*x && mouseY>= 80+97*y && mouseY <= 160+97*y) // If the mouse is in one of the squares
+							{
+								window[x][y] = 0; // Use the defined square x y to reset the tile to 0
+								generateBackground(); // and regenerate the background to show the changes.
+							}
+						}
+					}
+				}
 				// Match mouse coordinates with specifc pressed key codes.
-				if (!buttonPressed)
+				else if (!buttonPressed)
 				{
 					if (mouseX < width / 4) keyCode = LEFT;
 					if (mouseX > width * 3 / 4) keyCode = RIGHT;
@@ -291,7 +305,7 @@ void generateBackground()
 
 	textAlign(CENTER, CENTER); // Align text at the top left
 	textSize(15);
-	if (endless) fill(c[4][0], c[4][1], c[4][2]);
+	if (cheatmode) fill(c[4][0], c[4][1], c[4][2]);
 	text("Score: " + score, width/2, 22); // Score Headline
 	fill(c[1][0], c[1][1], c[1][2]);
 	text("High Score: " + highscore, width/2, 40);
@@ -317,7 +331,7 @@ void generateBackground()
 	fill(c[2][0], c[2][1], c[2][2]);
 	textSize(10);
 	text("Stop the game", 355, 11);
-	text("Endless Mode", 355, 31);
+	text("Cheat Mode", 355, 31);
 	text("Sound", 355, 51);
 	textFont(font);
 }
@@ -354,9 +368,9 @@ void drawButtons()
 	else fill(c[0][0], c[0][1], c[0][2]);
 	rect(405, 11, 15, 15, 5); // Exit button
 
-	if (endless || (mouseX >= 396 && mouseX <= 414 && mouseY >= 24 && mouseY <= 39)) fill(c[2][0], c[2][1], c[2][2]);
+	if (cheatmode || (mouseX >= 396 && mouseX <= 414 && mouseY >= 24 && mouseY <= 39)) fill(c[2][0], c[2][1], c[2][2]);
 	else fill(c[0][0], c[0][1], c[0][2]);
-	rect(405, 31, 15, 15, 5); // Endless button
+	rect(405, 31, 15, 15, 5); // cheatmode button
 
 	fill(c[0][0], c[0][1], c[0][2]);
 	rect(405, 51, 15, 15, 5); // Music button
@@ -381,7 +395,7 @@ void drawButtons()
 	stroke(c[2][0], c[2][1], c[2][2]);
 	fill(c[2][0], c[2][1], c[2][2], 0);
 	rect(405, 11, 15, 15, 5); // Exit button
-	rect(405, 31, 15, 15, 5); // Endless button
+	rect(405, 31, 15, 15, 5); // cheatmode button
 	rect(405, 51, 15, 15, 5); // Music 1 button
 
 	if (sound || soundtrack.isPlaying()) shape(speaker, 399, 45, 12, 12);
@@ -596,7 +610,7 @@ void move()
 		case 82: // 82 for "r" (restart)
 			{
 				score = 0; // Resetting the score
-				endless = false;
+				cheatmode = false;
 				GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
 				isRunning = true;
 				setup();
@@ -650,7 +664,7 @@ void highScore()
 	{
 		String[] lines = loadStrings(filePath);
 		int savedhighscore = Integer.parseInt(lines[0]); // Save the value into savedhighscore
-		if (score > savedhighscore && !endless) // Then, if the current score is higher and endless is not turned on
+		if (score > savedhighscore && !cheatmode) // Then, if the current score is higher and cheatmode is not turned on
 		{
 			String[] newscore = new String[1];
 			newscore[0] = String.valueOf(score); // Transfer the String to an int
