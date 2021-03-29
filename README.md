@@ -9,17 +9,24 @@ Programmed by Lukas Klärchen & Jan Klotz
 * Darkmode
 * Score & Saved Highscore
 * Easily programmed to understand easily.
+* Cheat- / Easy-Mode
 
 ## Installing
 ### With Processing installed:
 Just download the archive, extract, open the main/main.pde with Processing and install the Sound library under "Add tools".
 ### Without Processing installed:
+#### Latest Release:
 Download the latest software from the releases page corresponding to your OS and just run the executable.
+#### Latest (Unstable) Build:
+Go into the [Actions](https://github.com/InklingSplasher/2048/actions/workflows/build-and-export.yml) tab, go to the latest run and download your corresponding artifact (Linux/Windows).
 
 ## How to Play
+### Playing
 The goal of 2048 is to merge same powers of 2 to higher and higher numbers until you are able to merge 2 numbers into 2048.
 You can move all numbers to how far they can go by using the arrow keys, WASD or just clicking the mouse at N E S W.
 The game is over when the 4\*4 tile is full and no number can move any further.
+### Cheat Mode
+The Cheat Mode is like an easy mode for just trying out the game. Your highscore won't be saved and you are able to click on specific tiles to delete the numbers in them for an always-ongoing game.
 
 ## To-Do
 Sorted from top (important) to bottom (not/less important)
