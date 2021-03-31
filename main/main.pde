@@ -1,3 +1,4 @@
+// LICENSED UNDER MIT (SEE ROOT DIRECTORY)
 import processing.sound.*;
 
 // Global Variables
