@@ -1,4 +1,4 @@
-// LICENSED UNDER MIT (SEE ROOT DIRECTORY)
+// LICENSED UNDER MIT (SEE ROOT/DATA DIRECTORY)
 import processing.sound.*;
 
 // Global Variables
@@ -158,6 +158,7 @@ void draw()
 			println("Invalid gamestate " + gamestate + "! Report this to the developer!");
 			break;
 	}
+	if (!soundtrack.isPlaying() && !GameOver && sound) soundtrack.play();
 }
 
 void keyPressed()
@@ -192,14 +193,12 @@ void mousePressed()
 		} else
 		{
 			deselect.play(1, 0.1);
-			soundtrack.play();
 			sound = true;
 		}
 		buttonPressed = true;
 	} else if (GameOver) // When the game is over and the mouse is pressed, restart the game.
 	{
 		if (!cheatmode) score = 0; // Resetting the score
-		if (sound && !soundtrack.isPlaying()) soundtrack.play();
 		gamestate = 1;
 		GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
 		isRunning = true;
