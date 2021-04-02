@@ -169,11 +169,7 @@ void draw()
 				shape(crown, width/2-25, height/2-50, 50, 40);
 				break;
 			}
-		default:
-			{
-				println("Invalid gamestate " + gamestate + "! Report this to the developer!");
-				break;
-			}
+		default: println("Invalid gamestate " + gamestate + "! Report this to the developer!");
 	}
 
 	if (!soundtrack.isPlaying() && !GameOver && sound) soundtrack.play(); // Used to play and pause the soundtrack when it's supposed to.
@@ -429,12 +425,9 @@ void move()
 {
 	/*
 	 * Function used for all moving mechanics.
-	 * (This is where the real fun begins)
-	 * Contents:
 	 * Game-Over Check
 	 * Moving
 	 * Merging
-	 * Fading in / out
 	 */
 
 	int oldScore = score;
