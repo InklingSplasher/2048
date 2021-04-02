@@ -29,6 +29,12 @@ SoundFile over;
 
 void settings()
 {
+	/*
+	 * Code that is only ran once when the game starts.
+	 * Useful, so it doesn't repeat the soundtrack and doesn't reload
+	 * the highscore everytime a player resets the game.
+	 */
+
 	size(435, 490); // Setting the size
 	pixelDensity(displayDensity()); // Define the pixel size depending on the display size (HiDPI compatibility)
 	soundtrack = new SoundFile(this, "soundtrack.wav"); // Load our soundtrack
@@ -43,7 +49,7 @@ void setup()
 	 * All the code that is for the designing and mandatory frontend and backend reasons. Especially:
 	 * General look
 	 * Loading all external elements
-	 * Resetting the array
+	 * Resetting the array and other variables
 	 * Getting the colors depending on if darkmode is enabled
 	 * Generating the first number in our array
 	 */
@@ -61,6 +67,15 @@ void setup()
 	completed = new SoundFile(this, "completed.wav");
 	over = new SoundFile(this, "over.wav");
 	textFont(font);
+
+	if (keyCode == 82 || GameOver)
+	{
+		if (keyCode == 82) cheatmode = false;
+		if (!cheatmode) score = 0; // Resetting the score
+		gamestate = 1;
+		GameOver = false;
+		isRunning = true;
+	}
 
 	for (int x=0; x<4; x++) // Loop for 4*4 grid, resets all values to zero when the game starts over.
 	{
@@ -81,7 +96,7 @@ void draw()
 	 * Check if drawing is still enabled
 	 * Check if the game is over
 	 */
-  
+
 	selectColors();
 	drawButtons();
 
@@ -155,10 +170,13 @@ void draw()
 				break;
 			}
 		default:
-			println("Invalid gamestate " + gamestate + "! Report this to the developer!");
-			break;
+			{
+				println("Invalid gamestate " + gamestate + "! Report this to the developer!");
+				break;
+			}
 	}
-	if (!soundtrack.isPlaying() && !GameOver && sound) soundtrack.play();
+
+	if (!soundtrack.isPlaying() && !GameOver && sound) soundtrack.play(); // Used to play and pause the soundtrack when it's supposed to.
 	else if (soundtrack.isPlaying() && (GameOver || !sound)) soundtrack.pause();
 }
 
@@ -198,10 +216,6 @@ void mousePressed()
 		buttonPressed = true;
 	} else if (GameOver) // When the game is over and the mouse is pressed, restart the game.
 	{
-		if (!cheatmode) score = 0; // Resetting the score
-		gamestate = 1;
-		GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
-		isRunning = true;
 		buttonPressed = true;
 		setup(); // Run the setup again and therefore reset everything.
 	}
@@ -375,7 +389,7 @@ void drawButtons()
 	fill(c[0][0], c[0][1], c[0][2]);
 	rect(405, 51, 15, 15, 5); // Music button
 
-	if (gamestate==0)
+	if (gamestate==0) // Buttons on the startscreen
 	{
 
 		if (mouseX >= 280 && mouseX <= 342 && mouseY >= 325 && mouseY <= 377) fill(c[2][0], c[2][1], c[2][2]);
@@ -388,17 +402,18 @@ void drawButtons()
 
 		if ((mouseX >= 80 && mouseX <= 257 && mouseY >= 322 && mouseY <= 372)) fill(c[0][0], c[0][1], c[0][2]);
 		else fill(c[2][0], c[2][1], c[2][2]);
-		text("PLAY", 167, 360); // "PLAY" text
+		textSize(16);
+		text("PLAY", 166, 360); // "PLAY" text
 	}
 
 	strokeWeight(1.25);
 	stroke(c[2][0], c[2][1], c[2][2]);
 	fill(c[2][0], c[2][1], c[2][2], 0);
 	rect(405, 11, 15, 15, 5); // Exit button
-	rect(405, 31, 15, 15, 5); // cheatmode button
-	rect(405, 51, 15, 15, 5); // Music 1 button
+	rect(405, 31, 15, 15, 5); // Cheatmode button
+	rect(405, 51, 15, 15, 5); // Music button
 
-	if (sound || soundtrack.isPlaying()) shape(speaker, 399, 45, 12, 12);
+	if (sound) shape(speaker, 399, 45, 12, 12);
 	else shape(mute, 399, 45, 12, 12);
 	if (gamestate==0)
 	{
@@ -609,10 +624,6 @@ void move()
 			break;
 		case 82: // 82 for "r" (restart)
 			{
-				score = 0; // Resetting the score
-				cheatmode = false;
-				GameOver = false; // Resetting the variables to actually spawn new numbers at the beginning.
-				isRunning = true;
 				setup();
 				return;
 			}
