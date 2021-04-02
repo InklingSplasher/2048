@@ -1,6 +1,6 @@
 # 2048
-[![Processing Build & Export](https://github.com/InklingSplasher/2048/actions/workflows/build-and-export.yml/badge.svg)](https://github.com/InklingSplasher/2048/actions/workflows/build-and-export.yml)
 <img src="/development/2048-Bright.png" alt="2048 Bright" width="320" height="380" align="right">
+[![Processing Build & Export](https://github.com/InklingSplasher/2048/actions/workflows/build-and-export.yml/badge.svg)](https://github.com/InklingSplasher/2048/actions/workflows/build-and-export.yml)
 
 ## Computer Science Project 2021
 Programmed by Lukas Klärchen & Jan Klotz
