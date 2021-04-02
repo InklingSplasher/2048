@@ -159,6 +159,7 @@ void draw()
 			break;
 	}
 	if (!soundtrack.isPlaying() && !GameOver && sound) soundtrack.play();
+	else if (soundtrack.isPlaying() && (GameOver || !sound)) soundtrack.pause();
 }
 
 void keyPressed()
@@ -185,10 +186,9 @@ void mousePressed()
 		buttonPressed = true;
 	} else if (mouseX >= 396 && mouseX <= 414 && mouseY >= 44 && mouseY <= 61) // Music button
 	{
-		if (sound && soundtrack.isPlaying())
+		if (sound)
 		{
 			select.play(1, 0.1);
-			soundtrack.pause();
 			sound = false;
 		} else
 		{
@@ -651,7 +651,6 @@ void move()
 	}
 	if (GameOver && sound) // On GameOver, play the specific sound.
 	{
-		soundtrack.pause();
 		over.play(1, 0.3);
 	}
 }
