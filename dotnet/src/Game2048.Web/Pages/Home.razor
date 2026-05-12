@@ -1,0 +1,73 @@
+@page "/"
+@inherits HomeBase
+
+<PageTitle>2048</PageTitle>
+
+<div class="board-frame @(Theme.IsDarkMode ? "dark" : "light")"
+     tabindex="0"
+     @ref="_boardElement"
+     @onkeydown="OnKeyDown"
+     @onkeydown:preventDefault="true">
+
+    <header class="board-header">
+        <div class="title">2048</div>
+        <div class="scores">
+            <div class="score-card">
+                <div class="label">Score</div>
+                <div class="value">@Session.Score</div>
+            </div>
+            <div class="score-card">
+                <div class="label">High</div>
+                <div class="value">@HighScore.Current</div>
+            </div>
+        </div>
+        <div class="actions">
+            <button class="btn" @onclick="NewGame" title="Neues Spiel (R)">New</button>
+            <button class="btn" @onclick="ToggleTheme" title="Dark Mode">@(Theme.IsDarkMode ? "Light" : "Dark")</button>
+        </div>
+    </header>
+
+    <div class="board">
+        @for (int r = 0; r < GameBoard.Size; r++)
+        {
+            @for (int c = 0; c < GameBoard.Size; c++)
+            {
+                <div class="cell">
+                    @{
+                        var value = Session.Board[r, c];
+                    }
+                    @if (value != 0)
+                    {
+                        <div class="tile tile-@value">@value</div>
+                    }
+                </div>
+            }
+        }
+
+        @if (Session.Status == GameStatus.Won)
+        {
+            <div class="overlay">
+                <div class="overlay-title">Geschafft!</div>
+                <div class="overlay-sub">2048 erreicht.</div>
+                <div class="overlay-buttons">
+                    <button class="btn primary" @onclick="ContinuePlaying">Weiterspielen</button>
+                    <button class="btn" @onclick="NewGame">Neu starten</button>
+                </div>
+            </div>
+        }
+        else if (Session.Status == GameStatus.Lost)
+        {
+            <div class="overlay">
+                <div class="overlay-title">Game Over</div>
+                <div class="overlay-sub">Score: @Session.Score</div>
+                <div class="overlay-buttons">
+                    <button class="btn primary" @onclick="NewGame">Nochmal</button>
+                </div>
+            </div>
+        }
+    </div>
+
+    <footer class="hint">
+        Pfeiltasten oder W A S D bewegen die Tiles. Gleiche Werte verschmelzen.
+    </footer>
+</div>

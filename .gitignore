@@ -9,3 +9,9 @@ application.windows64
 application.macosx
 main/data/highscore.txt
 out
+
+# .NET build artifacts
+bin/
+obj/
+*.user
+
